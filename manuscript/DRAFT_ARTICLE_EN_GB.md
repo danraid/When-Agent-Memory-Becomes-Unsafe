@@ -10,7 +10,7 @@ Persistent agent contexts must represent obligations that remain in force even a
 
 ## 1 Introduction
 
-Long-context access is sensitive to placement and distraction in controlled language-model tests [Liu et al., 2024]. Interactive assistant memory benchmarks such as LongMemEval explicitly test knowledge updates and temporal reasoning [Wu et al., 2025]. Agent Context Optimisation (ACON) has explored failure-guided context-compression policies in long-horizon agents [Kang et al., 2026], while CompactionBench evaluates repeated compaction across persistent coding tasks [Liu et al., 2026, preprint]. A recent EMNLP survey already identifies in-compression information loss and post-compaction access failures [Wang et al., 2026]. Thus the broader topics of memory failure and repeated compaction are **prior art**. The narrower open question we investigate is the systems-level change in unsafe raw approvals when current, explicitly authorised policy constraints remain independently accessible after recursive memory summarisation.
+Long-context access is sensitive to placement and distraction in controlled language-model tests [Liu et al., 2024]. Interactive assistant memory benchmarks such as LongMemEval explicitly test knowledge updates and temporal reasoning [Wu et al., 2025]. Agent Context Optimisation (ACON) has explored failure-guided context-compression policies in long-horizon agents [Kang et al., 2026], while CompactionBench evaluates repeated compaction across persistent coding tasks [Liu et al., 2026, preprint]. A recent EMNLP survey already identifies in-compression information loss and post-compaction access failures [Wang et al., 2026]. Thus the broader topics of memory failure and repeated compaction are **prior art**. A directly overlapping peer-reviewed study, *The Compaction Cliff in Long-Running AI Agent Memory* (Zerhoudi et al., CIKM 2026), already investigates retention of safety constraints through repeated compaction and offers Knowledge Triage as a typed-retention architecture. Consequently, preservation of static safety rules is not a novel contribution of this draft. The possible remaining research question concerns **temporally correct revocation, replacement and enforcement of authorised constraints**, with a direct Knowledge Triage comparator still to be implemented and evaluated. This novelty hypothesis is **not established**.
 
 ## 2 Methods and instrument
 
@@ -34,6 +34,10 @@ Subject to human freeze, 32 independent 18-turn episodes are proposed, with one 
 
 Synthetic fixed-oracle trajectories omit state-dependent feedback, and ledger access deliberately differs from context-only baselines. Hosted model versions can change, and source methods/novelty require further independent human audit. Low-cost model-generated methodological reviews are advisory only. No claim of deployed safety, universal superiority, journal acceptance or human peer review is made.
 
+## Scientific novelty checkpoint
+
+The present v2 methods and eight-episode exploratory pilot are **not sufficient for confirmatory authorisation** in view of substantial CIKM 2026 prior-art overlap. See `literature/HIGH_OVERLAP_PRIOR_ART_2026-11-14.md` and `docs/V3_TEMPORAL_SUPERSESSION_COMPARATOR_DESIGN.md`. A revised prospective protocol with a comparable Knowledge Triage baseline and explicit policy-revocation probes is necessary before the manuscript can make a defensible originality or confirmatory claim.
+
 ## References: verified publisher metadata, source status not equal to human scientific approval
 
 - Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the Middle: How Language Models Use Long Contexts. *Transactions of the Association for Computational Linguistics*, 12, 157-173. https://doi.org/10.1162/tacl_a_00638
@@ -41,3 +45,6 @@ Synthetic fixed-oracle trajectories omit state-dependent feedback, and ledger ac
 - Kang, M., Chen, W.-N., Han, D., Inan, H. A., Wutschitz, L., Chen, Y., Sim, R., & Rajmohan, S. (2026). ACON: Optimizing Context Compression for Long-horizon LLM Agents. *Proceedings of Machine Learning Research*, 306, 55321-55375. https://proceedings.mlr.press/v306/kang26b.html
 - Liu, B., Qiu, H., Goiri, I., Zhou, J., Fonseca, R., Bianchini, R., Lai, F., & Choukse, E. (2026). Benchmarking Long-Horizon Agent Context Compaction with CompactionBench. *Preprint*. https://www.microsoft.com/en-us/research/wp-content/uploads/2026/10/CompactionBench_preprint.pdf
 - Wang, Y., Wang, Z., Shi, Y., Chen, S., Wang, X., Wang, Y., Shen, B., Li, L., Gu, X., McAuley, J., & Zeng, D. D. (2026). Context Compression for LLM Agents: A Survey of Methods, Failure Modes, and Evaluation. *EMNLP 2026*, 54460-54488. https://doi.org/10.18653/2026.emnlp-main.2396
+
+- Zerhoudi, S., Mitrović, J., & Granitzer, M. (2026). The Compaction Cliff in Long-Running AI Agent Memory. *Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM 2026).* https://doi.org/10.1145/3799682.3840567
+- Sun, W., Lu, M., Ling, Z., Liu, K., Yao, X., Yang, Y., & Chen, J. (2026). Scaling Long-Horizon Agent via Context Folding. *Proceedings of Machine Learning Research*, 306, 116894–116910. https://proceedings.mlr.press/v306/sun26x.html
