@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "study_id": "WAMBU-001-V3",
+  "status": "EXPLORATORY_NOT_FROZEN",
+  "question": "Can authoritative policy supersession prevent persistence of revoked constraints and failure to enforce newly active constraints across recursive compaction?",
+  "source_of_authority": "Public authorised event stream, not evaluator labels",
+  "target_events": ["stale_rule_revocation", "new_rule_enforcement"],
+  "paid_arms": ["full_history", "recent_window", "recursive_summary", "typed_retention_adapted", "temporal_policy_ledger"],
+  "derived_guard": "temporal_policy_ledger_guard reuses exact ledger model response",
+  "knowledge_triage_baseline": {
+    "status": "ADAPTED_TYPECOMPACT_INSPIRED_NOT_OFFICIAL_REPRODUCTION",
+    "upstream": "https://github.com/searchsim-org/cikm26-knowledge-triage",
+    "upstream_commit": "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4",
+    "limitation": "Maintains verbatim chronological authorised constraints but does not run upstream classifier, TypeDecompose or TypeRetrieve; exact replication remains required before claiming direct state-of-art equivalence."
+  },
+  "study_split": "development_or_pilot_only",
+  "seeds": {
+    "development": "WAMBU-v3-dev-public-20261114",
+    "pilot": "WAMBU-v3-pilot-public-20261114-separated"
+  },
+  "pilot": {"episodes": 4, "steps": 18, "max_paid_calls_before_reviews": 380, "reviewer_calls": 2},
+  "independent_unit": "episode",
+  "candidate_endpoint": "post_two_compactions_episode_mean_wrongful_stale_rule_rejection_rate",
+  "candidate_contrast": "adapted typed retention minus temporally version-aware ledger",
+  "secondary": ["missed_new_rule_enforcement", "invalid_action", "prompt_token_cost", "raw_accuracy", "guard_action_effect"],
+  "scientific_interpretation": "DESCRIPTIVE_ONLY_NO_P_VALUE",
+  "confirmatory_gate": "BLOCKED_PENDING_AUTHOR_APPROVED_PROSPECTIVE_HYPOTHESIS_COMPLETE_PRIOR_ART_AND_POWER",
+  "confirmation_seed": null,
+  "author_confirmatory_approval": null,
+  "publication_authorized": false
+}

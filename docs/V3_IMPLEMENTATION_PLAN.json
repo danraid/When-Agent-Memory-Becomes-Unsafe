@@ -1,0 +1,16 @@
+{
+  "study_id": "WAMBU-001-V3",
+  "objective": "temporal policy supersession under genuine recursive context compaction",
+  "constraints": ["no_gold_label_leakage", "independent_episodes", "no_false_Knowledge_Triage_replication_claim", "private_confirmatory_holdout_untouched", "no_USD_ceiling_but_finite_calls", "human_science_approval_separate_from_CI"],
+  "milestones": [
+    {"id": "M1", "name": "Audit and archive 8-episode v2 null pilot", "status": "COMPLETE", "evidence": "docs/V2_EVIDENCE_AUDIT_2026-11-14.md"},
+    {"id": "M2", "name": "Revise scientific design in light of CIKM and Supersede", "status": "COMPLETE", "evidence": "literature/FULLTEXT_METHOD_SCREEN_2026-11-14.md"},
+    {"id": "M3", "name": "Implement bounded v3 temporal policy instrument and adapted comparator", "status": "IMPLEMENTED_REQUIRES_REMOTE_CI", "evidence": "tests/test_temporal_v3.py"},
+    {"id": "M4", "name": "Execute 4 independent real GPT episodes and two advisory reviewers", "status": "PENDING_REAL_PROVIDER_RUN", "evidence": ".github/workflows/study-v3-pilot.yml"},
+    {"id": "M5", "name": "Audit provider observations and descriptive results", "status": "BLOCKED_ON_M4", "evidence": "scripts/analyse_temporal_v3.py"},
+    {"id": "M6", "name": "Retain/full-replicate official upstream comparator and naturalistic authority-conflict cases", "status": "DESIGN_REMEDIATION_NEEDED", "evidence": "protocol/V3_PROSPECTIVE_GATE.md"},
+    {"id": "M7", "name": "Freeze independently evaluated, powered protocol and private confirmation", "status": "SCIENTIFICALLY_BLOCKED_ON_M5_M6", "evidence": "protocol/V3_PROSPECTIVE_GATE.md"},
+    {"id": "M8", "name": "Complete academic manuscript and target-journal preparation", "status": "DRAFT_PREPARED_NOT_SUBMITTABLE", "evidence": "manuscript/TEMPORAL_V3_DRAFT_EN_GB.md"}
+  ],
+  "forbidden_promotions": ["mock_to_empirical", "exploratory_to_confirmatory", "advisory_to_peer_review", "unreviewed_citation_to_approved", "code_ci_to_scientific_result"]
+}
