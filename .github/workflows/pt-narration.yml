@@ -1,0 +1,65 @@
+name: Article 1 | pt-BR exploratory article neural narration
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pt-narration.yml'
+      - 'audio/artigo_exploratorio_pt_br.md'
+      - 'audio/create_narration.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pt-neural-narration-wambu
+  cancel-in-progress: false
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AUDIO_VOICE: marin
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install bundled FFmpeg encoder
+        run: python -m pip install 'imageio-ffmpeg>=0.5,<1'
+      - name: Validate text adaptation and chunks
+        env:
+          PREPARE_ONLY: '1'
+        run: python audio/create_narration.py
+      - name: Synthesize full new neural narration
+        run: python audio/create_narration.py
+      - name: Verify audio completeness
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path('audio/generated_exploratory')
+          a=json.loads((folder/'audio_manifest.json').read_text())
+          assert a['fresh_synthesis'] and not a['prior_voice_reused']
+          assert a['segments']>=6 and a['duration_seconds']>420
+          assert (folder/'artigo_pt_narracao_nova.mp3').stat().st_size>1000000
+          assert (folder/'previa_narracao_nova_75s.mp3').stat().st_size>300000
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wambu-exploratory-audiobook-pt-br-${{ github.run_id }}
+          path: audio/generated_exploratory/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save narrated exploratory article and preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio/generated_exploratory/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "audio(auto): generate high-quality pt-BR narrated article"
+          git pull --rebase origin main
+          git push origin HEAD:main
