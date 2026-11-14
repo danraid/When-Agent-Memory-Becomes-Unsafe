@@ -5,7 +5,7 @@
     {
       "id": "P07a",
       "description": "Develop public fictional narrative casebook, with reference sidecar and fail-closed split",
-      "status": "IMPLEMENTED_AWAITING_CI",
+      "status": "COMPLETE_OFFLINE_TECHNICAL_NOT_HUMAN_ADJUDICATED",
       "evidence": [
         "authority_v4/casebook.py",
         "tests/test_p07_casebook.py"
@@ -14,7 +14,7 @@
     {
       "id": "P08a",
       "description": "Run unmodified original TypeCompact, TypeDecompose and TypeRetrieve components on public development cases",
-      "status": "IMPLEMENTED_AWAITING_CI",
+      "status": "COMPLETE_THREE_OPERATORS_ONLY_NOT_FULL_REPLICATION",
       "evidence": [
         "scripts/audit_upstream_three_operators.py",
         ".github/workflows/p07-p08-original-operators-offline.yml"
@@ -39,5 +39,12 @@
   ],
   "confirmatory_touched": false,
   "scientific_approval": false,
-  "submission_authorized": false
+  "submission_authorized": false,
+  "observed_run_url": "https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43647759099",
+  "original_artifact_id": 14134851062,
+  "original_archive_sha256": "35b4afa096e66c7ce3804e9ebe5607441a611d2e61f88d9327a7334149b301d4",
+  "recorded_cases": 12,
+  "recorded_rows": 96,
+  "paid_model_calls": 0,
+  "references_independently_human_adjudicated": 0
 }
