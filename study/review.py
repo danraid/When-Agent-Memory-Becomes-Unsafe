@@ -61,7 +61,7 @@ def review(*, data_dir, output, config, ledger):
     ):
         prompt=('You are an advisory methodological reviewer, not an independent peer reviewer. '
                 'No reference labels, final deterministic outcomes or hidden future inputs are supplied. '
-                + instruction + '\nRandomly selected? NO: deterministic lexicographic first two cases per condition. '
+                + instruction + '\nSampling uses deterministic SHA256-ranked paired cases, balanced before and after two compactions, without selecting on gold labels. '
                 'Return short specific concerns.\nSAMPLE:\n' + json.dumps(sample,ensure_ascii=False,sort_keys=True))
         response=request_advisory(prompt, config, ledger)
         rid=response.get('provider_response_id')
