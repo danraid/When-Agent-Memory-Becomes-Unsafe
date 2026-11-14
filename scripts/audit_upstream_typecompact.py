@@ -44,6 +44,8 @@ def audit(upstream: pathlib.Path, out: pathlib.Path, *, episodes: int=8, steps: 
         raise ValueError('FINITE_AUDIT_BOUND_REQUIRED')
     kb_mod,operator,classifier=_load_upstream(upstream)
     cases=[]
+    budgets=(64, 128, 256, 512)
+    sensitivity=[]
     for e in range(episodes):
         ep=generate_episode('WAMBU-v3-upstream-component-public','development',e,steps)
         for item in ep['items']:
@@ -53,6 +55,27 @@ def audit(upstream: pathlib.Path, out: pathlib.Path, *, episodes: int=8, steps: 
             compacted,status=operator.type_compact(kb,512)
             got={x.text for x in compacted.items}
             mapped={x.text:x.type.value for x in kb.items}
+            for budget in budgets:
+                # Exact unmodified upstream classifier/operator path, plus an explicitly
+                # source-labelled constraint-input sensitivity (not an upstream classifier).
+                small,status_small=operator.type_compact(kb,budget)
+                got_small={x.text for x in small.items}
+                annotated_items=[]
+                for source_item in kb.items:
+                    label=(classifier.KnowledgeType.CONSTRAINT if source_item.text in events else source_item.type)
+                    annotated_items.append(kb_mod.Item(text=source_item.text,type=label,
+                        topic=source_item.topic,scope=source_item.scope,source=source_item.source))
+                annotated=kb_mod.KnowledgeBase(items=annotated_items)
+                protected,protected_status=operator.type_compact(annotated,budget)
+                protected_rows={x.text for x in protected.items}
+                sensitivity.append({'episode_id':ep['episode_id'],'step':item['step'],
+                    'budget_tokens_estimated':budget,
+                    'upstream_regex_retained':sum(x in got_small for x in events),
+                    'source_annotated_retained':sum(x in protected_rows for x in events),
+                    'authorised_event_count':len(events),
+                    'upstream_regex_status':status_small,
+                    'source_annotation_status':protected_status,
+                    'source_annotation_is_official_classifier':False})
             cases.append({'episode_id':ep['episode_id'],'step':item['step'],
                           'source_sha256':sha256(canonical(events)),
                           'status':status,'all_authorised_event_rows_retained':all(x in got for x in events),
@@ -72,6 +95,15 @@ def audit(upstream: pathlib.Path, out: pathlib.Path, *, episodes: int=8, steps: 
         'official_regex_classified_constraints':sum(x['classified_constraint_events'] for x in cases),
         'total_authorised_events':sum(x['total_authorised_events'] for x in cases)},
       'unsafe_budget_failures':sum(x['status']=='COMPACTION_UNSAFE' for x in cases),
+      'budget_sensitivity':[{
+          'budget_tokens_estimated':budget,
+          'regex_cases_all_events_retained':sum(x['upstream_regex_retained']==x['authorised_event_count'] for x in sensitivity if x['budget_tokens_estimated']==budget),
+          'source_annotated_cases_all_events_retained':sum(x['source_annotated_retained']==x['authorised_event_count'] for x in sensitivity if x['budget_tokens_estimated']==budget),
+          'regex_compaction_unsafe_count':sum(x['upstream_regex_status']=='COMPACTION_UNSAFE' for x in sensitivity if x['budget_tokens_estimated']==budget),
+          'source_annotation_compaction_unsafe_count':sum(x['source_annotation_status']=='COMPACTION_UNSAFE' for x in sensitivity if x['budget_tokens_estimated']==budget),
+          'cases':len([x for x in sensitivity if x['budget_tokens_estimated']==budget]),
+      } for budget in budgets],
+      'source_annotation_is_not_official_classifier':True,
       'no_gpt_calls':True,'scientifically_approved':False,'submission_authorized':False,
       'limitations':['The official TypeCompact operator and regex classifier are used unchanged from pinned sources.',
                      'This is not full Knowledge Triage: no TypeDecompose, TypeRetrieve, risk classifier cascade, or LLM downstream decision comparison.',
@@ -81,6 +113,7 @@ def audit(upstream: pathlib.Path, out: pathlib.Path, *, episodes: int=8, steps: 
     out.mkdir(parents=True,exist_ok=True)
     write_json(out/'component_report.json',report)
     write_json(out/'component_rows.json',cases)
+    write_json(out/'budget_sensitivity_rows.json',sensitivity)
     return report
 
 if __name__=='__main__':
