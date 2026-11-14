@@ -1,0 +1,56 @@
+name: Article 1 | P07b public source provenance only
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/p07-public-source-provenance.yml'
+      - 'protocol/P07_PUBLIC_SOURCE_CANDIDATES.json'
+      - 'scripts/verify_p07_public_sources.py'
+      - 'tests/test_p07_public_sources.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-public-document-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: python/peps
+          ref: 5595f77d7d9cdddae99d4510b145df2496a9c891
+          path: third_party/python-peps
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: rust-lang/rfcs
+          ref: f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07
+          path: third_party/rust-rfcs
+          persist-credentials: false
+      - name: Check no-call and provenance boundaries
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python -m unittest discover -s tests -p 'test_p07_public_sources.py' -v
+          python scripts/verify_p07_public_sources.py --python-peps third_party/python-peps --rust-rfcs third_party/rust-rfcs --out runs/p07b/source_provenance.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("runs/p07b/source_provenance.json").read_text())
+          assert r["pairs"]==6
+          assert r["human_adjudications"]==0 and r["task_action_labels_created"]==0
+          assert r["model_calls"]==0 and r["confirmatory_touched"] is False
+          assert all(x["explicit_document_supersession_link_verified"] for x in r["rows"])
+          print("P07_PUBLIC_SOURCE_PROVENANCE_ONLY_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wambu-p07b-public-source-provenance-${{ github.run_id }}
+          path: runs/p07b/source_provenance.json
+          retention-days: 90
+          if-no-files-found: warn
