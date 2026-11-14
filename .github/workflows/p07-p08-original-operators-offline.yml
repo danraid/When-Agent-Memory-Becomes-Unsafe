@@ -1,0 +1,57 @@
+name: Article 1 | P07 P08 pinned original operators offline
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/p07-p08-original-operators-offline.yml'
+      - 'authority_v4/casebook.py'
+      - 'scripts/audit_upstream_three_operators.py'
+      - 'tests/test_p07_casebook.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-source-components:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Checkout pinned upstream author source without credentials
+        uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Enforce source, no-secret and no-holdout boundaries
+        run: |
+          test "$(git -C third_party/knowledge-triage rev-parse HEAD)" = "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4"
+          test -z "$OPENAI_API_KEY"
+          python -m unittest discover -s tests -p 'test_p07_casebook.py' -v
+      - name: Execute all three original component operators on public synthetic narrative cases
+        run: |
+          python scripts/audit_upstream_three_operators.py --upstream third_party/knowledge-triage --out runs/p07p08-components
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("runs/p07p08-components/operator_comparison.json")
+          r=json.loads(p.read_text())
+          assert r["model_calls"]==0 and r["confirmatory_touched"] is False
+          assert r["synthetic_public_development_cases"]==12
+          assert r["records"]==96
+          assert r["full_framework_reproduction"] is False
+          assert r["independent_human_adjudications"]==0
+          print("P07_P08_OFFLINE_BOUNDARY_PASS")
+          PY
+      - name: Retain verification data (reference development labels segregated)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-p07p08-original-three-operators-${{ github.run_id }}
+          path: runs/p07p08-components/
+          retention-days: 90
+          if-no-files-found: warn

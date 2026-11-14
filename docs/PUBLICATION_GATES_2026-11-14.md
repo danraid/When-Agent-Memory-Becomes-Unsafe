@@ -37,3 +37,8 @@ TMLR is a *candidate*, not a binding venue choice. Its current [author guide](ht
 ## Safe continuation contract for next conversation
 
 Read this roadmap, [v3 recovery audit](V3_ORIGINAL_ARTIFACT_RECOVERY_2026-11-14.md), [v4 instrument](../protocol/V4_AUTHORITY_CONFLICT_CANDIDATE.md), original CIKM overlap and the GitHub PR/CI. Work on the first incomplete eligible P-step; do **not** rerun v3 or release confirmatory, even with broad approval. Prefer no-network/offline tests first. Record links and actual observed evidence, distinguishing completed from proposed actions.
+
+## P07/P08 bounded component advance | 14 Nov 2026
+
+- [New original-source offline workflow PASS](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43647759099) and [independently audited original ZIP](P07_P08_ORIGINAL_OPERATOR_AUDIT_2026-11-14.md): twelve public fictional development dialogues, segregated simulator-only reference, 96 original-operator component comparisons across native regex and source-annotated lanes, no GPT calls and no confirmatory access.
+- **P07 remains PARTIAL**, because zero independent human adjudications and no naturalistically validated samples have been collected. **P08 remains PARTIAL**, because three upstream operators were individually tested, not the complete published Knowledge Triage classifier/cascade/benchmark protocol. P09 paid pilot, P12 confirmation and journal submission remain blocked.
