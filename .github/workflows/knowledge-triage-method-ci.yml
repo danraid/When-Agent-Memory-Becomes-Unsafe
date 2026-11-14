@@ -6,12 +6,16 @@ on:
       - 'scripts/verify_knowledge_triage_operators.py'
       - 'authority_v4/**'
       - 'tests/test_authority_v4.py'
+      - 'tests/test_authority_naturalistic_style.py'
+      - 'authority_v4/naturalistic_style.py'
       - '.github/workflows/knowledge-triage-method-ci.yml'
   pull_request:
     paths:
       - 'scripts/verify_knowledge_triage_operators.py'
       - 'authority_v4/**'
       - 'tests/test_authority_v4.py'
+      - 'tests/test_authority_naturalistic_style.py'
+      - 'authority_v4/naturalistic_style.py'
       - '.github/workflows/knowledge-triage-method-ci.yml'
   workflow_dispatch:
 permissions:
