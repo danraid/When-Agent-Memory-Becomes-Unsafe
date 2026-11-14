@@ -11,3 +11,14 @@
 - Scientific approval and journal submission: NOT AUTHORISED.
 
 The next eligible milestone is independent pilot qualification, literature methods audit and prospective sample-size planning. A green CI tests code mechanics only.
+
+## Observed GitHub execution on 14 November 2026
+
+- Complete source bootstrap: 75 files on commit `2dec7278adafa9b03070260c5899b7bf0b0cd00a`.
+- Local deterministic tests: **62/62 PASS**.
+- Generic inherited paper CI: [PASS run 43618151824](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43618151824).
+- Article-specific offline CI: [PASS run 43618151881](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43618151881).
+- Real API exploratory pilot: [BLOCKED run 43618151905](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43618151905), preflight diagnostic `BLOCKED_MISSING_OPENAI_API_KEY_IN_ARTICLE_REPO`. Instrument tests passed, but **zero paid GPT decisions and zero real recursive compactions** were performed in this run. The diagnostic artifact was uploaded.
+- No confirmatory seed or sample was accessed. No empirical conclusion or full-text bibliography approval exists.
+
+**External dependency:** configure `OPENAI_API_KEY` under this repository's **Settings > Secrets and variables > Actions > New repository secret**, without committing or sending the key in chat. Then manually dispatch **Actions > Article 1 | real recursive compaction pilot > Run workflow**, choose `pilot`, four episodes and twelve steps, and audit its resulting artifact. The hub's secret does not automatically transfer to the new repository.
