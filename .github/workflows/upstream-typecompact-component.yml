@@ -1,0 +1,43 @@
+name: Article 1 | pinned upstream TypeCompact component audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/upstream-typecompact-component.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pinned-upstream:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch immutable reference sources from the upstream CIKM repository
+        uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Verify original upstream commit and provenance
+        run: |
+          test "$(git -C third_party/knowledge-triage rev-parse HEAD)" = "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4"
+          test -f third_party/knowledge-triage/LICENSE
+          python -m unittest discover -s tests -q
+      - name: Run official TypeCompact component-level audit with native regex classifier
+        run: |
+          python scripts/audit_upstream_typecompact.py \
+            --upstream third_party/knowledge-triage \
+            --out runs/upstream-typecompact --episodes 8 --steps 18
+      - name: Preserve source-provenance and result files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-upstream-typecompact-component-${{ github.run_id }}
+          path: runs/upstream-typecompact/
+          retention-days: 90
+          if-no-files-found: warn
