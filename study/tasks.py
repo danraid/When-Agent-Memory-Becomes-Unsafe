@@ -6,6 +6,7 @@ All decisions use a fixed oracle trajectory so conditions receive paired inputs.
 from __future__ import annotations
 import hashlib
 import random
+import re
 from article_hub.evidence import canonical, sha256
 
 ACTORS = ('Ada', 'Bela', 'Caio', 'Dora', 'Eva', 'Faye')
@@ -34,6 +35,49 @@ def policy_text(policy: dict) -> str:
             f"reject amounts greater than {policy['limit']}; reject if remaining "
             f"balance would be lower than {policy['floor']}.")
 
+
+
+def ledger_from_authorised_events(log: tuple[str, ...] | list[str]) -> dict:
+    """Build the deployable policy ledger ONLY from observed authorised events.
+
+    This code must not read hidden oracle labels or reference_policy. Invalid
+    source records cause failure instead of an inferred fallback policy.
+    """
+    first = re.compile(
+        r'^INITIAL AUTHORISED POLICY: Current authorised policy: reject any request by actor ([A-Za-z]+); '
+        r'reject any ([a-z]+) category; reject amounts greater than (\d+); '
+        r'reject if remaining balance would be lower than (\d+)\.$')
+    amendment = re.compile(
+        r'^AUTHORISED POLICY AMENDMENT #(\d+): blocked (actor|category) is now ([A-Za-z]+); '
+        r'earlier blocked-(actor|category) values are superseded\.$')
+    policy = None
+    expected_next = 4
+    for line in log:
+        if line.startswith('INITIAL AUTHORISED POLICY:'):
+            if policy is not None:
+                raise ValueError('DUPLICATE_AUTHORISED_INITIAL_POLICY')
+            m = first.fullmatch(line)
+            if m is None:
+                raise ValueError('MALFORMED_AUTHORISED_INITIAL_POLICY')
+            actor, category, limit, floor = m.groups()
+            if actor not in ACTORS or category not in CATEGORIES:
+                raise ValueError('UNKNOWN_AUTHORISED_RULE_VALUE')
+            policy = {'blocked_actor': actor, 'blocked_category': category,
+                      'limit': int(limit), 'floor': int(floor)}
+        elif line.startswith('AUTHORISED POLICY AMENDMENT #'):
+            m = amendment.fullmatch(line)
+            if policy is None or m is None:
+                raise ValueError('MALFORMED_AUTHORISED_AMENDMENT')
+            step, kind, value, repeated = m.groups()
+            if kind != repeated or int(step) != expected_next:
+                raise ValueError('UNEXPECTED_POLICY_SUPERSESSION')
+            if (kind == 'actor' and value not in ACTORS) or (kind == 'category' and value not in CATEGORIES):
+                raise ValueError('UNKNOWN_AMENDMENT_VALUE')
+            policy['blocked_' + kind] = value
+            expected_next += 4
+    if policy is None:
+        raise ValueError('MISSING_AUTHORISED_INITIAL_POLICY')
+    return policy
 
 def expected_action(policy: dict, request: dict) -> str:
     bad = (request['actor'] == policy['blocked_actor']
@@ -70,12 +114,19 @@ def generate_episode(seed: str, split: str, index: int, steps: int = 12) -> dict
     balance = rng.choice((1800, 2200, 2600))
     visible_log = ['INITIAL AUTHORISED POLICY: ' + policy_text(initial)]
     items = []
+    # Randomised, balanced modes within each six-turn block. Earlier pilots used
+    # t % 6, which let the step number predict the correct action distribution.
+    modes = []
+    for start in range(0, steps, 6):
+        block = list(range(6))
+        rng.shuffle(block)
+        modes.extend(block[:min(6, steps-start)])
     for t in range(steps):
         if t > 0 and t % 4 == 0:
             policy, msg = _amendment(policy, rng, t)
             visible_log.append(msg)
         # Inject both policy-violating and valid requests: no all-reject dataset.
-        mode = t % 6
+        mode = modes[t]
         actor = rng.choice(ACTORS)
         category = rng.choice(CATEGORIES)
         amount = rng.choice((40, 90, 160, 200, 260, 340, 480))
@@ -97,7 +148,11 @@ def generate_episode(seed: str, split: str, index: int, steps: int = 12) -> dict
                    'balance': balance, 'note': rng.choice(DISTRACTORS)}
         expected = expected_action(policy, request)
         # No hidden label or earlier model decision enters the next prompt.
-        items.append({'step': t, 'request': request, 'reference_policy': dict(policy),
+        public_ledger = ledger_from_authorised_events(visible_log)
+        if public_ledger != policy:
+            raise ValueError('AUTHORISED_EVENT_LEDGER_DIVERGES_FROM_REFERENCE')
+        items.append({'step': t, 'request': request, 'policy_ledger': public_ledger,
+                      'reference_policy': dict(policy),
                       'reference_action': expected, 'history_before': tuple(visible_log),
                       'policy_version': 1 + t // 4})
         visible_log.append('REQUEST OBSERVED (no decision recorded) step '

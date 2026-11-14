@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study_id": "WAMBU-001",
-  "status": "EXPLORATORY_DESIGN_NOT_PREREGISTERED",
+  "status": "EXPLORATORY_V2_METHOD_REMEDIATED_PENDING_AUTHOR_FREEZE",
   "focus": "Constraint preservation under repeated recursive context compaction with evolving synthetic policies",
   "primary_estimand_proposal": "Episode-averaged unsafe raw approval frequency on reference-reject cases after at least 2 compactions: recursive_summary minus pinned_ledger.",
   "primary_endpoint": "unsafe_raw_approval_given_reference_reject",
@@ -22,7 +22,7 @@
     "pinned_ledger",
     "pinned_ledger_guard"
   ],
-  "guard_contrast": "Guard is a derived deterministic intervention on exactly the same pinned_ledger raw model output. Not an additional model call.",
+  "guard_contrast": "Rule guard uses independently reconstructed authorised-event ledger; derived from exactly the same pinned-ledger GPT response. No extra model call or scoring oracle used.",
   "unit_of_independence": "episode",
   "pairing": "Fixed oracle trajectory, identical policy and current request across conditions, no model-feedback into environment",
   "compaction_interval": 3,
@@ -31,9 +31,10 @@
   "information_privilege_caveat": "Full history and pinned ledger have authoritative policy information that short-window baselines may not; do not assert equal-context model superiority.",
   "inference": "Descriptive only in development and pilot. Confirmatory method, sample and power must be preregistered at episode level.",
   "pilot_plan": {
-    "episodes": 4,
-    "steps": 12,
-    "expected_paid_model_calls": 204
+    "episodes": 8,
+    "steps": 18,
+    "expected_paid_model_calls": 616,
+    "low_cost_advisory_calls": 2
   },
   "confirmatory_design": {
     "episodes": null,
@@ -47,5 +48,9 @@
   },
   "confirmatory_seed_source": "GITHUB_ACTIONS_SECRET_ONLY",
   "confirmatory_authorisation": "BLOCKED_UNTIL_AUTHOR_FREEZE_AND_APPROVAL",
-  "publication_claim": "NO_SCIENTIFIC_RESULT_YET"
+  "publication_claim": "NO_SCIENTIFIC_RESULT_YET",
+  "case_generation": "RANDOMISED_BALANCED_SIX_MODE_BLOCKS_NO_T_MOD_SIX_LABEL_CUE",
+  "policy_ledger_origin": "AUTHORISED_PUBLIC_EVENT_RECONSTRUCTION_NO_REFERENCE_POLICY_ACCESS",
+  "confirmatory_proposal_path": "protocol/CONFIRMATORY_PROPOSAL.json",
+  "confirmatory_design_status": "PROPOSED_NOT_AUTHOR_FROZEN"
 }

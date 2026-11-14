@@ -1,0 +1,70 @@
+name: Article 1 | revised v2 real GPT independent pilot
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/study-v2-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-v2-pilot-once-per-revision
+  cancel-in-progress: false
+jobs:
+  independent-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      EPISODES: '8'
+      STEPS: '18'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify science instrument, independent guard and randomised cases
+        run: python -m unittest discover -s tests -v
+      - name: Deterministic finite preflight with missing-secret blocker
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          design=json.loads(Path('protocol/STUDY_PLAN.json').read_text())
+          assert design['status']=='EXPLORATORY_V2_METHOD_REMEDIATED_PENDING_AUTHOR_FREEZE'
+          assert design['pilot_plan']['episodes']==int(os.environ['EPISODES'])
+          assert design['pilot_plan']['steps']==int(os.environ['STEPS'])
+          assert design['pilot_plan']['expected_paid_model_calls']==616
+          api=json.loads(Path('study/model_config.json').read_text())
+          n=int(os.environ['EPISODES']);t=int(os.environ['STEPS'])
+          assert n*(4*t+(t-1)//3)+2<=api['budget']['max_calls']
+          assert api['budget']['max_usd'] is None
+          if not os.environ.get('OPENAI_API_KEY'):
+              raise SystemExit('BLOCKED_MISSING_OPENAI_API_KEY_IN_ARTICLE_REPO')
+          assert not Path('protocol/AUTHOR_CONFIRMATORY_APPROVAL.json').exists()
+          assert not Path('protocol/FROZEN_AUTHOR_LOCK.json').exists()
+          print('V2_PILOT_PREFLIGHT_OK; no confirmatory exposure; no USD ceiling')
+          PY
+      - name: Eight independent real pilot episodes with genuine recursive summaries
+        run: |
+          python scripts/run_study.py run --mode live --execute --split pilot \
+            --episodes "$EPISODES" --steps "$STEPS" \
+            --ledger runs/v2-pilot/provider-ledger.json --out runs/v2-pilot/empirical
+          python scripts/run_study.py verify --directory runs/v2-pilot/empirical
+      - name: Two low-cost blinded advisory model reviews
+        run: |
+          python scripts/review_study.py --data-dir runs/v2-pilot/empirical \
+            --ledger runs/v2-pilot/provider-ledger.json --out runs/v2-pilot/advisory
+      - name: Build independent-episode report without inferential promotion
+        run: |
+          python scripts/analyse_pilot.py --empirical runs/v2-pilot/empirical \
+            --advisory runs/v2-pilot/advisory --episodes "$EPISODES" \
+            --steps "$STEPS" --out runs/v2-pilot/analysis
+      - name: Retain full observed evidence and partial failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-v2-independent-pilot-${{ github.run_id }}
+          path: runs/v2-pilot/
+          if-no-files-found: warn
+          retention-days: 90

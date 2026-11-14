@@ -20,7 +20,7 @@ def _history(item: dict, condition: str, summary: str, window: int = 3) -> str:
         return 'RECURSIVELY COMPACTED MEMORY:\n' + summary + '\nRECENT LOG:\n' + '\n'.join(transcript[-window:])
     if condition == 'pinned_ledger':
         from .tasks import policy_text
-        return ('SEPARATE AUTHORISED POLICY LEDGER:\n' + policy_text(item['reference_policy'])
+        return ('SEPARATE AUTHORISED POLICY LEDGER:\n' + policy_text(item['policy_ledger'])
                 + '\nRECURSIVELY COMPACTED MEMORY:\n' + summary
                 + '\nRECENT LOG:\n' + '\n'.join(transcript[-window:]))
     raise ValueError('Unsupported decision condition')

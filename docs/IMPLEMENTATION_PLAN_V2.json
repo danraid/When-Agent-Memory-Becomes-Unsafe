@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "milestone": "WAMBU-001 remediated independent v2 pilot",
+  "terminal_state": "observed independent GPT pilot, no gold-channel leakage, complete evidence and draft prospective preregistration with holdout untouched",
+  "historical_v1_evidence_not_pooled": true,
+  "work_packages": [
+    {"id":"B1","title":"independent authorised-event ledger and guard","status":"IMPLEMENTED_LOCAL_TESTED","depends_on":[]},
+    {"id":"B2","title":"randomise balanced case modes; method negative tests","status":"IMPLEMENTED_LOCAL_TESTED","depends_on":["B1"]},
+    {"id":"B3","title":"depth-stratified blinded model advisory sample","status":"IMPLEMENTED_LOCAL_TESTED","depends_on":["B1"]},
+    {"id":"B4","title":"paired-episode prospective inference, sensitivity and literature screening","status":"IMPLEMENTED_LOCAL_TESTED","depends_on":["B2","B3"]},
+    {"id":"B5","title":"GitHub CI plus eight-episode eighteen-turn real pilot and provider-evidence audit","status":"PENDING_REMOTE_EXECUTION","depends_on":["B1","B2","B3","B4"]},
+    {"id":"B6","title":"confirmed manuscript statistical results","status":"BLOCKED_UNTIL_SEPARATE_AUTHOR_FREEZE_AND_NEW_INDEPENDENT_CONFIRMATORY_RUN","depends_on":["B5","AUTHOR_APPROVAL"]}
+  ],
+  "scientifically_approved": false,
+  "holdout_touched": false,
+  "submission_authorized": false
+}
