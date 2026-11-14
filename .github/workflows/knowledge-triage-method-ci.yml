@@ -1,0 +1,59 @@
+name: Article 1 | offline pinned Knowledge Triage operator checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/verify_knowledge_triage_operators.py'
+      - 'authority_v4/**'
+      - 'tests/test_authority_v4.py'
+      - '.github/workflows/knowledge-triage-method-ci.yml'
+  pull_request:
+    paths:
+      - 'scripts/verify_knowledge_triage_operators.py'
+      - 'authority_v4/**'
+      - 'tests/test_authority_v4.py'
+      - '.github/workflows/knowledge-triage-method-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  methods-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch official immutable upstream source
+        uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Enforce immutable upstream source and offline boundary
+        run: |
+          test "$(git -C third_party/knowledge-triage rev-parse HEAD)" = "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4"
+          test -f third_party/knowledge-triage/LICENSE
+          python -m unittest discover -s tests -q
+          python -m scripts.verify_knowledge_triage_operators --upstream third_party/knowledge-triage --out runs/kt-method/verified.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("runs/kt-method/verified.json").read_text())
+          assert p["official_modules_unmodified"] is True
+          assert p["typecompact_overflow_status"] == "COMPACTION_UNSAFE"
+          assert p["official_classifier_cascade_executed"] is False
+          assert p["downstream_gpt_executed"] is False
+          assert p["holdout_touched"] is False
+          assert p["scientific_approval"] is False
+          PY
+      - name: Archive offline method characterisation only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-kt-offline-method-${{ github.run_id }}
+          path: runs/kt-method/verified.json
+          if-no-files-found: warn
+          retention-days: 90
