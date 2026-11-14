@@ -1,0 +1,43 @@
+{
+  "study_id": "WAMBU-001",
+  "created_on": "2026-11-14",
+  "milestones": [
+    {
+      "id": "P07a",
+      "description": "Develop public fictional narrative casebook, with reference sidecar and fail-closed split",
+      "status": "IMPLEMENTED_AWAITING_CI",
+      "evidence": [
+        "authority_v4/casebook.py",
+        "tests/test_p07_casebook.py"
+      ]
+    },
+    {
+      "id": "P08a",
+      "description": "Run unmodified original TypeCompact, TypeDecompose and TypeRetrieve components on public development cases",
+      "status": "IMPLEMENTED_AWAITING_CI",
+      "evidence": [
+        "scripts/audit_upstream_three_operators.py",
+        ".github/workflows/p07-p08-original-operators-offline.yml"
+      ]
+    },
+    {
+      "id": "P07b",
+      "description": "Collect and independently adjudicate human-authored naturalistic authority situations",
+      "status": "NOT_STARTED_REQUIRES_REAL_HUMAN_REVIEW",
+      "evidence": [
+        "protocol/HUMAN_ADJUDICATION_RUBRIC_V4.md"
+      ]
+    },
+    {
+      "id": "P08b",
+      "description": "Full published-framework replication with reproducible native classifier/cascade and valid token budgets",
+      "status": "NOT_STARTED_REQUIRES_MODEL_AND_CORPUS_PARITY",
+      "evidence": [
+        "protocol/KNOWLEDGE_TRIAGE_REPLICATION_REQUIREMENTS.md"
+      ]
+    }
+  ],
+  "confirmatory_touched": false,
+  "scientific_approval": false,
+  "submission_authorized": false
+}
