@@ -22,3 +22,7 @@ The next eligible milestone is independent pilot qualification, literature metho
 - No confirmatory seed or sample was accessed. No empirical conclusion or full-text bibliography approval exists.
 
 **External dependency:** configure `OPENAI_API_KEY` under this repository's **Settings > Secrets and variables > Actions > New repository secret**, without committing or sending the key in chat. Then manually dispatch **Actions > Article 1 | real recursive compaction pilot > Run workflow**, choose `pilot`, four episodes and twelve steps, and audit its resulting artifact. The hub's secret does not automatically transfer to the new repository.
+
+## Latest verified update | 14 November 2026, second run attempt
+
+The previous missing-key blocker above is historical and **resolved**. The same [real pilot workflow run](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/actions/runs/43618151905), attempt 2, succeeded after `OPENAI_API_KEY` became available. See [full evidence audit](PILOT_RESULT_2026-11-14.md). Observed: 96 real GPT decisions, six recursive compacting calls, two low-cost reviews, 104 distinct provider calls in total and 120 scored cases including 24 derived guard outcomes. Evidence hashes and source IDs verified. Results are **development-only** and no confirmatory data were opened. Scientific approval and submission remain **NOT AUTHORISED**. The next scientific milestone is protocol/design remediation and preregistration, not unqualified interpretation of these two episodes.
