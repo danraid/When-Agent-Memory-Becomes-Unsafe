@@ -1,0 +1,48 @@
+name: Article 1 | detached evaluation and offline compaction CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-study-ci-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Deterministic hub and article-specific tests
+        run: python -m unittest discover -s tests -v
+      - name: Mock fixture of actual compaction control-flow (no API)
+        run: |
+          python scripts/run_study.py run --mode mock --split development --episodes 2 --steps 12 --out runs/wambu-ci
+          python scripts/run_study.py verify --directory runs/wambu-ci
+      - name: Ensure no confirmatory or publication assertion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('protocol/STUDY_PLAN.json').read_text())
+          s=json.loads(Path('runs/wambu-ci/summary.json').read_text())
+          assert p['confirmatory_design']['episodes'] is None
+          assert s['status']=='MOCK_INSTRUMENT_SMOKE_COMPLETE'
+          assert s['scientifically_approved'] is False
+          assert s['submission_authorized'] is False
+          assert s['holdout_touched'] is False
+          assert s['observed_provider_calls']==0
+          PY
+      - name: Archive fixture only as technical test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: article1-offline-fixture-${{ github.run_id }}
+          path: runs/wambu-ci/
+          if-no-files-found: warn
+          retention-days: 30

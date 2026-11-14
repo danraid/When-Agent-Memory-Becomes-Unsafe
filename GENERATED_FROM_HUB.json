@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-11-14T16:40:42.382981+00:00",
+  "hub_source_sha256": "f3424aca1a67477076826404b6ab45c842c0f1ddbd56288dee8d7c05c88a9a5f",
+  "hub_version": "0.5.0",
+  "kind": "version_pinned_template_copy",
+  "hub_git_commit": "f60b24f446c9cf089a70a15ff1811f6eceb60aee",
+  "note": "Standalone version-pinned copy; no Github secrets or previous results are imported."
+}

@@ -1,0 +1,65 @@
+name: Hub | journal-neutral editorial draft (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      previous_run_id:
+        description: 'Optional empirical benchmark run ID; empty produces an empty-results scaffold'
+        required: false
+        type: string
+      include_pdf:
+        description: 'Render non-journal-certified draft PDF proof using ReportLab'
+        type: boolean
+        required: false
+        default: false
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: hub-editorial-serial-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PREVIOUS_RUN: ${{ inputs.previous_run_id }}
+      INCLUDE_PDF: ${{ inputs.include_pdf }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Integrity regression suite (no API calls)
+        run: python -m unittest discover -s tests -v
+      - name: Restore an explicit prior empirical artifact (optional)
+        if: inputs.previous_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: bounded-empirical-${{ inputs.previous_run_id }}
+          run-id: ${{ inputs.previous_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: previous-run
+      - name: Install optional neutral PDF renderer
+        if: inputs.include_pdf
+        run: python -m pip install 'reportlab>=4,<5'
+      - name: Produce evidence-bound unpublished manuscript package
+        run: |
+          set -euo pipefail
+          FLAGS=()
+          if [[ -n "$PREVIOUS_RUN" ]]; then
+            test -f previous-run/empirical/manifest.json
+            FLAGS+=(--results previous-run/empirical)
+          fi
+          if [[ "$INCLUDE_PDF" == 'true' ]]; then
+            FLAGS+=(--pdf)
+          fi
+          python scripts/hub.py editorial --output runs/editorial "${FLAGS[@]}"
+          python scripts/hub.py verify --directory runs/editorial
+      - name: Upload editorial proof; NEVER submit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: non-submittable-editorial-${{ github.run_id }}
+          path: runs/editorial/
+          if-no-files-found: warn
+          retention-days: 90

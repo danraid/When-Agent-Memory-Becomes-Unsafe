@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "milestone": "WAMBU-001 article research bootstrap",
+  "terminal_state": "standalone hub source, bounded recursive-compaction instrument, draft scientific protocol, green offline CI, zero confirmatory exposure",
+  "work_packages": [
+    {"id":"A1","title":"Version-pinned independent hub copy","status":"IMPLEMENTED_LOCAL","depends_on":[]},
+    {"id":"A2","title":"Draft question, literature and estimator","status":"IMPLEMENTED_LOCAL","depends_on":["A1"]},
+    {"id":"A3","title":"Recursive compaction and independent evaluator","status":"IMPLEMENTED_LOCAL","depends_on":["A1","A2"]},
+    {"id":"A4","title":"Local and remote CI plus immutable mock fixture","status":"AWAITING_REMOTE_TEST","depends_on":["A3"]},
+    {"id":"A5","title":"Actual GPT pilot with cheap advisory reviews","status":"NOT_STARTED","depends_on":["A4","OPENAI_API_KEY_IN_ARTICLE_REPOSITORY"]},
+    {"id":"A6","title":"Power, preregistration freeze and independent confirmation","status":"NOT_STARTED_OUT_OF_SCOPE","depends_on":["A5","HUMAN_AUTHOR_PROTOCOL_APPROVAL"]}
+  ],
+  "confirmatory_holdout_accessed": false,
+  "scientifically_approved": false,
+  "submission_authorized": false
+}

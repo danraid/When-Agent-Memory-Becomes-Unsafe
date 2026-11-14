@@ -1,0 +1,46 @@
+name: Paper | deterministic integration tests
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: hub-ci-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run all tests without network or GPT
+        run: python -m unittest discover -s tests -v
+      - name: Verify deterministic demo and evidence hashes
+        run: |
+          python scripts/hub.py plan > runs-plan.json
+          python scripts/hub.py demo --output runs/demo
+          python scripts/hub.py verify --directory runs/demo
+          python scripts/hub.py discover --fixture tests/fixtures/openalex_mock.json --output runs/fixture-candidates.json
+      - name: Execute bounded offline benchmark with detached deterministic evaluator
+        run: |
+          python scripts/hub.py empirical --mode mock --episodes 2 --steps 7 --output runs/empirical-smoke
+          python scripts/hub.py verify --directory runs/empirical-smoke
+      - name: Build a journal-neutral no-citations editorial scaffold
+        run: |
+          python scripts/hub.py editorial --output runs/editorial-smoke
+          python scripts/hub.py verify --directory runs/editorial-smoke
+      - name: Upload verification-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hub-v02-integration-${{ github.run_id }}
+          path: |
+            runs-plan.json
+            runs/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,85 @@
+name: Hub | explicit bounded empirical benchmark
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Offline fixture, paid pilot or paid confirmatory; no automatic GPT calls'
+        type: choice
+        required: true
+        default: offline-fixture
+        options: [offline-fixture, gpt-development, gpt-pilot, gpt-confirmatory]
+      episodes:
+        description: 'Bounded episodes (1-100); reserve 5 x episodes x steps calls'
+        required: true
+        default: '2'
+        type: string
+      steps:
+        description: 'Steps per episode (4-24)'
+        required: true
+        default: '7'
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: hub-empirical-paid-serial-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      HUB_HOLDOUT_SEED: ${{ secrets.HUB_HOLDOUT_SEED }}
+      RUN_MODE: ${{ inputs.mode }}
+      EPISODES: ${{ inputs.episodes }}
+      STEPS: ${{ inputs.steps }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline scientific-integrity contract tests
+        run: python -m unittest discover -s tests -v
+      - name: Preflight research configuration without printing secrets
+        run: |
+          python - <<'PY'
+          import json,os
+          m=os.environ['RUN_MODE']
+          assert m in ('offline-fixture','gpt-development','gpt-pilot','gpt-confirmatory')
+          n=int(os.environ['EPISODES']); steps=int(os.environ['STEPS'])
+          assert 1 <= n <= 100 and 4 <= steps <= 24
+          if m != 'offline-fixture':
+              cfg=json.load(open('paper.json'))
+              assert cfg['slug'] != 'unconfigured-study' and cfg['api']['enabled']
+              assert os.environ['OPENAI_API_KEY'], 'Missing OPENAI_API_KEY'
+              assert 5*n*steps <= cfg['api']['budget']['max_calls']
+          PY
+      - name: Run strictly bounded synthetic domain benchmark
+        run: |
+          set -euo pipefail
+          case "$RUN_MODE" in
+            offline-fixture)
+              python scripts/hub.py empirical --mode mock --split development --episodes "$EPISODES" --steps "$STEPS" --output runs/empirical
+              ;;
+            gpt-development|gpt-pilot)
+              SPLIT="${RUN_MODE#gpt-}"
+              python scripts/hub.py empirical --execute --mode live --split "$SPLIT" --episodes "$EPISODES" --steps "$STEPS" --output runs/empirical
+              ;;
+            gpt-confirmatory)
+              test -f protocol/frozen_lock.json
+              test -f protocol/author_approval.json
+              test -n "$HUB_HOLDOUT_SEED"
+              python scripts/hub.py empirical --execute --mode live --split confirmatory --episodes "$EPISODES" --steps "$STEPS" --lock protocol/frozen_lock.json --approval protocol/author_approval.json --output runs/empirical
+              ;;
+          esac
+      - name: Verify evidence integrity
+        if: success()
+        run: python scripts/hub.py verify --directory runs/empirical
+      - name: Upload audit trail and conservative local budget ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bounded-empirical-${{ github.run_id }}
+          path: runs/
+          if-no-files-found: warn
+          retention-days: 60

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "stages": {
+    "discovery": "NOT_STARTED",
+    "evidence_audit": "NOT_STARTED",
+    "hypotheses": "NOT_STARTED",
+    "preregistration": "NOT_STARTED",
+    "pilot": "NOT_STARTED",
+    "independent_validation": "NOT_STARTED",
+    "confirmatory": "NOT_STARTED",
+    "analysis": "NOT_STARTED",
+    "manuscript": "NOT_STARTED",
+    "independent_review": "NOT_STARTED",
+    "submission": "NOT_STARTED"
+  },
+  "human_gates": {
+    "preregistration_locked": false,
+    "confirmatory_release_approved": false,
+    "submission_authorized": false
+  }
+}

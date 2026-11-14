@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "task_family": "synthetic_access_policy_memory_v1",
+  "study_status": "EXPLORATORY_PROPOSAL_NOT_PREREGISTERED",
+  "hypothesis": "Structured preservation of explicit policy constraints changes unsafe approval frequency relative to context window truncation.",
+  "primary_endpoint": "unsafe_final_approval",
+  "secondary_endpoints": [
+    "raw_correct",
+    "final_correct",
+    "false_final_reject",
+    "invalid_json",
+    "observed_input_tokens",
+    "observed_output_tokens"
+  ],
+  "baseline_conditions": [
+    "full_history",
+    "window_only"
+  ],
+  "intervention_conditions": [
+    "structured_memory",
+    "structured_memory_ablated",
+    "structured_memory_with_guard"
+  ],
+  "unit_of_independence": "episode",
+  "pairing": "Every condition receives the identical synthetic episode-step inputs; upstream state is fixed by oracle, not the model.",
+  "analysis_rule": "Report case-level descriptives; confirmatory tests must aggregate by episode and use a pre-registered paired bootstrap or randomisation analysis.",
+  "seeds": {
+    "development": "published-development-seed-v1",
+    "pilot": "published-pilot-seed-v1"
+  },
+  "confirmatory_seed_source": "PRIVATE_GITHUB_SECRET_ONLY",
+  "confirmatory_release_status": "BLOCKED_UNTIL_AUTHOR_FREEZE_AND_APPROVAL",
+  "confirmatory_design": {
+    "episodes": null,
+    "steps": null,
+    "note": "Must be frozen to positive integers before author approval; not chosen from confirmatory data"
+  }
+}

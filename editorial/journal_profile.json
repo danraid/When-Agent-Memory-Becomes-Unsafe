@@ -1,0 +1,7 @@
+{
+  "target": "generic-neutral-scholarly-draft",
+  "current_instructions_verified": false,
+  "last_author_verification_utc": null,
+  "requires_journal_specific_template": true,
+  "note": "Human must verify the current journal author instructions; no compliance claim from this profile."
+}

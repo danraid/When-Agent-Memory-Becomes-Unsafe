@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "secret_env": "OPENAI_API_KEY",
+  "model": "gpt-6-luna",
+  "max_output_tokens": 768,
+  "pricing": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "note": "Historical informational pricing; verify before reporting; not a billing statement."
+  },
+  "budget": {
+    "max_calls": 2500,
+    "max_input_tokens": 30000000,
+    "max_output_tokens": 1500000,
+    "max_usd": null
+  }
+}

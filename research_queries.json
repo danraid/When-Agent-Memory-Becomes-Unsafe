@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "per_query": 8,
+  "crossref_limit": 15,
+  "queries": [
+    "LLM agent context compaction constraint preservation failure",
+    "long horizon LLM agent repeated summarization forgetting memory",
+    "agent context compression evaluation provenance invariant memory",
+    "LLM memory policy updates temporal reasoning benchmarks",
+    "agentic workflows long context guardrails memory verification"
+  ],
+  "note": "Article-specific candidate discovery, not approved sources"
+}

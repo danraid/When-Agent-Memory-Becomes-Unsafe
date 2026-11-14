@@ -1,0 +1,30 @@
+{
+  "api": {
+    "enabled": false,
+    "secret_env": "OPENAI_API_KEY",
+    "model": null,
+    "budget": {
+      "max_calls": 100,
+      "max_input_tokens": 100000,
+      "max_output_tokens": 20000,
+      "max_usd": "5.00"
+    },
+    "max_output_tokens": 256,
+    "pricing": {
+      "input_usd_per_million": null,
+      "output_usd_per_million": null,
+      "note": "Manually set verified prices for selected model before paid execution; never assume a price."
+    }
+  },
+  "domain": "agentic_ai_memory",
+  "hub_schema_version": 1,
+  "language": "en-GB",
+  "research": {
+    "confirmatory_enabled": false,
+    "journal_target": null,
+    "preregistration_id": null,
+    "scientific_evidence_approval": false
+  },
+  "slug": "when-agent-memory-becomes-unsafe",
+  "title": "When Agent Memory Becomes Unsafe: Constraint Preservation under Repeated Context Compaction"
+}

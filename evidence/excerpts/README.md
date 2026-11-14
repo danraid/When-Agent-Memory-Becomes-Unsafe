@@ -1,0 +1,1 @@
+Place short excerpts (at most 25 words each) here for auditable claim dossiers. Store source URL, document checksum, page/section locator, access rights and the recorded human reviewer with each claim. Do not place unlicensed full-text papers in this repository.

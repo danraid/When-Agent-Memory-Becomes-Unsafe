@@ -1,0 +1,17 @@
+{
+  "budget": {
+    "max_calls": 2500,
+    "max_input_tokens": 30000000,
+    "max_output_tokens": 1500000,
+    "max_usd": null
+  },
+  "enabled": true,
+  "max_output_tokens": 512,
+  "model": "gpt-6.1-terra",
+  "pricing": {
+    "input_usd_per_million": "1.00",
+    "output_usd_per_million": "5.00",
+    "note": "Informational, model-specific estimate carried from observed hub homologation; verify with official prices before reporting. Not a billing statement."
+  },
+  "secret_env": "OPENAI_API_KEY"
+}

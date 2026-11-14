@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "claims": [],
+  "note": "Each claim needs a verified DOI identity, bounded SHA256 excerpt, page/section locator and recorded MANUAL_FULLTEXT_REVIEW. AI cannot sign."
+}

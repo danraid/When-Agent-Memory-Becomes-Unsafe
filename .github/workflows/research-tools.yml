@@ -1,0 +1,58 @@
+name: Paper | bounded research tools (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Network/paid operations are explicit, never scheduled'
+        type: choice
+        required: true
+        default: offline-demo
+        options:
+          - offline-demo
+          - live-discovery
+          - gpt-advisory
+      prompt_path:
+        description: 'Tracked non-sensitive prompt path for gpt-advisory mode'
+        type: string
+        required: false
+permissions:
+  contents: read
+concurrency:
+  group: hub-research-serial-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      CROSSREF_CONTACT_EMAIL: ${{ vars.CROSSREF_CONTACT_EMAIL }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PROMPT_FILE: ${{ inputs.prompt_path }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Always check the scientific integrity contract first
+        run: python -m unittest discover -s tests -v
+      - name: Offline methods demonstration
+        if: inputs.mode == 'offline-demo'
+        run: python scripts/hub.py demo --output runs/demo
+      - name: Bounded live metadata discovery only
+        if: inputs.mode == 'live-discovery'
+        run: python scripts/hub.py discover --live --output runs/discovery.json
+      - name: Explicit paid advisory only, never science approval
+        if: inputs.mode == 'gpt-advisory'
+        run: |
+          test -n "$PROMPT_FILE"
+          test -f "$PROMPT_FILE"
+          python scripts/hub.py advisory --execute --prompt-file "$PROMPT_FILE" --output runs/advisory.json
+      - name: Preserve run reports and local budget ledger as restricted artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hub-research-tools-${{ github.run_id }}
+          path: runs/
+          retention-days: 30
+          if-no-files-found: warn

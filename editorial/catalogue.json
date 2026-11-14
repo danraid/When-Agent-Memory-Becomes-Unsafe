@@ -1,0 +1,7 @@
+{
+  "classification": "BIBLIOGRAPHIC_METADATA_ONLY",
+  "records": [],
+  "crossref_snapshots": {},
+  "scientifically_approved": false,
+  "note": "Populate using a real OpenAlex/Crossref discovery output, not offline fixtures."
+}

@@ -1,0 +1,26 @@
+{
+  "classification": "SYNTHETIC_TEST_FIXTURE",
+  "purpose": "Validate a metadata parser without asserting any real publication exists",
+  "results": [
+    {
+      "id": "https://openalex.org/SYNTHETIC-TEST-1",
+      "doi": null,
+      "display_name": "Synthetic record about agent memory",
+      "publication_year": 2026,
+      "authorships": [{"author": {"display_name": "Test Author"}}],
+      "primary_location": {"source": {"display_name": "Fictional Venue"}},
+      "is_retracted": false,
+      "type": "article"
+    },
+    {
+      "id": "https://openalex.org/SYNTHETIC-TEST-2",
+      "doi": "https://doi.org/10.9999/fictional-identifier",
+      "display_name": "Synthetic record about multi-agent evaluation",
+      "publication_year": 2026,
+      "authorships": [],
+      "primary_location": {},
+      "is_retracted": false,
+      "type": "article"
+    }
+  ]
+}
