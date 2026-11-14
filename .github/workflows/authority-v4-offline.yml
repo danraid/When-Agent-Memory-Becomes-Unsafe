@@ -1,0 +1,39 @@
+name: Article 1 | v4 authority-conflict offline regression
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'authority_v4/**'
+      - 'tests/test_authority_v4.py'
+      - '.github/workflows/authority-v4-offline.yml'
+permissions:
+  contents: read
+jobs:
+  offline-authority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Evaluate offline authority fixtures and gold leakage tests
+        env:
+          OPENAI_API_KEY: ''
+        run: |
+          python -m unittest discover -s tests -p 'test_authority_v4.py' -v
+      - name: Preserve no-paid-call boundary
+        run: |
+          python - <<'PY'
+          from authority_v4.instrument import make_development_episodes
+          episodes = make_development_episodes('v4-ci-deterministic-public-seed', episodes=2)
+          assert len(episodes) == 2
+          assert sum(len(x) for x in episodes) == 28
+          try:
+              make_development_episodes('v4-ci-deterministic-public-seed', split='confirmatory')
+          except ValueError as exc:
+              assert 'CONFIRMATORY_NOT_AUTHORISED' in str(exc)
+          else:
+              raise AssertionError('CONFIRMATORY_SPLIT_OPEN')
+          print('V4_OFFLINE_FIXTURE_BOUNDARY_OK')
+          PY
