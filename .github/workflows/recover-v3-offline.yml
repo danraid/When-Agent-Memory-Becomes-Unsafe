@@ -1,0 +1,59 @@
+name: WAMBU | offline recovery of archived v3 empirical pilot
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/recover-v3-offline.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-v3-artifact-recovery
+  cancel-in-progress: false
+jobs:
+  audited-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify recovering code does not require paid API access
+        run: |
+          python -m py_compile scripts/recover_temporal_v3.py
+          python -m unittest discover -s tests -q
+      - name: Restore the exact archived empirical pilot run, never re-run it
+        uses: actions/download-artifact@v4
+        with:
+          name: wambu-v3-temporal-pilot-43640571248
+          run-id: '43640571248'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: original-v3
+      - name: Independently verify original evidence hashes, recompute metrics, and report advisory gap
+        run: |
+          python scripts/recover_temporal_v3.py \
+            --original original-v3 --out runs/v3-recovery
+          test -f runs/v3-recovery/recovery.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/v3-recovery/recovery.json').read_text())
+          assert r['experiment_complete'] is True
+          assert r['independent_episodes']==4
+          assert r['distinct_empirical_provider_response_ids']==380
+          assert r['two_advisory_reviews_completed'] is False
+          assert r['holdout_touched'] is False
+          assert r['scientifically_approved'] is False
+          assert r['submission_authorized'] is False
+          print('V3_ARCHIVE_RECOVERY_PASS_NOT_SCIENTIFIC_APPROVAL')
+          PY
+      - name: Publish offline-only provenance report, including failed review status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-v3-original-recovery-${{ github.run_id }}
+          path: runs/v3-recovery/
+          if-no-files-found: warn
+          retention-days: 90
