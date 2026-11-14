@@ -1,5 +1,9 @@
 name: Article 1 | real recursive compaction pilot
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/study-live-pilot.yml'
   workflow_dispatch:
     inputs:
       split:
@@ -29,9 +33,9 @@ jobs:
     timeout-minutes: 110
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      SPLIT: ${{ inputs.split }}
-      EPISODES: ${{ inputs.episodes }}
-      STEPS: ${{ inputs.steps }}
+      SPLIT: ${{ inputs.split || 'development' }}
+      EPISODES: ${{ inputs.episodes || '2' }}
+      STEPS: ${{ inputs.steps || '12' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
