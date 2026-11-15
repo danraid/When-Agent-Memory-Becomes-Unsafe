@@ -3,8 +3,11 @@
   "authors": [
     "Daniel Raaid"
   ],
-  "affiliations": [],
+  "affiliations": [
+    "Independent Researcher"
+  ],
+  "affiliation_confirmation": "Author explicitly confirmed independent researcher status in conversation",
   "corresponding_author": null,
   "orcid": [],
-  "note": "Affiliations, ORCID, and correspondence address are not supplied."
+  "note": "Do not invent institutional affiliation, ORCID, correspondence email, country, or author declarations. For double-blind review, suppress identifying byline in submission PDF."
 }
