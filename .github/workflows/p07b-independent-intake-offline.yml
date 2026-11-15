@@ -1,0 +1,26 @@
+name: Article 1 | P07b independent development intake schema
+on:
+  pull_request:
+    paths:
+      - 'scripts/validate_independent_case_intake.py'
+      - 'tests/test_independent_case_intake.py'
+      - 'docs/P07B_INDEPENDENT_CASE_INTAKE.md'
+      - '.github/workflows/p07b-independent-intake-offline.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  schema-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline tests without paid calls or private split
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python -m unittest discover -s tests -p 'test_independent_case_intake.py' -v
