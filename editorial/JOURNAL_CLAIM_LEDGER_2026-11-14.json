@@ -1,0 +1,66 @@
+{
+  "schema": "WAMBU-JOURNAL-CLAIM-LEDGER-V1",
+  "date": "2026-11-14",
+  "article": "manuscript/EXPLORATORY_ARTICLE_COMPLETE_EN_GB.md",
+  "status": "EXPLORATORY_ONLY_NOT_JOURNAL_READY",
+  "claims": [
+    {
+      "id": "V2-ACCURACY",
+      "assertion": "Eight episodes, 144 decisions per arm; full history, recursive summary and ledger 144 correct, recent window 105",
+      "evidence": "docs/PILOT_V2_AUDIT_2026-11-14.md",
+      "run": 43624782133,
+      "independent_units": 8,
+      "claim_class": "descriptive",
+      "confirmatory": false
+    },
+    {
+      "id": "V2-NULL",
+      "assertion": "Observed candidate recursive-minus-ledger unsafe approval difference 0 in eight episodes",
+      "evidence": "docs/PILOT_V2_AUDIT_2026-11-14.md",
+      "independent_units": 8,
+      "claim_class": "exploratory_null",
+      "equivalence_inference": false
+    },
+    {
+      "id": "V3-TEMPORAL",
+      "assertion": "Four episodes, 72 decisions per arm, 0 temporal-probe errors; recent-window 52/72 correct and 20 errors in controls",
+      "evidence": "docs/V3_RUN_43640571248_INDEPENDENT_AUDIT_2026-11-14.md",
+      "run": 43640571248,
+      "original_run_conclusion": "failure",
+      "recovery_run": 43643292807,
+      "independent_units": 4,
+      "claim_class": "descriptive",
+      "confirmatory": false
+    },
+    {
+      "id": "P08B-UPSTREAM",
+      "assertion": "Original TypeCompact on 327 public sample files, four ratios, 1308 rows, unsafe counts 19/4/1/0",
+      "evidence": "docs/P07B_P08B_PUBLIC_SOURCE_AUDIT_2026-11-14.md",
+      "run": 43652663710,
+      "artifact_id": 14136164601,
+      "claim_class": "original_component_diagnostic",
+      "full_framework_reproduction": false
+    },
+    {
+      "id": "P07B-SOURCES",
+      "assertion": "Six public PEP/RFC source supersession pairs pinned to exact commits and blobs",
+      "evidence": "docs/P07B_PUBLIC_DOCUMENT_SOURCE_GATE.md",
+      "run": 43652578796,
+      "claim_class": "source_provenance_only",
+      "independent_human_task_gold": 0
+    }
+  ],
+  "prohibited_promotions": [
+    "scientifically_validated",
+    "independently_human_reviewed",
+    "novel_method_proven",
+    "confirmatory_result",
+    "journal_submitted",
+    "journal_accepted",
+    "causal_superiority",
+    "statistical_equivalence"
+  ],
+  "confirmatory_touched": false,
+  "independent_human_adjudications": 0,
+  "journal_submission": false
+}
