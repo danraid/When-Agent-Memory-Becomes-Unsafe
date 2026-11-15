@@ -1,0 +1,26 @@
+name: Article 1 | synthetic cases prepared for human review
+on:
+  pull_request:
+    paths:
+      - 'fixtures/synthetic_human_review_casebook_v1.json'
+      - 'docs/SYNTHETIC_HUMAN_REVIEW_PROTOCOL_2026-11-15.md'
+      - 'scripts/check_synthetic_human_review_intake.py'
+      - '.github/workflows/synthetic-human-review-intake.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check synthetic-only and zero human reviews
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python scripts/check_synthetic_human_review_intake.py
