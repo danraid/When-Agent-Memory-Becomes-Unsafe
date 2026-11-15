@@ -1,0 +1,193 @@
+{
+  "schema": "WAMBU-SYNTHETIC-ROLEPLAY-REVIEW-V1",
+  "simulation_only": true,
+  "generated_by": "ONE_AI_ASSISTANT_SESSION",
+  "independent_human_review": false,
+  "reviewer": {
+    "id": "SIMULATED_TEMPORAL_POLICY_AUDITOR_NOT_HUMAN",
+    "kind": "fictional_roleplay_not_a_person",
+    "speciality": "temporal effective dates, policy precedence and event chronology",
+    "real_identity_verified": false
+  },
+  "casebook_path": "fixtures/synthetic_human_review_casebook_v1.json",
+  "blind_to_external_model_outputs": true,
+  "not_independent_of_case_generator": true,
+  "decisions": [
+    {
+      "case_id": "SYN-DEV-001",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Same-authority replacement was issued and effective before decision.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-002",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Prohibition was neither issued nor effective at decision time.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-003",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Explicit replacement by the same policy council precedes the request.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-004",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Authorised permission covers the requested north region.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-005",
+      "action": "reject",
+      "case_validity": "ambiguous",
+      "reason": "Event scope and text conflict: the purported north permission has a south scope.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-006",
+      "action": "reject",
+      "case_validity": "valid",
+      "reason": "Visitor lacks demonstrated authority to relax board policy.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-007",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Same board supersedes its earlier restriction before the request.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-008",
+      "action": "reject",
+      "case_validity": "valid",
+      "reason": "Later prohibition is issued and effective before decision.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-009",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Later prohibition is issued after decision despite earlier effective date.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-010",
+      "action": "abstain",
+      "case_validity": "ambiguous",
+      "reason": "Conflicting same-day directives with no reliable ordering or tie-breaker.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-011",
+      "action": "reject",
+      "case_validity": "valid",
+      "reason": "Historical quotation does not establish board authority to revoke a ban.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-012",
+      "action": "approve",
+      "case_validity": "valid",
+      "reason": "Board permission supersedes its earlier prohibition.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-013",
+      "action": "reject",
+      "case_validity": "valid",
+      "reason": "Zone A exception does not permit zone B.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-014",
+      "action": "reject",
+      "case_validity": "valid",
+      "reason": "17:00 UTC falls before the explicit 18:00 UTC permission threshold.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-015",
+      "action": "reject",
+      "case_validity": "ambiguous",
+      "reason": "Combined grant and revocation in one event lacks exact timing; default prohibition remains.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    },
+    {
+      "case_id": "SYN-DEV-016",
+      "action": "abstain",
+      "case_validity": "ambiguous",
+      "reason": "Unverified committee has no demonstrated authority, but office authority itself is not established.",
+      "evidence_event_ids": [
+        "e1",
+        "e2"
+      ],
+      "simulated": true
+    }
+  ]
+}
