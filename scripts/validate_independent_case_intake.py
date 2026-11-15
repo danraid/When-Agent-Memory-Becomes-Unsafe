@@ -15,8 +15,10 @@ REQUIRED_SOURCE=("source_id","url","revision","sha256","licence")
 REQUIRED_REVIEW=("case_id","adjudicator_id","independence_declaration","action","reason","evidence_event_ids","reviewed_at")
 ACTIONS={"approve","reject","abstain"}
 
-def validate(casebook, reviews):
+def validate(casebook, reviews, allow_simulation=False):
     errors=[]
+    if not allow_simulation and (casebook.get("simulation_only") or reviews.get("simulation_only")):
+        errors.append("fictional simulation is not genuine independent human adjudication")
     cases=casebook.get("cases",[])
     decisions=reviews.get("adjudications",[])
     if not isinstance(cases,list) or not isinstance(decisions,list):
@@ -27,6 +29,8 @@ def validate(casebook, reviews):
         prefix=f"case[{i}]"
         for k in REQUIRED_CASE:
             if not c.get(k):errors.append(f"{prefix}: missing {k}")
+        if not allow_simulation and (c.get("simulation_only") or c.get("fictional_roleplay")):
+            errors.append(f"{prefix}: fictional case cannot count as human case")
         cid=c.get("case_id")
         if cid in seen:errors.append(f"{prefix}: duplicate case_id")
         seen.add(cid);by_id[cid]=c
@@ -56,6 +60,8 @@ def validate(casebook, reviews):
         prefix=f"adjudication[{i}]"
         for k in REQUIRED_REVIEW:
             if k not in d or d[k] is None or d[k]=="":errors.append(f"{prefix}: missing {k}")
+        if not allow_simulation and (d.get("simulation_only") or d.get("fictional_roleplay")):
+            errors.append(f"{prefix}: fictional adjudication cannot count as human review")
         cid=d.get("case_id")
         if cid not in by_id:
             errors.append(f"{prefix}: case not in casebook");continue
@@ -84,11 +90,12 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--cases",required=True,type=Path)
     p.add_argument("--reviews",required=True,type=Path)
+    p.add_argument("--allow-simulation",action="store_true",help="Validate only fictional fixture structure; never authentic human review")
     args=p.parse_args()
     cases=json.loads(args.cases.read_text(encoding="utf-8"))
     reviews=json.loads(args.reviews.read_text(encoding="utf-8"))
-    errors=validate(cases,reviews)
-    print(json.dumps({"status":"STRUCTURE_ONLY_PASS" if not errors else "BLOCKED",
+    errors=validate(cases,reviews,allow_simulation=args.allow_simulation)
+    print(json.dumps({"status":("FICTIONAL_STRUCTURE_ONLY_PASS" if args.allow_simulation else "STRUCTURE_ONLY_PASS") if not errors else "BLOCKED",
                       "case_count":len(cases.get("cases",[])),
                       "review_count":len(reviews.get("adjudications",[])),
                       "human_identity_verified":False,"scientific_approval":False,

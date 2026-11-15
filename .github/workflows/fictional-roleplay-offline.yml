@@ -1,0 +1,31 @@
+name: Article 1 | fictional roleplay isolation
+on:
+  pull_request:
+    paths:
+      - 'fixtures/fictional_development_*.json'
+      - 'scripts/validate_independent_case_intake.py'
+      - 'tests/test_independent_case_intake.py'
+      - '.github/workflows/fictional-roleplay-offline.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  simulation-guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests and explicit simulated-mode validation
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python -m unittest discover -s tests -p 'test_independent_case_intake.py' -v
+          python scripts/validate_independent_case_intake.py --cases fixtures/fictional_development_casebook.json --reviews fixtures/fictional_development_roleplay_labels.json --allow-simulation
+          if python scripts/validate_independent_case_intake.py --cases fixtures/fictional_development_casebook.json --reviews fixtures/fictional_development_roleplay_labels.json; then
+            echo 'ERROR: fictional labels accepted as human evidence' >&2
+            exit 1
+          fi

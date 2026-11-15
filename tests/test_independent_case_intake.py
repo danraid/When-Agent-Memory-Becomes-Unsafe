@@ -29,6 +29,11 @@ class TestCaseIntake(unittest.TestCase):
     def test_reject_invalid_reference(self):
         d=review();d["evidence_event_ids"]=["missing"]
         self.assertTrue(any("missing events" in x for x in validate({"cases":[case()]},{"adjudications":[d]})))
+    def test_fictional_intake_blocked_by_default(self):
+        c=case();c["simulation_only"]=True
+        d=review();d["simulation_only"]=True
+        self.assertTrue(any("fictional" in x for x in validate({"simulation_only":True,"cases":[c]},{"simulation_only":True,"adjudications":[d]})))
+        self.assertEqual(validate({"simulation_only":True,"cases":[c]},{"simulation_only":True,"adjudications":[d]},allow_simulation=True),[])
     def test_abstain_needs_reason(self):
         d=review();d["action"]="abstain"
         self.assertTrue(any("ambiguity_basis" in x for x in validate({"cases":[case()]},{"adjudications":[d]})))
