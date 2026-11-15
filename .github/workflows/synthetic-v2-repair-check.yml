@@ -1,0 +1,25 @@
+name: Article 1 | synthetic v2 repair audit
+on:
+  pull_request:
+    paths:
+      - 'fixtures/synthetic_human_review_casebook_v2.json'
+      - 'scripts/check_synthetic_v2_repairs.py'
+      - 'docs/SYNTHETIC_V2_REPAIR_AND_PUBLICATION_GATE_2026-11-14.md'
+      - '.github/workflows/synthetic-v2-repair-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          test -z "$OPENAI_API_KEY"
+          python scripts/check_synthetic_v2_repairs.py
