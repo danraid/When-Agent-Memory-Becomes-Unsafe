@@ -1,0 +1,25 @@
+name: Article 1 | synthetic panel non-promotion
+on:
+  pull_request:
+    paths:
+      - 'editorial/synthetic_review_*.json'
+      - 'scripts/check_synthetic_panel.py'
+      - 'docs/SYNTHETIC_PANEL_REVIEW_AND_AUTHOR_CHECKPOINT_2026-11-15.md'
+      - '.github/workflows/synthetic-panel-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-fictional-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          test -z "$OPENAI_API_KEY"
+          python scripts/check_synthetic_panel.py
