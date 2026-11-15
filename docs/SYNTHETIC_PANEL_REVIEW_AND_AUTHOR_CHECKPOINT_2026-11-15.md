@@ -43,3 +43,7 @@ Agreement is 14/16 as a **descriptive comparison of two fictional role scripts o
 ## Author review checkpoint
 
 Please inspect the 16-case casebook and both fictional role reports. The author may approve their use as **synthetic development fixtures**, request corrections, or reject them. A future approval must be recorded as `AUTHOR_REVIEWED_SYNTHETIC_DEVELOPMENT` only, not `HUMAN_INDEPENDENT_VALIDATED` or `JOURNAL_ACCEPTED`.
+
+## Author decision recorded from explicit instruction
+
+The author explicitly recorded: **“Aprovo condicionado à correção dos casos ambíguos.”** Observations: **“Nenhuma.”** The author requested that this not be classified as independent human validation. This is a **conditional author approval for synthetic development use only**. The unresolved cases are SYN-DEV-005, SYN-DEV-010, SYN-DEV-015 and SYN-DEV-016. Approval remains conditional until repairs are verified; the simulation is not human independent scientific review. Machine-readable record: [author conditional decision](../editorial/AUTHOR_CONDITIONAL_SYNTHETIC_REVIEW_APPROVAL_2026-11-14.json).
