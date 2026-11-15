@@ -1,0 +1,16 @@
+{
+  "schema": "WAMBU-INDEPENDENT-REVIEW-REQUEST-V1",
+  "status": "AWAITING_REAL_HUMAN_REVIEW",
+  "manuscript": "manuscript/JOURNAL_NEGATIVE_RESULTS_ANONYMOUS_DRAFT_EN_GB.md",
+  "review_packet": "docs/INDEPENDENT_SCIENTIFIC_REVIEW_PACKET_2026-11-14.md",
+  "reviewer_name": null,
+  "reviewer_affiliation": null,
+  "reviewer_verified": false,
+  "review_completed_at": null,
+  "review_decision": null,
+  "methodology_approved": false,
+  "novelty_approved": false,
+  "independent_case_gold_count": 0,
+  "confirmatory_authorised": false,
+  "journal_submission_authorised": false
+}
