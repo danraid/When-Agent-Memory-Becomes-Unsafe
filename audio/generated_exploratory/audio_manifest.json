@@ -1,0 +1,16 @@
+{
+  "voice": "marin",
+  "model": "gpt-4o-mini-tts",
+  "locale": "pt-BR",
+  "segments": 11,
+  "duration_seconds": 1181.0,
+  "source_sha256": "fda48b40991e964b3062c739b99f58656b585621330552e51829b4e7f065ded6",
+  "fresh_synthesis": true,
+  "prior_voice_reused": false,
+  "script_adaptation": [
+    "Portuguese-only audiobook",
+    "spoken equations",
+    "narrative tables",
+    "bibliography accessible in accompanying PDF"
+  ]
+}
