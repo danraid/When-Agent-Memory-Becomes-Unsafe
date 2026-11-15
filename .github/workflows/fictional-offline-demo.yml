@@ -1,0 +1,42 @@
+name: Article 1 | fictional offline demo
+on:
+  pull_request:
+    paths:
+      - 'scripts/run_fictional_offline_demo.py'
+      - 'fixtures/fictional_development_*.json'
+      - '.github/workflows/fictional-offline-demo.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fictional-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline synthetic demonstration
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python scripts/run_fictional_offline_demo.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('empirical/fictional_offline_demo_2026-11-15.json').read_text())
+          assert r['status']=='SIMULATION_ONLY_NOT_SCIENTIFIC_EVIDENCE'
+          assert r['total_fictional_cases']==8
+          assert r['illustratively_scored_cases']==6
+          assert r['excluded_underspecified_cases']==2
+          assert r['human_participants']==0 and r['independent_human_adjudications']==0
+          assert r['gpt_calls']==0 and r['confirmatory_touched'] is False
+          print('Synthetic offline provenance checks passed')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fictional-offline-demo-results
+          path: empirical/fictional_offline_demo_2026-11-15.json
+          retention-days: 90
