@@ -1,0 +1,34 @@
+{
+  "schema": "WAMBU-AUTHOR-REVIEW-DECISION-V1",
+  "recorded_on": "2026-11-14",
+  "recording_basis": "explicit author instruction in conversation",
+  "author_role": "article_author",
+  "author_identity_verification": "not independently verified by this repository action",
+  "scope": {
+    "casebook": "fixtures/synthetic_human_review_casebook_v1.json",
+    "case_count": 16,
+    "simulated_panel_report": "docs/SYNTHETIC_PANEL_REVIEW_AND_AUTHOR_CHECKPOINT_2026-11-15.md",
+    "simulated_reviews": [
+      "editorial/synthetic_review_simulated_temporal_policy_auditor_not_human.json",
+      "editorial/synthetic_review_simulated_adversarial_methods_reviewer_not_human.json"
+    ]
+  },
+  "decision": "APPROVED_CONDITIONALLY",
+  "author_statement_pt": "Aprovo condicionado à correção dos casos ambíguos.",
+  "author_observations": "Nenhuma.",
+  "required_repairs": [
+    "SYN-DEV-005",
+    "SYN-DEV-010",
+    "SYN-DEV-015",
+    "SYN-DEV-016"
+  ],
+  "status": "AUTHOR_REVIEWED_SYNTHETIC_DEVELOPMENT_CONDITIONAL",
+  "repairs_verified": false,
+  "unconditional_author_approval": false,
+  "independent_human_review": false,
+  "independent_human_adjudications": 0,
+  "synthetic_reviewers_are_humans": false,
+  "scientific_validation": false,
+  "confirmatory_touched": false,
+  "journal_submission_approval": false
+}
