@@ -1,0 +1,27 @@
+name: Article 1 | journal negative-results draft offline consistency
+on:
+  pull_request:
+    paths:
+      - 'manuscript/JOURNAL_NEGATIVE_RESULTS_ANONYMOUS_DRAFT_EN_GB.md'
+      - 'docs/NEGATIVE_RESULTS_PUBLICATION_POSITIONING_2026-11-14.md'
+      - 'scripts/check_journal_negative_draft.py'
+      - 'editorial/JOURNAL_CLAIM_LEDGER_2026-11-14.json'
+      - '.github/workflows/journal-negative-draft-offline.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-claim-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: No inference and check article claims against audited ledger
+        run: |
+          test -z "$OPENAI_API_KEY"
+          python scripts/check_journal_negative_draft.py
