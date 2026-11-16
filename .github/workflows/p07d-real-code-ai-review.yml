@@ -1,0 +1,167 @@
+name: Article 1 | P07d real source code policy cases and simulated expert review
+on:
+  pull_request:
+    paths:
+      - 'protocol/P07D_REAL_CODE_CHANGE_MATRIX.json'
+      - 'scripts/p07d_*'
+      - 'tests/test_p07d_*'
+      - '.github/workflows/p07d-real-code-ai-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07d-real-code-ai-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p07d-real-code-once
+  cancel-in-progress: false
+jobs:
+  offline-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source, leak and role contracts without external credentials
+        run: python -m unittest discover -s tests -p 'test_p07d_*.py' -v
+  source:
+    if: github.event_name != 'pull_request'
+    needs: offline-verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect actual code and normative documents at pinned revisions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.p07d_collect_code_authority_cases \
+            --config protocol/P07D_REAL_CODE_CHANGE_MATRIX.json \
+            --out runs/p07d-source
+      - name: Check 8 real diffs, four plus four outcomes and isolated references
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('runs/p07d-source')
+          m=json.loads((d/'manifest.json').read_text())
+          for name,h in m['files_sha256'].items():
+              assert hashlib.sha256((d/name).read_bytes()).hexdigest()==h,name
+          c=json.loads((d/'blind_code_cases.json').read_text())
+          o=json.loads((d/'observed_dispositions_evaluator_only.json').read_text())
+          assert len(c['cases'])==len(o['events'])==8
+          assert sum(v['actual_disposition']=='merged' for v in o['events'])==4
+          assert all(x['code_patches_retrospective'] and
+                     x['historical_normative_applicability_not_verified']
+                     for x in c['cases'])
+          assert all('actual_disposition' not in x and
+                     'merged_at' not in x for x in c['cases'])
+          print('P07D_REAL_CODE_DIFF_SOURCES_PASS_NO_POLICY_GOLD')
+          PY
+      - name: Upload only source material that has no PR outcome labels for AI roles
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07d-blind-code-inputs-${{ github.run_id }}
+          path: runs/p07d-source/blind_code_cases.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Archive full historical receipts and the separate factual outcome sidecar
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07d-original-source-provenance-${{ github.run_id }}
+          path: runs/p07d-source/
+          retention-days: 90
+          if-no-files-found: error
+  ai-role-simulation:
+    if: github.event_name != 'pull_request'
+    needs: source
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07d-blind-code-inputs-${{ github.run_id }}
+          path: runs/p07d-blind/
+      - name: Assert lack of evaluator sidecar or human label
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          assert os.environ.get('OPENROUTER_API_KEY'), 'OPENROUTER_SECRET_NOT_SET'
+          c=json.loads(Path('runs/p07d-blind/blind_code_cases.json').read_text())
+          assert len(c['cases'])==8 and c['independent_human_policy_adjudications']==0
+          assert not Path('runs/p07d-blind/observed_dispositions_evaluator_only.json').exists()
+          print('BLIND_REAL_DIFF_AI_REVIEW_WITHOUT_HUMAN_GOLD')
+          PY
+      - name: Run 24 real OpenRouter blind AI engineering role simulations
+        run: |
+          python -m scripts.p07d_code_expert_simulation --execute \
+            --cases runs/p07d-blind/blind_code_cases.json \
+            --config protocol/P07D_REAL_CODE_CHANGE_MATRIX.json \
+            --out runs/p07d-ai-panel/
+      - name: Preserve original model responses and failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07d-ai-engineering-experts-${{ github.run_id }}
+          path: runs/p07d-ai-panel/
+          retention-days: 90
+          if-no-files-found: warn
+  detached-audit:
+    if: always() && github.event_name != 'pull_request' && needs.source.result == 'success'
+    needs: [source,ai-role-simulation]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07d-original-source-provenance-${{ github.run_id }}
+          path: runs/p07d-original-source/
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07d-ai-engineering-experts-${{ github.run_id }}
+          path: runs/p07d-original-reviews/
+      - name: Verify source, prompt, labels and answers without model calls
+        run: |
+          python -m scripts.p07d_detached_code_audit \
+            --source runs/p07d-original-source/ \
+            --reviews runs/p07d-original-reviews/ \
+            --out runs/p07d-detached-audit/
+      - name: Guard against scientific or human-review promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/p07d-detached-audit/audit.json').read_text())
+          assert a['actual_public_changed_code_prs']==8
+          assert a['human_expert_adjudications']==0
+          assert a['human_policy_action_ground_truth']==0
+          assert a['new_paid_calls']==0
+          assert not a['scientifically_approved'] and not a['confirmatory_touched']
+          print('P07D_AUDIT_COMPLETE_SOURCE_REAL_SCIENTIFIC_HUMAN_GOLD_UNRESOLVED')
+          PY
+      - name: Preserve detached replay and missingness
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07d-detached-code-expert-audit-${{ github.run_id }}
+          path: runs/p07d-detached-audit/
+          retention-days: 90
+          if-no-files-found: warn
