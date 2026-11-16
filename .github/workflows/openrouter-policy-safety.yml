@@ -1,0 +1,68 @@
+name: Article 1 | OpenRouter cross-LLM policy safety exploratory pilot
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/openrouter-policy-safety.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-openrouter-policy-paid-serial
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline scientific integrity tests
+        run: python -m unittest discover -s tests -v
+      - name: Check finite public development matrix before paid inference
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from study.openrouter_policy_safety import load_config
+          config, digest = load_config(Path('study/openrouter_policy_models.json'))
+          assert config['episodes']==2 and config['steps']==18
+          assert not config['confirmatory_allowed']
+          assert os.environ.get('OPENROUTER_API_KEY'), 'MISSING_OPENROUTER_KEY'
+          print('PUBLIC_DEVELOPMENT_ONLY', digest, 'episodes', config['episodes'])
+          PY
+      - name: Execute bounded independent model decisions with shared compactor
+        run: |
+          python -m study.openrouter_policy_safety --execute \
+            --config study/openrouter_policy_models.json \
+            --out runs/policy-safety-v1
+      - name: Verify original result digests and scientific status, even if partial
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('runs/policy-safety-v1')
+          if not (root/'manifest.json').is_file():
+              raise SystemExit('INCOMPLETE_NO_MANIFEST_PRESERVE_PARTIAL_ARTIFACT')
+          m=json.loads((root/'manifest.json').read_text())
+          s=json.loads((root/'summary.json').read_text())
+          for file,expected in m['files_sha256'].items():
+              p=root/file
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==expected, file
+          assert not s['scientifically_approved'] and not s['submission_authorized'] and not s['holdout_touched']
+          assert s['unit_of_independence']=='episode'
+          print('HASH_CHECKS_PASS',s['status'],s['evaluable_rows'],s['expected_evaluable_rows'])
+          PY
+      - name: Retain all original evidence, including partial failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrouter-policy-safety-development-${{ github.run_id }}
+          path: runs/policy-safety-v1/
+          if-no-files-found: warn
+          retention-days: 90
