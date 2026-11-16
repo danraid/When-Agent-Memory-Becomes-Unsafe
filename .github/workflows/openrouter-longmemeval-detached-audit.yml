@@ -1,0 +1,45 @@
+name: Article 1 | detached LongMemEval v2 evidence audit
+on:
+  workflow_run:
+    workflows: [Article 1 | OpenRouter LongMemEval v2 exploratory comparison]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Existing LongMemEval v2 GitHub Actions run ID'
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SOURCE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download original evidence from completed v2 run (never rerun paid models)
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ env.SOURCE_RUN_ID }}
+          name: openrouter-longmemeval-v2-exploratory-${{ env.SOURCE_RUN_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: runs/original-v2/
+      - name: Independently check hashes, pairing, failure coverage and descriptive accuracy
+        run: |
+          python scripts/audit_openrouter_longmemeval.py --input runs/original-v2 \
+            --out runs/detached-audit
+      - name: Save the detached reproducible report, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrouter-longmemeval-v2-detached-audit-${{ env.SOURCE_RUN_ID }}
+          path: runs/detached-audit/
+          if-no-files-found: warn
+          retention-days: 90
