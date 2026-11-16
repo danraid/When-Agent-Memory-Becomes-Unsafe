@@ -66,7 +66,7 @@ SPECS = {
         "request": ("A Rust toolchain patch relies on a previous global-allocator "
                     "override interface in place of the later allocator mechanism. "
                     "Assess applicability, deprecation and release-version constraints."),
-        "anchor": "deprecated and eventually removed.  The",
+        "anchor": "deprecated and eventually removed. The `alloc_system` crate is replaced with the",
         "lines": 2,
         "domain": "rust_global_allocator_api",
         "operational_scope_to_review": "compiler version, stabilisation and allocator interface",
