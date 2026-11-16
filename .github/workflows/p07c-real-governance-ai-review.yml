@@ -1,0 +1,151 @@
+name: Article 1 | P07c real observed governance cases and simulated expert agents
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07c-real-governance-ai-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p07c-real-governance-ai-single-paid-run
+  cancel-in-progress: false
+jobs:
+  collect-real-historical-records:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline tests
+        run: python -m unittest discover -s tests -v
+      - name: Fetch real historical public GitHub PR records and event outcomes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.p07c_collect_real_governance \
+            --config protocol/P07C_REAL_GOVERNANCE_SOURCE_MATRIX.json \
+            --out runs/p07c-sources
+      - name: Verify raw source evidence, outcome isolation and date gate
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/p07c-sources')
+          m=json.loads((root/'manifest.json').read_text())
+          for name,sha in m['sha256'].items():
+              p=root/name
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==sha,name
+          c=json.loads((root/'model_inputs_no_outcome.json').read_text())
+          o=json.loads((root/'observed_outcomes_evaluator_only.json').read_text())
+          assert len(c['cases'])==len(o['observed_outcomes'])==8
+          assert all(not any(k in x for k in ('merged','closed_at','observed_disposition',
+                        'reference_action','gold_action')) for x in c['cases'])
+          assert sum(x['observed_disposition']=='merged' for x in o['observed_outcomes'])>=2
+          assert sum(x['observed_disposition']=='closed_without_merge' for x in o['observed_outcomes'])>=2
+          print('ACTUAL_PUBLIC_HISTORICAL_GOVERNANCE_EVENTS_VERIFIED; NOT_POLICY_GOLD')
+          PY
+      - name: Artifact with only outcome-blind inputs for reviewer job
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07c-blind-inputs-${{ github.run_id }}
+          path: runs/p07c-sources/model_inputs_no_outcome.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Separate archive with raw original sources and evaluator outcomes
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07c-full-historical-source-evidence-${{ github.run_id }}
+          path: runs/p07c-sources/
+          if-no-files-found: error
+          retention-days: 90
+  simulated-ai-roles:
+    needs: collect-real-historical-records
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download only blind input artifact, never evaluator labels
+        uses: actions/download-artifact@v4
+        with:
+          name: p07c-blind-inputs-${{ github.run_id }}
+          path: runs/p07c-blind/
+      - name: Enforce no action reference leakage and no human-adjudication claims
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          p=Path('runs/p07c-blind/model_inputs_no_outcome.json')
+          c=json.loads(p.read_text())
+          assert os.getenv('OPENROUTER_API_KEY'),'MISSING_EXISTING_OPENROUTER_SECRET'
+          assert c['case_count']==8 and not c['historical_predecision_snapshot_guaranteed']
+          assert not Path('runs/p07c-sources/observed_outcomes_evaluator_only.json').exists()
+          print('THREE_DIFFERENT_SIMULATED_AI_EXPERT_ROLES; ZERO_HUMAN_EXPERTS')
+          PY
+      - name: Perform finite 24 real OpenRouter reviewer calls, no automatic retry
+        run: |
+          python -m scripts.p07c_simulated_expert_panel --execute \
+            --cases runs/p07c-blind/model_inputs_no_outcome.json \
+            --config protocol/P07C_REAL_GOVERNANCE_SOURCE_MATRIX.json \
+            --out runs/p07c-ai-panel
+      - name: Archive raw AI outputs and unscored failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07c-ai-only-simulated-specialists-${{ github.run_id }}
+          path: runs/p07c-ai-panel/
+          if-no-files-found: warn
+          retention-days: 90
+  detached-source-and-review-audit:
+    needs: [collect-real-historical-records,simulated-ai-roles]
+    if: always() && needs.collect-real-historical-records.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07c-full-historical-source-evidence-${{ github.run_id }}
+          path: runs/p07c-original-sources/
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07c-ai-only-simulated-specialists-${{ github.run_id }}
+          path: runs/p07c-original-reviews/
+      - name: Independently verify the historical record and blind AI outputs, zero calls
+        run: |
+          python -m scripts.p07c_detached_real_governance_audit \
+            --source runs/p07c-original-sources \
+            --reviews runs/p07c-original-reviews \
+            --out runs/p07c-detached-audit
+      - name: Enforce scientific non-promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/p07c-detached-audit/detached_audit.json').read_text())
+          assert a['actual_closed_public_pr_events']==8
+          assert a['qualified_independent_human_adjudicators']==0
+          assert a['real_observed_policy_authorisation_decisions']==0
+          assert a['new_paid_calls']==0 and not a['scientifically_approved']
+          assert not a['private_holdout_touched']
+          print('HISTORICAL_OUTCOMES_DESCRIPTIVE_ONLY; VALID_HUMAN_GOLD_STILL_ZERO')
+          PY
+      - name: Preserve independent zero-call audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07c-detached-historical-event-audit-${{ github.run_id }}
+          path: runs/p07c-detached-audit/
+          if-no-files-found: warn
+          retention-days: 90
