@@ -48,8 +48,8 @@ jobs:
           from study.openrouter_comparison import DATASET_URL, load_dataset
           path=Path('runs/openrouter/dataset/longmemeval_s_cleaned.json')
           with urllib.request.urlopen(DATASET_URL,timeout=120) as response:
-              raw=response.read(100_000_001)
-          assert len(raw)<100_000_001, 'BENCHMARK_FILE_TOO_LARGE'
+              raw=response.read(400_000_001)
+          assert len(raw)<400_000_001, 'BENCHMARK_FILE_TOO_LARGE'
           path.write_bytes(raw)
           entries, digest=load_dataset(path,'s_cleaned')
           print('OFFICIAL_DATASET_VALIDATED',len(entries),'sha256',digest)
