@@ -9,6 +9,7 @@ import argparse
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import urllib.request
 import urllib.error
@@ -19,11 +20,13 @@ from study.openrouter_comparison import digest, save
 def get_json(url: str, transport=None):
     if transport:
         return transport(url)
-    request=urllib.request.Request(
-        url,
-        headers={"Accept":"application/vnd.github+json",
-                 "User-Agent":"WAMBU-P07C-public-research/1.0",
-                 "X-GitHub-Api-Version":"2022-11-28"})
+    headers={"Accept":"application/vnd.github+json",
+             "User-Agent":"WAMBU-P07C-public-research/1.0",
+             "X-GitHub-Api-Version":"2022-11-28"}
+    token=os.getenv("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"]="Bearer "+token
+    request=urllib.request.Request(url,headers=headers)
     with urllib.request.urlopen(request,timeout=35) as response:
         return json.load(response)
 
@@ -137,7 +140,7 @@ def build(config_path: Path, transport=None):
     provenance={"schema":"WAMBU-P07C-HISTORICAL-RAW-SOURCE-SNAPSHOTS-V1",
                 "original_api_payloads":receipts,"config_sha256":digest(raw),
                 "collected_at_utc":datetime.now(timezone.utc).isoformat(),
-                "snapshot_is_retrospective":True,"no_secret_or_private_data":True}
+                "snapshot_is_retrospective":True,"public_metadata_may_contain_personal_identifiers":True}
     return public,sidecar,provenance
 
 
