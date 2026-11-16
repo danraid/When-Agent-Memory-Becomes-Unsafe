@@ -62,7 +62,6 @@ def source_fingerprint() -> dict:
 
 
 def record_for(item, *, model, arm, depth, episode, answer=None, error=None, derived=False):
-    prompt = decision_prompt(item, "pinned_ledger" if derived else arm, "", window=3) if derived else None
     result = {
         "case_id": episode["episode_id"] + f"-{item['step']:02d}",
         "episode_id": episode["episode_id"], "episode_public_sha256": episode["public_content_sha256"],
@@ -211,6 +210,7 @@ def run(config_path: Path, out: Path, secret: str, transport=None) -> dict:
                 cached = None
                 for arm in PAID_DECISION_CONDITIONS:
                     err = None
+                    a = None
                     if summary_failure and arm in ("recursive_summary", "pinned_ledger"):
                         err = "MISSING_COMPACTION:" + summary_failure
                     else:
