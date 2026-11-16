@@ -1,0 +1,144 @@
+name: Article 1 | P07b real-source AI simulated panel and pinned Knowledge Triage
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07b-ai-panel-kt.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-p07b-source-ai-panel-paid
+  cancel-in-progress: false
+jobs:
+  source-and-components:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      provenance_status: ${{ steps.status.outputs.qualified }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: python/peps
+          ref: 5595f77d7d9cdddae99d4510b145df2496a9c891
+          path: third_party/python-peps
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: rust-lang/rfcs
+          ref: f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07
+          path: third_party/rust-rfcs
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Offline tests and boundary verification
+        run: python -m unittest discover -s tests -v
+      - name: Build real externally authored source snippets and separate deterministic link references
+        run: |
+          python -m scripts.p07b_build_verified_cases \
+            --python-peps third_party/python-peps \
+            --rust-rfcs third_party/rust-rfcs \
+            --out runs/p07b-source/ 
+      - name: Original Knowledge Triage three-operator component run
+        run: |
+          python -m scripts.p07b_knowledge_triage_comparator \
+            --cases runs/p07b-source/source_cases_public.json \
+            --references runs/p07b-source/reference_sidecar_evaluator_only.json \
+            --upstream third_party/knowledge-triage \
+            --out runs/p07b-kt-original-components
+      - name: Gate provenance and original-method coverage claims
+        id: status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path('runs/p07b-source/source_cases_public.json').read_text())
+          k=json.loads(Path('runs/p07b-kt-original-components/kt_component_report.json').read_text())
+          assert s['real_document_pairs']==6 and s['derived_question_cases']==12
+          assert s['independent_human_adjudications']==0 and s['true_naturalistic_operational_cases']==0
+          assert k['cases']==12 and k['operator_trials']==36
+          assert not k['full_original_knowledge_triage_replication']
+          assert not k['original_llm_cascade_executed'] and k['native_regex_only']
+          assert not k['confirmatory_touched'] and not k['scientifically_approved']
+          print('PROVENANCE_AND_SOURCE_PINNED_ORIGINAL_COMPONENTS_PASS')
+          PY
+          echo "qualified=true" >> "$GITHUB_OUTPUT"
+      - name: Retain all original verified-source and upstream-comparator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07b-real-source-and-original-kt-components-${{ github.run_id }}
+          path: |
+            runs/p07b-source/
+            runs/p07b-kt-original-components/
+          if-no-files-found: warn
+          retention-days: 90
+  simulated-ai-panel:
+    needs: source-and-components
+    if: needs.source-and-components.outputs.provenance_status == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download only source casebook artifact; evaluator references never passed to reviewer script
+        uses: actions/download-artifact@v4
+        with:
+          name: p07b-real-source-and-original-kt-components-${{ github.run_id }}
+          path: runs/provenance/
+      - name: Validate human-independence disclaimers and secret availability
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          from scripts.p07b_ai_panel import ROLE_MODELS
+          assert os.getenv('OPENROUTER_API_KEY'), 'OPENROUTER_SECRET_MISSING'
+          assert len(ROLE_MODELS)==3 and len(set(ROLE_MODELS.values()))==3
+          c=json.loads(Path('runs/provenance/p07b-source/source_cases_public.json').read_text())
+          assert c['derived_question_cases']==12 and c['independent_human_adjudications']==0
+          assert not any('reference_link_status_from_verified_text' in x for x in c['cases'])
+          print('AI_ONLY_NOT_HUMAN_ADJUDICATION; REFERENCE_NOT_IN_REVIEWER_INPUT')
+          PY
+      - name: Execute 36 bounded real OpenRouter scientific role reviews
+        run: |
+          python -m scripts.p07b_ai_panel --execute \
+            --cases runs/provenance/p07b-source/source_cases_public.json \
+            --out runs/p07b-ai-simulated-panel
+      - name: Verify evidence manifest and non-promotion status even when partial
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/p07b-ai-simulated-panel')
+          if not (root/'manifest.json').exists():
+              raise SystemExit('PANEL_INCOMPLETE_NO_MANIFEST_EVIDENCE_RETAINED')
+          m=json.loads((root/'manifest.json').read_text())
+          s=json.loads((root/'summary.json').read_text())
+          for n,h in m['files_sha256'].items():
+              p=root/n
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==h,n
+          assert s['human_adjudicators']==0 and s['true_independent_human_labels']==0
+          assert not s['scientifically_approved'] and not s['holdout_touched']
+          print('AI_ONLY_SCIENTIFIC_ROLE_SIMULATION_VERIFIED',s['parsed_valid_votes'],'/',s['expected_votes'])
+          PY
+      - name: Preserve AI-only advisory findings, including failures and non-unanimity
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07b-ai-simulated-external-roles-${{ github.run_id }}
+          path: runs/p07b-ai-simulated-panel/
+          if-no-files-found: warn
+          retention-days: 90
