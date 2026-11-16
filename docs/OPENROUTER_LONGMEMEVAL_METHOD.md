@@ -1,0 +1,21 @@
+# Comparative multi-LLM LongMemEval pilot (development, not confirmatory)
+
+## Bounded milestone
+Use the **official LongMemEval-S cleaned** public dataset by Wu et al. (ICLR 2025), 500 items, from the authors' [Hugging Face dataset](https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned). Full benchmark source: https://github.com/xiaowu0162/LongMemEval . This adds a standardized *memory-answering* comparison. It **does not** measure WAMBU-001 unsafe action approvals or replace the longitudinal authorised-policy compaction instrument.
+
+## Execution
+Select Actions > Article 1 | OpenRouter LongMemEval exploratory comparison > Run workflow. Provide an integer question count, normally 6 for a connectivity and methods pilot. GitHub Actions reads `OPENROUTER_API_KEY` or existing `OPENROUTER` from repository Secrets, never the secret value. The OpenRouter service routes requests to independently hosted models. Model IDs must be available to the account and may change or become unavailable. Neither secret presence nor model availability is asserted without a completed real run.
+
+Selected questions are deterministically stratified across the upstream categories and selected from a public seed. Each selected question receives three arms with identical target question: **full history**, **last eight sessions**, **recursive per-model summary**. Recursive summaries are produced in chronological eight-session blocks **without access to the current question, gold answer or supporting evidence annotations**; answers are evaluated by a separate judge. Input information and token budgets differ intentionally. Each model summarises its own history, so this is a whole-system comparison, not isolated decision-model capacity. Models are evaluated on the same question IDs and benchmark partition.
+
+The judge is a *different model* and receives the benchmark reference answer **only after an answer is generated**, using task-specific prompt criteria adapted from upstream `src/evaluation/evaluate_qa.py`. This is **not byte-for-byte equivalent to the upstream evaluation system**, and its labels are fallible. Exported `hypotheses/*.jsonl` permit additional upstream-compatible independent re-scoring. No automated AI judge acts as peer reviewer or final scientific authority.
+
+## Outputs and scientific reporting
+The action artifact retains dataset and executable hashes, exact models requested and observed, response IDs, usage, prompt SHA-256, per-instance predictions, judge decisions, elapsed latency, failed/unscored calls, category counts, and completeness. A reserved API call is *not proof* of a completed request. Each HTTP attempt is made once, without automatic retries. With incomplete provider coverage the overall experiment is marked incomplete, missing cases count as incorrect for the conservative lower-bound accuracy, and scored-only accuracy must be clearly labelled. All analyses are exploratory/descriptive, with no p-values, hidden holdout access, claim of benchmark state-of-the-art, or journal submission.
+
+**Security note:** provider traffic contains public benchmark conversations and judge traffic contains reference answers; this is allowed for this public evaluation but may create benchmark exposure in hosted models. A cross-provider comparison cannot ensure equal pretraining contamination. The selected IDs and outputs are public/development only. No private confirmatory secrets or non-public human material are passed.
+
+## Scope limits
+This experiment tests multi-session fact retention, updates, temporal reasoning, preference recall and abstention with a benchmark instrument. WAMBU-001 policy safety requires **separate** independently adjudicated action-level scenarios, aligned policy sources, a frozen confirmatory protocol and human author release. Historical v2/v3 findings and non-equivalence of the official Knowledge Triage comparator remain unchanged.
+
+To expand beyond the bounded pilot, amend the max-calls setting and design under research review, preflight model availability and context-size limits, complete the 500-case dataset with exact failure accounting, independently re-score with official evaluation, report paired question-level uncertainty without pseudoreplication, and then separately propose a safety-specific follow-up.
