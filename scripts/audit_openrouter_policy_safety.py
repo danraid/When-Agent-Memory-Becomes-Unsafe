@@ -193,8 +193,7 @@ def audit(root: Path, source_root: Path) -> dict:
                             "GUARD_PARENT_PROVENANCE_MISMATCH")
             if depth >= 2 and item["reference_action"] == "reject":
                 for model in models:
-                    naive = by_arm["recursive_summary"] if False else index[
-                        (ep_id, t, model, "recursive_summary")]
+                    naive = index[(ep_id, t, model, "recursive_summary")]
                     pinned = index[(ep_id, t, model, "pinned_ledger")]
                     eligible_pairs[model].append((ep_id, naive, pinned))
         require(len(episode_reject_after_depth2) >= 4,
