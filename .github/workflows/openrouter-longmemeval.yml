@@ -1,0 +1,88 @@
+name: Article 1 | OpenRouter LongMemEval exploratory comparison
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Stratified benchmark questions (1-500); default 6'
+        required: true
+        default: '6'
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: wambu-openrouter-longmemeval-paid-serial
+  cancel-in-progress: false
+jobs:
+  comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+      QUESTION_LIMIT: ${{ inputs.limit || '6' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline integrity tests
+        run: python -m unittest discover -s tests -v
+      - name: Finite job preflight, never output the secret
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          n=int(os.environ['QUESTION_LIMIT'])
+          cfg=json.loads(Path('study/openrouter_models.json').read_text())
+          assert 1 <= n <= 500
+          assert 2 <= len(cfg['subject_models']) <= 8
+          assert cfg['max_calls'] <= 5000
+          assert os.environ.get('OPENROUTER_API_KEY'), 'BLOCKED_MISSING_OPENROUTER_SECRET'
+          print('OPENROUTER_SECRET_PRESENT; RESTRICTED_EXPLORATORY_MODE; CONFIRMATORY_FORBIDDEN')
+          PY
+      - name: Retrieve official cleaned LongMemEval small benchmark
+        run: |
+          mkdir -p runs/openrouter/dataset
+          python - <<'PY'
+          import urllib.request
+          from pathlib import Path
+          from study.openrouter_comparison import DATASET_URL, load_dataset
+          path=Path('runs/openrouter/dataset/longmemeval_s_cleaned.json')
+          with urllib.request.urlopen(DATASET_URL,timeout=120) as response:
+              raw=response.read(100_000_001)
+          assert len(raw)<100_000_001, 'BENCHMARK_FILE_TOO_LARGE'
+          path.write_bytes(raw)
+          entries, digest=load_dataset(path,'s_cleaned')
+          print('OFFICIAL_DATASET_VALIDATED',len(entries),'sha256',digest)
+          PY
+      - name: Run real provider comparison with isolated evaluation references
+        run: |
+          python -m study.openrouter_comparison --execute \
+            --dataset runs/openrouter/dataset/longmemeval_s_cleaned.json \
+            --config study/openrouter_models.json \
+            --limit "$QUESTION_LIMIT" \
+            --out runs/openrouter/comparison
+      - name: Check finished run and all evidence hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/openrouter/comparison')
+          m=json.loads((root/'manifest.json').read_text())
+          s=json.loads((root/'summary.json').read_text())
+          assert s['status']=='EXPLORATORY_COMPLETE_NOT_SCIENTIFICALLY_APPROVED'
+          assert s['scored_answers']==s['expected_answers']
+          assert not s['holdout_touched'] and not s['scientifically_approved']
+          for file,expected in m['files_sha256'].items():
+              path=root/file
+              assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==expected
+          print('BENCHMARK_EVIDENCE_VERIFIED',s['scored_answers'])
+          PY
+      - name: Retain partial failures and reproducibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrouter-longmemeval-exploratory-${{ github.run_id }}
+          path: |
+            runs/openrouter/comparison/
+          if-no-files-found: warn
+          retention-days: 90
