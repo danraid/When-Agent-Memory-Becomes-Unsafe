@@ -118,16 +118,17 @@ def execute(cases_path:Path, config_path:Path, out:Path,key:str,transport=None)-
                 if rid in ids:
                     raise ValueError("DUPLICATE_PROVIDER_RESPONSE_ID")
                 ids.add(rid)
-                vote,wrapped=parse_vote(response["text"],case)
+                # Preserve original provider response even when JSON/schema parse fails.
                 row.update({
                     "original_model_text":response["text"],
                     "original_provider_response_id":rid,
                     "provider_observed_model":response["observed_model"],
                     "provider_usage":response["usage"],
                     "provider_finish_reason":response["finish_reason"],
-                    "json_envelope_unwrapped":wrapped,
-                    "vote":vote,
                 })
+                vote,wrapped=parse_vote(response["text"],case)
+                row["json_envelope_unwrapped"]=wrapped
+                row["vote"]=vote
             except (BenchmarkError,ValueError) as exc:
                 row["failure"]=str(exc)[:170]
             results.append(row)
