@@ -1,0 +1,59 @@
+{
+  "schema": "WAMBU-P07C-REAL-GITHUB-GOVERNANCE-EVENTS-V1",
+  "classification": "REAL_OBSERVED_PUBLIC_PR_DISPOSITIONS_AI_SIMULATED_DEVELOPMENT",
+  "data_cutoff_utc": "2026-11-16T23:59:59Z",
+  "cases": [
+    {
+      "case_id": "P07C-GOV-001",
+      "repo": "python/peps",
+      "number": 4032
+    },
+    {
+      "case_id": "P07C-GOV-002",
+      "repo": "python/peps",
+      "number": 4156
+    },
+    {
+      "case_id": "P07C-GOV-003",
+      "repo": "python/peps",
+      "number": 3990
+    },
+    {
+      "case_id": "P07C-GOV-004",
+      "repo": "python/peps",
+      "number": 3525
+    },
+    {
+      "case_id": "P07C-GOV-005",
+      "repo": "rust-lang/rfcs",
+      "number": 2972
+    },
+    {
+      "case_id": "P07C-GOV-006",
+      "repo": "rust-lang/rfcs",
+      "number": 2774
+    },
+    {
+      "case_id": "P07C-GOV-007",
+      "repo": "rust-lang/rfcs",
+      "number": 3223
+    },
+    {
+      "case_id": "P07C-GOV-008",
+      "repo": "rust-lang/rfcs",
+      "number": 3251
+    }
+  ],
+  "source_policy": "PUBLIC_GITHUB_PULL_REQUEST_SNAPSHOTS_HISTORICAL_CLOSED_WITHIN_DATE",
+  "ai_roles": {
+    "governance_maintainer": "openai/gpt-4.1-mini",
+    "temporal_process_expert": "google/gemini-2.5-flash",
+    "adversarial_methodologist": "anthropic/claude-haiku-4.5"
+  },
+  "paid_calls_reserved_max": 30,
+  "independent_human_adjudicators": 0,
+  "confirmatory_holdout_touched": false,
+  "scientifically_approved": false,
+  "no_ground_truth_action_policy": true,
+  "recorded_event_target": "observed_merged_vs_closed_without_merge_not_normative_policy_gold"
+}
