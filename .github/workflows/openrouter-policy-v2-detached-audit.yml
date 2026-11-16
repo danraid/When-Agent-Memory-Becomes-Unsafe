@@ -1,0 +1,44 @@
+name: Article 1 | detached policy safety v2 source-pinned audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/openrouter-policy-v2-detached-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ORIGINAL_RUN_ID: '43869990582'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline tests and gold isolation checks
+        run: python -m unittest discover -s tests -v
+      - name: Download immutable original four-episode evidence, zero paid calls
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ env.ORIGINAL_RUN_ID }}
+          name: openrouter-policy-v2-paced-development-${{ env.ORIGINAL_RUN_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: runs/policy-v2-original/
+      - name: Independently verify original SHA, simulator, provider IDs, exact paired conditions and guard derivation
+        run: |
+          python scripts/audit_openrouter_policy_safety.py \
+            --input runs/policy-v2-original \
+            --source-root . \
+            --out runs/policy-v2-detached-audit
+      - name: Retain original source-derived audit and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrouter-policy-v2-detached-audit-${{ env.ORIGINAL_RUN_ID }}-${{ github.run_id }}
+          path: runs/policy-v2-detached-audit/
+          if-no-files-found: warn
+          retention-days: 90
