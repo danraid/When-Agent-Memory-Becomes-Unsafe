@@ -66,6 +66,20 @@ class ComparisonTests(unittest.TestCase):
             with self.assertRaisesRegex(BenchmarkError, "FINITE_CALL_LIMIT"):
                 client.call("provider/model", "question", 32)
 
+    def test_empty_completion_reports_finish_without_retry(self):
+        calls = []
+        def provider(key, payload):
+            calls.append(1)
+            return {"id": "gen-empty", "model": "model/version",
+                    "choices": [{"message": {"content": ""}, "finish_reason": "length"}],
+                    "usage": {"prompt_tokens": 100, "completion_tokens": 32}}
+        with TemporaryDirectory() as tmp:
+            client = OpenRouter("placeholder", Path(tmp)/"ledger.json", 2, transport=provider)
+            with self.assertRaisesRegex(BenchmarkError, "EMPTY_PROVIDER_CONTENT_FINISH_length_COMPLETION_TOKENS_32"):
+                client.call("provider/model", "question", 32)
+            self.assertEqual(client.count, 1)
+            self.assertEqual(len(calls), 1)
+
     def test_missing_judgement_never_becomes_success(self):
         rows = [{"model": "a", "arm": "full_history", "question_type": "multi-session",
                  "judge_correct": True}]

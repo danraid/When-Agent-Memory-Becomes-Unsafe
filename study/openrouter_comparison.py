@@ -218,7 +218,16 @@ class OpenRouter:
         message = choice.get("message") or {}
         content = message.get("content")
         if not isinstance(content, str) or not content.strip():
-            raise BenchmarkError("EMPTY_PROVIDER_CONTENT")
+            # Preserve non-sensitive provider diagnostics. Qwen reasoning models
+            # may spend the completion budget without emitting final text.
+            reason = str(choice.get("finish_reason") or "unknown")
+            usage = response.get("usage") or {}
+            completion_tokens = usage.get("completion_tokens")
+            if type(completion_tokens) is not int:
+                completion_tokens = "unknown"
+            raise BenchmarkError(
+                "EMPTY_PROVIDER_CONTENT_FINISH_" + reason[:24] +
+                "_COMPLETION_TOKENS_" + str(completion_tokens))
         response_id = response.get("id")
         if not isinstance(response_id, str) or not response_id:
             raise BenchmarkError("MISSING_PROVIDER_RESPONSE_ID")

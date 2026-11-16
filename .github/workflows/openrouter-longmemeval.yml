@@ -1,4 +1,4 @@
-name: Article 1 | OpenRouter LongMemEval exploratory comparison
+name: Article 1 | OpenRouter LongMemEval v2 exploratory comparison
 on:
   push:
     branches: [main]
@@ -65,7 +65,8 @@ jobs:
             --config study/openrouter_models.json \
             --limit "$QUESTION_LIMIT" \
             --out runs/openrouter/comparison
-      - name: Check finished run and all evidence hashes
+      - name: Verify evidence even for incomplete runs
+        if: always()
         run: |
           python - <<'PY'
           import hashlib,json
@@ -73,19 +74,20 @@ jobs:
           root=Path('runs/openrouter/comparison')
           m=json.loads((root/'manifest.json').read_text())
           s=json.loads((root/'summary.json').read_text())
-          assert s['status']=='EXPLORATORY_COMPLETE_NOT_SCIENTIFICALLY_APPROVED'
-          assert s['scored_answers']==s['expected_answers']
+          assert s['status'] in ('EXPLORATORY_COMPLETE_NOT_SCIENTIFICALLY_APPROVED','INCOMPLETE_WITH_PRESERVED_FAILURES')
           assert not s['holdout_touched'] and not s['scientifically_approved']
           for file,expected in m['files_sha256'].items():
               path=root/file
               assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==expected
-          print('BENCHMARK_EVIDENCE_VERIFIED',s['scored_answers'])
+          print('BENCHMARK_EVIDENCE_VERIFIED',s['scored_answers'],'of',s['expected_answers'])
+          if s['status'] != 'EXPLORATORY_COMPLETE_NOT_SCIENTIFICALLY_APPROVED':
+              raise SystemExit('BENCHMARK_PARTIAL_NOT_FULLY_QUALIFIED')
           PY
       - name: Retain partial failures and reproducibility evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: openrouter-longmemeval-exploratory-${{ github.run_id }}
+          name: openrouter-longmemeval-v2-exploratory-${{ github.run_id }}
           path: |
             runs/openrouter/comparison/
           if-no-files-found: warn
