@@ -1,0 +1,100 @@
+{
+  "schema": "WAMBU-P07D-REAL-CODE-CHANGE-CASES-V1",
+  "classification": "ACTUAL_PUBLIC_CODE_CHANGE_EVENTS_NOT_POLICY_ACTION_GOLD",
+  "split": "public_development_only",
+  "snapshot_limit_utc": "2026-11-16T23:59:59Z",
+  "normative_sources": [
+    {
+      "key": "python_backwards_compatibility",
+      "repository": "python/peps",
+      "commit": "5595f77d7d9cdddae99d4510b145df2496a9c891",
+      "path": "peps/pep-0387.rst",
+      "source_url": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "anchors": [
+        "* Similarly a feature cannot be removed without notice",
+        "Wait for the warning to appear in at least two minor Python"
+      ]
+    },
+    {
+      "key": "rust_naked_function_constraints",
+      "repository": "rust-lang/rfcs",
+      "commit": "f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07",
+      "path": "text/2972-constrained-naked.md",
+      "source_url": "https://github.com/rust-lang/rfcs/blob/f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07/text/2972-constrained-naked.md",
+      "anchors": [
+        "must not specify the `#[inline]`",
+        "must not contain any operands except `const` or `sym`"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "P07D-CODE-001",
+      "repository": "python/cpython",
+      "pr": 133080,
+      "normative": "python_backwards_compatibility"
+    },
+    {
+      "id": "P07D-CODE-002",
+      "repository": "python/cpython",
+      "pr": 140345,
+      "normative": "python_backwards_compatibility"
+    },
+    {
+      "id": "P07D-CODE-003",
+      "repository": "python/cpython",
+      "pr": 130697,
+      "normative": "python_backwards_compatibility"
+    },
+    {
+      "id": "P07D-CODE-004",
+      "repository": "python/cpython",
+      "pr": 112639,
+      "normative": "python_backwards_compatibility"
+    },
+    {
+      "id": "P07D-CODE-005",
+      "repository": "rust-lang/rust",
+      "pr": 87652,
+      "normative": "rust_naked_function_constraints"
+    },
+    {
+      "id": "P07D-CODE-006",
+      "repository": "rust-lang/rust",
+      "pr": 161002,
+      "normative": "rust_naked_function_constraints"
+    },
+    {
+      "id": "P07D-CODE-007",
+      "repository": "rust-lang/rust",
+      "pr": 159382,
+      "normative": "rust_naked_function_constraints"
+    },
+    {
+      "id": "P07D-CODE-008",
+      "repository": "python/cpython",
+      "pr": 133654,
+      "normative": "python_backwards_compatibility"
+    }
+  ],
+  "case_count": 8,
+  "max_changed_files_per_pr": 40,
+  "max_changes_per_pr": 20000,
+  "max_sampled_patches_per_pr": 4,
+  "max_patch_characters": 2400,
+  "max_preclosure_comments": 5,
+  "max_comment_characters": 450,
+  "expected_observed_merged": 4,
+  "expected_observed_closed_without_merge": 4,
+  "model_roles": {
+    "backwards_compatibility": "openai/gpt-4.1-mini",
+    "time_and_authority": "google/gemini-2.5-flash",
+    "adversarial_code_review": "anthropic/claude-haiku-4.5"
+  },
+  "expected_paid_reviews": 24,
+  "max_paid_calls_reserved": 30,
+  "no_human_gold": true,
+  "allow_confirmatory": false,
+  "independent_human_adjudicators": 0,
+  "historical_source_pinned_commit_not_predecision_guaranteed": true
+}
