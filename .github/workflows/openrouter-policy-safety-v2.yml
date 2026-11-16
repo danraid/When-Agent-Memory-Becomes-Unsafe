@@ -1,0 +1,70 @@
+name: Article 1 | OpenRouter paced policy safety v2 development
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/openrouter-policy-safety-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-openrouter-policy-v2-serial
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline unit and science boundary checks
+        run: python -m unittest discover -s tests -v
+      - name: Strict preflight, no secret output
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from study.openrouter_policy_safety_v2 import load_config
+          config, digest = load_config(Path('study/openrouter_policy_v2_models.json'))
+          assert config['episodes'] == 4 and config['steps'] == 18
+          assert config['exploratory_only'] and not config['confirmatory_allowed']
+          assert os.environ.get('OPENROUTER_API_KEY'), 'MISSING_OPENROUTER_SECRET'
+          print('EXPLORATORY_NEW_SEED_FOUR_EPISODES', digest)
+          PY
+      - name: Execute new paid 4-episode paced cross-model comparison
+        run: |
+          python -m study.openrouter_policy_safety_v2 --execute \
+            --config study/openrouter_policy_v2_models.json \
+            --out runs/policy-safety-v2
+      - name: Independently verify evidence hashes and nonpromotion even on incomplete run
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          d=Path('runs/policy-safety-v2')
+          if not (d/'manifest.json').exists():
+              raise SystemExit('INCOMPLETE_NO_MANIFEST_PARTIAL_EVIDENCE_RETAINED')
+          m=json.loads((d/'manifest.json').read_text())
+          r=json.loads((d/'summary.json').read_text())
+          for name,expected in m['files_sha256'].items():
+              p=d/name
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==expected,name
+          assert r['expected_evaluable_rows']==4*18*4*5
+          assert r['unit_of_independence']=='episode'
+          assert not any(r[x] for x in ('scientifically_approved','submission_authorized','holdout_touched'))
+          print('EVIDENCE_HASHES_VERIFIED',r['evaluable_rows'],'/',r['expected_evaluable_rows'],
+                '429_BY_MODEL',r['rate_limit_events_by_model'])
+          PY
+      - name: Preserve original and partial observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrouter-policy-v2-paced-development-${{ github.run_id }}
+          path: runs/policy-safety-v2/
+          if-no-files-found: warn
+          retention-days: 90

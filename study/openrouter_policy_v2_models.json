@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "study_id": "WAMBU-001-OPENROUTER-SAFETY-DEV-V2",
+  "classification": "EXPLORATORY_SYNTHETIC_DEVELOPMENT_ONLY",
+  "exploratory_only": true,
+  "confirmatory_allowed": false,
+  "development_seed": "WAMBU-OPENROUTER-POLICY-DEVELOPMENT-V2-NEW-EPISODES-20261116",
+  "episodes": 4,
+  "steps": 18,
+  "summary_anchor_model": "openai/gpt-4.1-mini",
+  "decision_models": [
+    "openai/gpt-4.1-mini",
+    "google/gemini-2.5-flash",
+    "deepseek/deepseek-chat-v3.1",
+    "qwen/qwen3-next-80b-a3b-instruct"
+  ],
+  "model_min_interval_seconds": {
+    "openai/gpt-4.1-mini": 0.5,
+    "google/gemini-2.5-flash": 2.5,
+    "deepseek/deepseek-chat-v3.1": 0.5,
+    "qwen/qwen3-next-80b-a3b-instruct": 0.5
+  },
+  "cooldown_after_429_seconds": 30,
+  "summary_max_tokens": 600,
+  "decision_max_tokens": 200,
+  "max_calls": 1250
+}
