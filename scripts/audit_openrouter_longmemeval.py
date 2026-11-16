@@ -16,10 +16,6 @@ import sys
 
 def audit(root: Path) -> dict:
     m = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
-    meta = json.loads((root / "run_metadata.json").read_text(encoding="utf-8"))
-    summary = json.loads((root / "summary.json").read_text(encoding="utf-8"))
-    observations = json.loads((root / "observations.json").read_text(encoding="utf-8"))
-
     files = m["files_sha256"]
     if not files or any(not isinstance(key, str) for key in files):
         raise ValueError("INVALID_MANIFEST")
@@ -29,6 +25,10 @@ def audit(root: Path) -> dict:
             raise ValueError("MISSING_OR_TRAVERSING_EVIDENCE")
         if sha256(target.read_bytes()).hexdigest() != expected:
             raise ValueError("ORIGINAL_EVIDENCE_DIGEST_MISMATCH:" + name)
+    # Verify original bytes *before* parsing any untrusted evidence payload.
+    meta = json.loads((root / "run_metadata.json").read_text(encoding="utf-8"))
+    summary = json.loads((root / "summary.json").read_text(encoding="utf-8"))
+    observations = json.loads((root / "observations.json").read_text(encoding="utf-8"))
     if (m["scientifically_approved"] is not False or
             meta["scientifically_approved"] is not False or
             meta["holdout_touched"] is not False or
