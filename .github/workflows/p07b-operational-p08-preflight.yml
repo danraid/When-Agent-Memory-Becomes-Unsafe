@@ -1,0 +1,106 @@
+name: Article 1 | P07b operational drafts and original KT full-fidelity gate
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/p07b-operational-p08-preflight.yml'
+      - 'scripts/p07b_operational_candidate_instrument.py'
+      - 'scripts/p08_full_original_knowledge_triage_preflight.py'
+      - 'tests/test_p07b_operational_p08_fidelity.py'
+      - 'protocol/P07_PUBLIC_SOURCE_CANDIDATES.json'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07b-operational-p08-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-p07b-operational-p08-preflight-no-paid
+  cancel-in-progress: false
+jobs:
+  verified-source-drafts-and-method-fidelity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+      OPENAI_API_KEY: ''
+      CUSTOM_LLM_API_KEY: ''
+      CUSTOM_LLM_ENDPOINT: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: python/peps
+          ref: 5595f77d7d9cdddae99d4510b145df2496a9c891
+          path: third_party/python-peps
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: rust-lang/rfcs
+          ref: f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07
+          path: third_party/rust-rfcs
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Run scientific and anti-promotion regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_p07b_operational_p08_fidelity.py' -v
+          python -m unittest discover -s tests -p 'test_p07_public_sources.py' -v
+          python -m unittest discover -s tests -p 'test_independent_case_intake.py' -v
+      - name: Build external-document-anchored operational drafts with empty human forms
+        run: |
+          python -m scripts.p07b_operational_candidate_instrument \
+            --python-peps third_party/python-peps \
+            --rust-rfcs third_party/rust-rfcs \
+            --out runs/p07b-operational-drafts
+      - name: Assess original author-method fidelity without API requests
+        run: |
+          python -m scripts.p08_full_original_knowledge_triage_preflight \
+            --upstream third_party/knowledge-triage \
+            --out runs/p08-full-kt-gate/preflight.json
+      - name: Fail closed on human/gold/model-promotion and original-method equivalence
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('runs/p07b-operational-drafts')
+          m=json.loads((root/'manifest.json').read_text())
+          for name,expected in m['sha256'].items():
+              p=root/name
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==expected,name
+          c=json.loads((root/'candidate_cases_no_gold.json').read_text())
+          p=json.loads((root/'immutable_source_provenance.json').read_text())
+          forms=json.loads((root/'blank_independent_human_review_forms.json').read_text())
+          k=json.loads(Path('runs/p08-full-kt-gate/preflight.json').read_text())
+          assert c['original_external_document_pairs']==6 and c['research_drafted_operational_requests']==6
+          assert p['source_verification_complete'] and not p['human_semantic_review_complete']
+          assert c['genuine_observed_operational_cases']==0 and c['human_qualified_reference_labels']==0
+          assert not c['scientifically_approved'] and not c['holdout_touched']
+          assert all(x['decision_time'] is None and x['adjudication_status']=='UNADJUDICATED'
+                     and not x['real_issuer_hierarchy_validated'] for x in c['cases'])
+          assert all(x['action'] is None for x in forms['adjudications'])
+          assert k['status']=='BLOCKED_FULL_KT_REPLICATION_REQUIREMENTS_NOT_MET'
+          assert not k['full_original_knowledge_triage_reproduction']
+          assert not k['scientifically_approved'] and not k['confirmatory_touched']
+          assert k['new_paid_model_calls']==0 and k['human_adjudications']==0
+          assert k['upstream_sha']=='a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4'
+          print('DOCUMENTARY_SOURCE_VERIFIED; OPERATIVE_HUMAN_GOLD_PENDING; FULL_KT_BLOCKED_BY_FIDELITY')
+          PY
+      - name: Preserve immutable candidate source and fidelity-gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07b-operational-drafts-p08-original-method-gate-${{ github.run_id }}
+          path: |
+            runs/p07b-operational-drafts/
+            runs/p08-full-kt-gate/
+          if-no-files-found: warn
+          retention-days: 90
