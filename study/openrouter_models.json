@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "subject_models": [
+    "openai/gpt-4.1-mini",
+    "google/gemini-2.5-flash",
+    "deepseek/deepseek-chat-v3.1",
+    "qwen/qwen3-32b"
+  ],
+  "judge_model": "anthropic/claude-haiku-4.5",
+  "chunk_sessions": 8,
+  "recent_sessions": 8,
+  "max_calls": 750,
+  "summary_max_tokens": 700,
+  "answer_max_tokens": 300,
+  "judge_max_tokens": 16
+}
