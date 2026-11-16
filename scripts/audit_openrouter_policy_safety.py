@@ -308,7 +308,7 @@ def markdown(a: dict) -> str:
     lines = [
         "# WAMBU-001 | Detached policy-safety development audit",
         "",
-        f"**Historical run status:** \`{a['original_status']}\`.",
+        f"**Historical run status:** `{a['original_status']}`.",
         f"**Scored coverage:** {a['scored_rows']}/{a['expected_rows']} ({a['coverage']:.2%}).",
         f"**Compactions:** {a['compactions']}; **evidence digests matched:** {a['original_evidence_files_verified']}.",
         "**Scientific status:** exploratory development, no confirmatory inference.",
@@ -337,7 +337,7 @@ def markdown(a: dict) -> str:
                                  for ep in result["primary_episode_contrasts"]))
     lines.extend(["", "## Missing provider outcomes (no re-use or imputation)", ""])
     for er in a["errors"]:
-        lines.append(f"- {er['model']}, {er['arm']}: {er['count']} × \`{er['error']}\`")
+        lines.append(f"- {er['model']}, {er['arm']}: {er['count']} × `{er['error']}`")
     lines.extend(["", "## Limitations", ""])
     lines.extend("- " + t for t in a["limitations"])
     lines.append("")

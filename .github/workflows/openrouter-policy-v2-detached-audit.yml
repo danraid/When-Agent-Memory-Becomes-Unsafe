@@ -30,7 +30,7 @@ jobs:
           path: runs/policy-v2-original/
       - name: Independently verify original SHA, simulator, provider IDs, exact paired conditions and guard derivation
         run: |
-          python scripts/audit_openrouter_policy_safety.py \
+          python -m scripts.audit_openrouter_policy_safety \
             --input runs/policy-v2-original \
             --source-root . \
             --out runs/policy-v2-detached-audit
