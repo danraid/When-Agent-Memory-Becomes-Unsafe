@@ -1,0 +1,61 @@
+name: Article 1 | P07b zero-call detached AI panel evidence audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07b-ai-panel-detached-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ORIGINAL_RUN: '43931842335'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run all offline scientific boundary tests
+        run: python -m unittest discover -s tests -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ env.ORIGINAL_RUN }}
+          name: p07b-real-source-and-original-kt-components-${{ env.ORIGINAL_RUN }}
+          path: runs/p07b-original-source/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ env.ORIGINAL_RUN }}
+          name: p07b-ai-simulated-external-roles-${{ env.ORIGINAL_RUN }}
+          path: runs/p07b-original-panel/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reconstruct original votes and validate exact fenced JSON (no API)
+        run: |
+          python -m scripts.p07b_detached_panel_audit \
+            --source runs/p07b-original-source/p07b-source/ \
+            --panel runs/p07b-original-panel/ \
+            --out runs/p07b-detached-panel-audit/
+      - name: Require no fake human reviewers, no holdout and no science promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/p07b-detached-panel-audit/normalisation_audit.json').read_text())
+          assert r['expected_votes']==36 and r['valid_after_envelope_recovery']==36
+          assert r['new_paid_calls']==0 and r['human_adjudicators']==0
+          assert not r['scientifically_approved'] and not r['protected_holdout_touched']
+          assert r['original_run_status_preserved']=='AI_REVIEW_INCOMPLETE_ERRORS_RETAINED'
+          print('P07B_AI_ONLY_DETACHED_RECOVERY_PASS')
+          PY
+      - name: Preserve posthoc read-only audit, including dissent
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07b-ai-detached-json-audit-${{ github.run_id }}
+          path: runs/p07b-detached-panel-audit/
+          if-no-files-found: warn
+          retention-days: 90
