@@ -1,5 +1,9 @@
 name: Article 1 | OpenRouter LongMemEval exploratory comparison
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/openrouter-longmemeval.yml'
   workflow_dispatch:
     inputs:
       limit:
