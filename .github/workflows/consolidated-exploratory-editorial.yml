@@ -1,0 +1,36 @@
+name: Article 1 | consolidated exploratory paper editorial integrity
+on:
+  pull_request:
+    paths:
+      - 'manuscript/CONSOLIDATED_EXPLORATORY_REPORT_2026-11-16_EN_GB.md'
+      - 'editorial/CONSOLIDATED_EXPLORATORY_CLAIM_LEDGER_2026-11-16.json'
+      - 'scripts/check_consolidated_exploratory_report.py'
+      - 'tests/test_consolidated_exploratory_report.py'
+      - '.github/workflows/consolidated-exploratory-editorial.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/consolidated-exploratory-editorial.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-linked-editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify complete bounded paper and original-source claim mapping
+        run: |
+          python -m unittest discover -s tests -p 'test_consolidated_exploratory_report.py' -v
+          python -m scripts.check_consolidated_exploratory_report --out runs/consolidated-editorial-audit.json
+      - name: Preserve editorial only, no scientific approval or external action
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-consolidated-editorial-integrity-${{ github.run_id }}
+          path: runs/consolidated-editorial-audit.json
+          retention-days: 90
+          if-no-files-found: error
