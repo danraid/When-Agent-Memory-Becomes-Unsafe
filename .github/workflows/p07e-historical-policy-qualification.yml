@@ -1,0 +1,80 @@
+name: Article 1 | P07e historical policy qualification (offline AI, verified public Git)
+on:
+  pull_request:
+    paths:
+      - 'protocol/P07E_HISTORICAL_SCOPE_TRIAGE.json'
+      - 'scripts/p07e_qualify_historical_policy_cases.py'
+      - 'tests/test_p07e_historical_policy_qualification.py'
+      - '.github/workflows/p07e-historical-policy-qualification.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07e-historical-policy-qualification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p07e-event-time-policy-qualification
+  cancel-in-progress: false
+jobs:
+  event-time-source-qualification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test scientific no-future-rule and provenance invariants
+        run: python -m unittest discover -s tests -p 'test_p07e_*.py' -v
+      - name: Retrieve original P07d source artifact, never rerun original provider calls
+        uses: actions/download-artifact@v4
+        with:
+          run-id: '43977945404'
+          name: p07d-original-source-provenance-43977945404
+          path: runs/p07d-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reconstruct exact public normative document commits at each PR event
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.p07e_qualify_historical_policy_cases \
+            --source runs/p07d-original/ \
+            --matrix protocol/P07E_HISTORICAL_SCOPE_TRIAGE.json \
+            --original-config protocol/P07D_REAL_CODE_CHANGE_MATRIX.json \
+            --out runs/p07e-qualification/
+      - name: Assert no retrospective policy authority promotion or human gold
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('runs/p07e-qualification')
+          report=(root/'historical_qualification.json').read_bytes()
+          manifest=json.loads((root/'manifest.json').read_text())
+          assert hashlib.sha256(report).hexdigest()==manifest['report_sha256']
+          r=json.loads(report)
+          assert r['checked_cases']==8
+          assert r['human_policy_gold_labels']==0 and r['independent_human_experts']==0
+          assert not r['scientifically_approved'] and not r['private_holdout_touched']
+          assert all(x['correct_authorisation_action'] is None and
+                     not x['historical_normative_adoption_proven'] and
+                     not x['confirmatory_eligible'] for x in r['case_reports'])
+          assert r['documentary_feasible_cases']+r['current_policy_pairing_not_eligible']==8
+          invalid={x['case_id'] for x in r['case_reports']
+                   if x['candidate_for_future_human_source_review'] is False}
+          assert {'P07D-CODE-005','P07D-CODE-006','P07D-CODE-007'} <= invalid
+          print('P07E_SOURCE_DATED_EVIDENCE_COMPLETE_NOT_HUMAN_POLICY_GOLD')
+          PY
+      - name: Preserve documentary qualification and original-source identities
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07e-historical-policy-qualification-${{ github.run_id }}
+          path: runs/p07e-qualification/
+          retention-days: 90
+          if-no-files-found: warn
