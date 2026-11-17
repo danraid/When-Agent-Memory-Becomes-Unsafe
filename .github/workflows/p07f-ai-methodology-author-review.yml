@@ -1,0 +1,153 @@
+name: Article 1 | P07f AI methodology specialists with final author signoff
+on:
+  pull_request:
+    paths:
+      - 'protocol/P07F_*'
+      - 'scripts/p07f_*'
+      - 'tests/test_p07f_*'
+      - '.github/workflows/p07f-ai-methodology-author-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07f-ai-methodology-author-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p07f-ai-only-methods-one-paid-run
+  cancel-in-progress: false
+jobs:
+  offline-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test independence, strict schema and content-specific author approval boundary
+        run: python -m unittest discover -s tests -p 'test_p07f_*.py' -v
+  prepare-blind-evidence:
+    if: github.event_name != 'pull_request'
+    needs: offline-gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '43977945404'
+          name: p07d-original-source-provenance-43977945404
+          path: runs/p07d-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44072027652'
+          name: p07e-historical-policy-qualification-44072027652
+          path: runs/p07e-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build eight outcome-blind case packets from hash-verified originals
+        run: |
+          python -m scripts.p07f_ai_methodology_experts --prepare \
+            --source runs/p07d-original/ --qualification runs/p07e-original/ \
+            --config protocol/P07F_AI_EXPERIMENTAL_PANEL_V1.json \
+            --out runs/p07f-prepared/
+      - name: Prohibit source outcomes and old analyst eligibility tags in model-visible JSON
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('runs/p07f-prepared/blind_model_inputs.json')
+          data=json.loads(p.read_text())
+          m=json.loads(Path('runs/p07f-prepared/manifest.json').read_text())
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256'][p.name]
+          assert len(data['cases'])==8 and data['author_approval']=='PENDING'
+          for c in data['cases']:
+              for forbidden in ('observed_disposition','documentary_qualification',
+                                'source_topic_tag','gold_action','analyst_scope_tag',
+                                'correct_authorisation_action'):
+                  assert forbidden not in c
+              assert c['effective_normative_authority_not_verified']
+          print('EIGHT_BLIND_DOCUMENTARY_CASES_PREPARED; NO_HUMAN_GOLD')
+          PY
+      - name: Upload only blind reviewer inputs, not evaluator outcome and analyst labels
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07f-blind-only-${{ github.run_id }}
+          path: runs/p07f-prepared/
+          retention-days: 90
+          if-no-files-found: error
+  ai-specialist-panel:
+    if: github.event_name != 'pull_request'
+    needs: prepare-blind-evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07f-blind-only-${{ github.run_id }}
+          path: runs/p07f-prepared/
+      - name: Verify no evaluator sidecars and no empty secret
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          assert os.getenv('OPENROUTER_API_KEY'),'NO_OPENROUTER_KEY'
+          d=Path('runs/p07f-prepared')
+          assert set(p.name for p in d.iterdir())=={'blind_model_inputs.json','manifest.json'}
+          data=json.loads((d/'blind_model_inputs.json').read_text())
+          assert len(data['cases'])==8
+          assert all(not x['independent_human_reference_action_available'] for x in data['cases'])
+          print('AI_ONLY_EXPERIMENTAL_METHODS_NO_HUMAN_REFERENCE')
+          PY
+      - name: Perform 24 independent first-round AI role reviews and up to 8 adversarial syntheses
+        run: |
+          python -m scripts.p07f_ai_methodology_experts --execute \
+            --prepared runs/p07f-prepared/ \
+            --config protocol/P07F_AI_EXPERIMENTAL_PANEL_V1.json \
+            --out runs/p07f-original-ai-panel/
+      - name: Preserve all original valid and invalid model outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07f-original-ai-only-methods-${{ github.run_id }}
+          path: runs/p07f-original-ai-panel/
+          retention-days: 90
+          if-no-files-found: warn
+  detached-ai-only-evidence-audit:
+    if: always() && github.event_name != 'pull_request' && needs.ai-specialist-panel.result == 'success'
+    needs: ai-specialist-panel
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07f-original-ai-only-methods-${{ github.run_id }}
+          path: runs/p07f-evidence/
+      - name: Independent zero-API replay of original reviewers and strict author gate
+        run: |
+          python -m scripts.p07f_detached_ai_review_audit \
+            --review-dir runs/p07f-evidence/ \
+            --out runs/p07f-detached-audit/
+      - name: Preserve zero-call independent audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07f-detached-ai-only-audit-${{ github.run_id }}
+          path: runs/p07f-detached-audit/
+          retention-days: 90
+          if-no-files-found: warn

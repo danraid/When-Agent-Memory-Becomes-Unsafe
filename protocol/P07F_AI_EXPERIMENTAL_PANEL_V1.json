@@ -1,0 +1,54 @@
+{
+  "schema": "WAMBU-P07F-AI-ONLY-METHODOLOGY-PANEL-V1",
+  "dated": "2026-11-17",
+  "track": "AI_ONLY_EXPLORATORY_AUTHOR_SIGNOFF",
+  "amendment": "protocol/P07F_AI_REVIEW_AUTHOR_SIGNOFF_AMENDMENT_2026-11-17.md",
+  "source": {
+    "original_p07d_run_id": 43977945404,
+    "original_p07d_source_artifact_id": 14281751027,
+    "original_p07e_run_id": 44072027652,
+    "original_p07e_qualification_artifact_id": 14323695846
+  },
+  "split": "public_development_only",
+  "source_case_count": 8,
+  "expected_first_round_reviews": 24,
+  "expected_ai_synthesis": 8,
+  "max_paid_call_reservations": 34,
+  "blinded_roles": {
+    "causal_design": "openai/gpt-4.1-mini",
+    "temporal_authority": "google/gemini-2.5-flash",
+    "benchmark_validity": "anthropic/claude-haiku-4.5"
+  },
+  "synthesis_role": {
+    "name": "adversarial_synthesis",
+    "model": "openai/gpt-4.1-mini",
+    "role_independence": false,
+    "may_see_only_current_case_ai_outputs": true
+  },
+  "case_selection": "all_eight_including_previous_source_pairing_exclusions_avoid_selection_bias",
+  "allowed_decisions": [
+    "include_development_probe",
+    "exclude_current_policy_pairing",
+    "needs_additional_source"
+  ],
+  "risk_flags": [
+    "policy_effectivity_unknown",
+    "postdecision_code_snapshot",
+    "missing_contemporaneous_rule",
+    "scope_mismatch",
+    "outcome_leakage_risk",
+    "non_agentic_task",
+    "insufficient_events",
+    "none"
+  ],
+  "outcome_labels_not_visible_to_agents": true,
+  "other_agent_reviews_not_visible_to_first_round": true,
+  "human_adjudicators": 0,
+  "author_final_protocol_approval": "PENDING_EXPLICIT_REVIEW_OF_SPECIFIC_ARTIFACT",
+  "author_final_manuscript_approval": "PENDING_EXPLICIT_REVIEW_OF_SPECIFIC_ARTIFACT",
+  "journal_external_peer_review_not_simulated": true,
+  "actual_human_ground_truth_claims_permitted": false,
+  "full_original_knowledge_triage_reproduction": false,
+  "confirmatory_holdout_touched": false,
+  "no_autopromotion_to_scientific_approval": true
+}
