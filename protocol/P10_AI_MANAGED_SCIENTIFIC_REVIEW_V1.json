@@ -1,0 +1,79 @@
+{
+  "schema": "WAMBU-P10-AI-MANAGED-INDEPENDENT-ADVISORY-2026-11-16-V1",
+  "study": "When Agent Memory Becomes Unsafe",
+  "classification": "INDEPENDENT_PROVIDER_AI_ADVISORY_REVIEW_OF_EXISTING_EXPLORATORY_EVIDENCE_NOT_NEW_CONFIRMATORY_EXPERIMENT",
+  "manuscript": "manuscript/CONSOLIDATED_EXPLORATORY_REPORT_2026-11-16_EN_GB.md",
+  "claim_ledger": "editorial/CONSOLIDATED_EXPLORATORY_CLAIM_LEDGER_2026-11-16.json",
+  "scientific_contract": "docs/SCIENTIFIC_CONTRACT.md",
+  "novelty_screen": "literature/FULLTEXT_METHOD_SCREEN_2026-11-14.md",
+  "reviewers": [
+    {
+      "id": "statistics_and_estimand",
+      "model": "openai/gpt-4.1-mini",
+      "claims": [
+        "V2-CEILING",
+        "V3-TEMPORAL-CEILING",
+        "OPENROUTER-V2-MIXED",
+        "OPENROUTER-V1-PARTIAL"
+      ],
+      "focus": "Statistical independence, negative claims, missingness, paired episode estimates, ceiling effects and power. Challenge equivalence inferences."
+    },
+    {
+      "id": "benchmark_and_comparator",
+      "model": "google/gemini-2.5-flash",
+      "claims": [
+        "LONGMEMEVAL-S-SIX",
+        "KT-UPSTREAM-ORIGINAL-COMPONENT",
+        "OPENROUTER-V2-MIXED"
+      ],
+      "focus": "Fidelity of official versus adapted Knowledge Triage, external LongMemEval scope, model and information fairness."
+    },
+    {
+      "id": "operational_provenance",
+      "model": "deepseek/deepseek-chat-v3.1",
+      "claims": [
+        "P07B-LINKS-AI-ROLEPLAY",
+        "P07C-PUBLIC-PR",
+        "P07D-REAL-CODE"
+      ],
+      "focus": "Real-source time, issuer, effective policy, actual code PRs, blind reviewer limitations and human ground truth absence."
+    },
+    {
+      "id": "adversarial_novelty_and_ethics",
+      "model": "anthropic/claude-haiku-4.5",
+      "claims": [
+        "V2-CEILING",
+        "KT-UPSTREAM-ORIGINAL-COMPONENT",
+        "P07C-PUBLIC-PR"
+      ],
+      "focus": "Be adversarial about novelty compared with Compaction Cliff, Supersede, ACON and LongMemEval, public contributor privacy, claims and venue suitability. An abstract/metadata screen is not independent method-level novelty clearance."
+    }
+  ],
+  "chair": {
+    "id": "ai_panel_chair",
+    "model": "qwen/qwen3-next-80b-a3b-instruct",
+    "focus": "Summarise four independent AI reviewer opinions without inventing human expertise. Preserve minority objections, source gaps and null results. Give only an AI advisory disposition; the author alone decides the final publication path."
+  },
+  "max_source_chars_per_claim": 8500,
+  "max_novelty_chars": 9000,
+  "max_manuscript_chars": 50000,
+  "max_calls": 5,
+  "review_max_tokens": 2200,
+  "chair_max_tokens": 1500,
+  "no_retry_uncertain_provider_calls": true,
+  "original_outputs_immutable": true,
+  "no_human_identity_claims": true,
+  "author_final_decision": null,
+  "independent_human_reviewers": 0,
+  "confirmatory_holdout_touched": false,
+  "author_preregistration_frozen": false,
+  "confirmatory_experiment_authorised": false,
+  "journal_submission_authorised": false,
+  "forbid_status_promotion": [
+    "SCIENTIFICALLY_APPROVED",
+    "HUMAN_PEER_REVIEWED",
+    "CONFIRMATORY_VALIDATED",
+    "ORIGINAL_KNOWLEDGE_TRIAGE_FULLY_REPLICATED",
+    "JOURNAL_SUBMITTED"
+  ]
+}
