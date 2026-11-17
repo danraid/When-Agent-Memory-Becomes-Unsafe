@@ -4,6 +4,8 @@ on:
     paths:
       - 'scripts/r01_replay_case001_authority.py'
       - 'tests/test_r01_live_source_replay.py'
+      - 'scripts/r01_replay_case002_008_chronology.py'
+      - 'tests/test_r01_issue_pr_chronology.py'
       - '.github/workflows/r01-r02-primary-evidence.yml'
   workflow_dispatch:
 permissions:
@@ -31,8 +33,12 @@ jobs:
           persist-credentials: false
       - name: Test time and authority checks offline
         run: python -m unittest discover -s tests -p 'test_r01_live_source_replay.py' -v
+      - name: Test additional original issue and PR timelines
+        run: python -m unittest discover -s tests -p 'test_r01_issue_pr_chronology.py' -v
       - name: Verify real public steering-council decision from GitHub primary endpoints
         run: python -m scripts.r01_replay_case001_authority --out runs/r01-r02/real_authority_case001.json
+      - name: Retrieve more R01 primary events without auto-adjudication
+        run: python -m scripts.r01_replay_case002_008_chronology --out runs/r01-r02/public_issue_pr_002_008.json
       - name: Recheck exact original Knowledge Triage fidelity preflight without provider calls
         run: |
           python -m scripts.p08_full_original_knowledge_triage_preflight --upstream third_party/knowledge-triage --out runs/r01-r02/original_kt_preflight.json
@@ -41,7 +47,9 @@ jobs:
           from pathlib import Path
           a=json.loads(Path('runs/r01-r02/real_authority_case001.json').read_text())
           b=json.loads(Path('runs/r01-r02/original_kt_preflight.json').read_text())
+          c=json.loads(Path('runs/r01-r02/public_issue_pr_002_008.json').read_text())
           assert a['passed'] and a['does_not_establish_agent_action_gold']
+          assert c['real_event_pairs']==2 and c['qualifying_new_gold_actions']==0
           assert b['upstream_sha']=='a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4'
           assert not b['full_original_knowledge_triage_reproduction']
           assert b['new_paid_model_calls']==0 and b['confirmatory_touched'] is False
