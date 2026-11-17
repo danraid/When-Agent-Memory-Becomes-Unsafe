@@ -58,7 +58,7 @@ def verify():
             and flags["independent_human_policy_adjudications"]==0,
         "explicit_status": all(t in text for t in (
             "exploratory","non-confirmatory","zero independent human",
-            "not a normative","not a complete","holdout")),
+            "not policy correctness","not the complete","holdout")),
         "claims_have_source_paths":all(
             (ROOT/c["evidence"]).is_file() and
             ".." not in pathlib.PurePosixPath(c["evidence"]).parts
