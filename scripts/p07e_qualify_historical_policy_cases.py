@@ -46,10 +46,10 @@ def history(repo:str,path:str,at:str,token:str="",fetch=None):
     strict(isinstance(commits,list) and len(commits)<=1,
            "INVALID_HISTORICAL_COMMIT_RESPONSE")
     if not commits:
-        return {"available":False,"prior_commit":None,
-                "source_sha256":None,"source_text":None,
-                "evidence":"NO_DOCUMENT_COMMIT_FOUND_BY_DATE"},
-               {"commits_api_sha256":digest(raw),"raw_git_text_sha256":None}
+        return ({"available":False,"prior_commit":None,
+                 "source_sha256":None,"source_text":None,
+                 "evidence":"NO_DOCUMENT_COMMIT_FOUND_BY_DATE"},
+                {"commits_api_sha256":digest(raw),"raw_git_text_sha256":None})
     commit=commits[0]
     sha=commit["sha"]
     committed=commit["commit"]["committer"]["date"]
