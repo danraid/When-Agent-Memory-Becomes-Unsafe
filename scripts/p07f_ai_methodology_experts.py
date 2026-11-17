@@ -233,11 +233,24 @@ def parse_synthesis(raw):
     return obj,normalized
 
 
-def execute(source,qualification,config,out,key,transport=None):
+def execute(source,qualification,config,out,key,transport=None,prepared=None):
     require(bool(key),"OPENROUTER_KEY_NOT_CONFIGURED")
     require(not out.exists() or not any(out.iterdir()),
             "CANNOT_REPLACE_ORIGINAL_AI_EVIDENCE")
-    packet,cfg=assemble(source,qualification,config)
+    cfg=json.loads(config.read_text())
+    if prepared is not None:
+        verified=manifest(prepared)
+        packet=json.loads((prepared/'blind_model_inputs.json').read_text())
+        require(packet.get('schema')=='WAMBU-P07F-BLIND-AI-METHODOLOGY-INPUT-V1'
+                and packet.get('model_input_case_count')==8
+                and len(packet.get('cases',[]))==8 and
+                packet.get('author_approval')=='PENDING' and
+                packet.get('confirmatory_touched') is False,
+                'INVALID_PREPARED_CASEBOOK')
+        require(cfg['schema']=='WAMBU-P07F-AI-ONLY-METHODOLOGY-PANEL-V1',
+                'UNDECLARED_AI_REVIEW_MATRIX')
+    else:
+        packet,cfg=assemble(source,qualification,config)
     out.mkdir(parents=True,exist_ok=True)
     save(out/"blind_model_inputs.json",packet)
     save(out/"metadata.json",{
@@ -327,16 +340,33 @@ def execute(source,qualification,config,out,key,transport=None):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--source",required=True,type=Path)
-    p.add_argument("--qualification",required=True,type=Path)
+    p.add_argument("--source",type=Path)
+    p.add_argument("--qualification",type=Path)
     p.add_argument("--config",type=Path,default=Path("protocol/P07F_AI_EXPERIMENTAL_PANEL_V1.json"))
     p.add_argument("--out",required=True,type=Path)
     p.add_argument("--execute",action="store_true")
+    p.add_argument("--prepare",action="store_true")
+    p.add_argument("--prepared",type=Path)
     a=p.parse_args()
-    if not a.execute:
-        p.error("Paid model calls require --execute")
+    if a.prepare and not a.execute:
+        require(a.source is not None and a.qualification is not None,
+                "PREPARATION_REQUIRES_TWO_ORIGINAL_ARTIFACTS")
+        require(not a.out.exists() or not any(a.out.iterdir()),
+                "NO_OVERWRITE_PREPARED_CASES")
+        packet,_=assemble(a.source,a.qualification,a.config)
+        a.out.mkdir(parents=True,exist_ok=True)
+        save(a.out/"blind_model_inputs.json",packet)
+        save(a.out/"manifest.json",{
+            "sha256":{"blind_model_inputs.json":digest((a.out/"blind_model_inputs.json").read_bytes())},
+            "original_evaluator_outcomes_not_present":True,
+            "author_approval":"PENDING","human_gold":0})
+        print(json.dumps({"prepared_blind_cases":8,"model_calls":0,"author_approval":"PENDING"}))
+        return 0
+    if not a.execute or (a.prepared is None and (a.source is None or a.qualification is None)):
+        p.error("Paid calls require --execute and --prepared (or both original evidence paths)")
     result=execute(a.source,a.qualification,a.config,a.out,
-        os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENROUTER") or "")
+        os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENROUTER") or "",
+        prepared=a.prepared)
     print(json.dumps({k:result[k] for k in (
         "status","valid_first_round","invalid_first_round",
         "valid_syntheses","author_approval","human_adjudicators")},indent=2))
