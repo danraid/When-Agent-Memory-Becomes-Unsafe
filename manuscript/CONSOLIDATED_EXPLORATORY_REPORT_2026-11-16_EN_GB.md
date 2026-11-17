@@ -52,7 +52,7 @@ A separate LongMemEval-S cleaned **six-question** development sample was used as
 
 At upstream revision `a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4` of [1]'s released code, original `KnowledgeBase`, regex `classify_instruction` and `type_compact` functions were executed on 327 authors' public sample files under relative estimated-token budgets of 25%, 50%, 75% and 100%. The resulting 1,308 file-budget trials recorded `COMPACTION_UNSAFE` rather than counting infeasible outputs as safe compression.
 
-Additional externally sourced PEP/RFC excerpt tests ran the original TypeCompact, TypeDecompose and TypeRetrieve operator functions at budgets 16, 32 and 64 under the native regex classifier. Relevance and topic-scope callbacks used by TypeRetrieve were WAMBU-created adapters, not the paper's published evaluation stack. The original embedding classifier, LLM adjudication cascade, SafetyMargin and full downstream benchmarks were **not** reproduced. Consequently these are source-faithful component tests, not an end-to-end methods replication.
+Additional externally sourced PEP/RFC excerpt tests ran the original TypeCompact, TypeDecompose and TypeRetrieve operator functions at budgets 16, 32 and 64 under the native regex classifier. Relevance and topic-scope callbacks used by TypeRetrieve were WAMBU-created adapters, not the paper's published evaluation stack. The original embedding classifier, LLM adjudication cascade, SafetyMargin and full downstream benchmarks were **not** reproduced. This component run is not the complete Knowledge Triage framework. Consequently these are source-faithful component tests, not an end-to-end methods replication.
 
 ### 3.5. Public document provenance, governance outcomes and code diffs
 
@@ -95,7 +95,7 @@ The episode-level raw unsafe-approval contrast between recursive summary and led
 | Authorised-policy ledger | 72 | 0 | 0 |
 | Derived guard | 72 | 0 | 0 |
 
-All 20 recent-window errors occurred in controls. Every system correctly handled all 16 explicit revocation and 16 newly effective restriction probes. Thus, the available probe family was **non-discriminative** for the temporal mechanism under test. These two development studies were not combined into a common significance analysis.
+The recent-window arm achieved 52/72 correct responses; all 20 of its errors occurred in controls. Every system correctly handled all 16 explicit revocation and 16 newly effective restriction probes. Thus, the available probe family was **non-discriminative** for the temporal mechanism under test. These two development studies were not combined into a common significance analysis.
 
 ### 4.2. Multi-model policy-safety pilot
 
