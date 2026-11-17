@@ -1,0 +1,60 @@
+{
+  "schema": "WAMBU-MAJOR-REVISION-EVIDENCE-V1",
+  "source_commit": "c84f7a07e49878a4081d2e0b616ff1c50d011f3a",
+  "author_decision": "MAJOR_REVISIONS_REQUESTED",
+  "author_final_approval": false,
+  "confirmatory_protocol_freeze_authorised": false,
+  "confirmatory_holdout_access_authorised": false,
+  "external_submission_authorised": false,
+  "scientific_scope": "EXPLORATORY_ONLY",
+  "ai_panel": {
+    "first_round": 24,
+    "strict_valid": 22,
+    "valid_syntheses": 6,
+    "case_count": 8,
+    "human_adjudications": 0,
+    "full_knowledge_triage_reproduced": false
+  },
+  "revisions": {
+    "R01": {
+      "state": "BLOCKED",
+      "evidence": "docs/P07F_V2_AI_BOARD_AUTHOR_REVIEW_PACKET_2026-11-17.md",
+      "reason": "No independent agent-action policy gold; six syntheses request further contemporaneous authority sources"
+    },
+    "R02": {
+      "state": "PARTIAL",
+      "evidence": "protocol/KNOWLEDGE_TRIAGE_REPLICATION_REQUIREMENTS.md",
+      "reason": "Pinned original component only, not complete published baseline"
+    },
+    "R03": {
+      "state": "OPEN",
+      "evidence": "manuscript/SUBMISSION_CANDIDATE_EXPLORATORY_EN_GB.md",
+      "reason": "Current-policy ledger receives privileged information; no matched-information contrast executed"
+    },
+    "R04": {
+      "state": "OPEN",
+      "evidence": "manuscript/SUBMISSION_CANDIDATE_EXPLORATORY_EN_GB.md",
+      "reason": "Temporal probes saturated, episode numbers 8 and 4; prospective power not justified"
+    },
+    "R05": {
+      "state": "PARTIAL",
+      "evidence": "docs/P07F_V2_AI_BOARD_AUTHOR_REVIEW_PACKET_2026-11-17.md",
+      "reason": "Deterministic replay audits exist, but 2 first-round and 2 syntheses incomplete; P10 votes invalid"
+    },
+    "R06": {
+      "state": "PARTIAL",
+      "evidence": "docs/P07F_V2_AI_BOARD_AUTHOR_REVIEW_PACKET_2026-11-17.md",
+      "reason": "Case histories verified partially; contemporaneous governing authority and exception trace missing"
+    },
+    "R07": {
+      "state": "OPEN",
+      "evidence": "protocol/KNOWLEDGE_TRIAGE_REPLICATION_REQUIREMENTS.md",
+      "reason": "Overlap remains, no established new superiority result"
+    },
+    "R08": {
+      "state": "OPEN",
+      "evidence": "docs/INDEXED_JOURNAL_SUBMISSION_AUDIT_2026-11-14.md",
+      "reason": "Licences, disclosures and anonymous supplement require verification"
+    }
+  }
+}
