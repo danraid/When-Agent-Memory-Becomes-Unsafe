@@ -1,0 +1,32 @@
+{
+  "schema": "WAMBU-P07F-AI-ONLY-METHODOLOGY-PANEL-V1",
+  "version": "2.0.0",
+  "amendment": "P07F-V2_SOURCE_ID_EVIDENCE_CONTRACT_PROSPECTIVE_EXPLORATORY",
+  "replaces_for_future_runs_only": "github_actions:44076185311",
+  "historical_run_relabeling_forbidden": true,
+  "source": {
+    "original_p07d_source_artifact_id": 14281751027,
+    "original_p07e_qualification_artifact_id": 14323695846
+  },
+  "source_case_count": 8,
+  "expected_first_round_reviews": 24,
+  "expected_ai_synthesis": 8,
+  "max_paid_call_reservations": 34,
+  "blinded_roles": {
+    "causal_design": "openai/gpt-4.1-mini",
+    "temporal_authority": "google/gemini-2.5-flash",
+    "benchmark_validity": "anthropic/claude-haiku-4.5"
+  },
+  "synthesis_role": {
+    "name": "adversarial_synthesis",
+    "model": "openai/gpt-4.1-mini",
+    "role_independence": false
+  },
+  "evidence_contract": "AI_SELECTS_EXISTING_EVIDENCE_ID_DETERMINISTIC_SOURCE_LOOKUP_QUOTES",
+  "strict_unmodified_ai_json": true,
+  "no_retries_or_repairs_of_previous_run": true,
+  "author_approval": "PENDING_EXPLICIT_CONTENT_SPECIFIC_DECISION",
+  "human_adjudicators": 0,
+  "scientifically_approved": false,
+  "confirmatory_holdout_touched": false
+}

@@ -1,0 +1,123 @@
+name: Article 1 | P07f v2 source-ID expert AI review with author signoff
+on:
+  pull_request:
+    paths:
+      - 'protocol/P07F_V2_SOURCE_ID_EXPERIMENTAL_PANEL.json'
+      - 'scripts/p07f_v2_*'
+      - 'tests/test_p07f_v2_*'
+      - '.github/workflows/p07f-v2-source-id-experts.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07f-v2-source-id-experts.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p07f-v2-new-exploratory-paid-run
+  cancel-in-progress: false
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test evidence pointer and original-run preservation contracts
+        run: python -m unittest discover -s tests -p 'test_p07f_v2_*.py' -v
+  ai-v2-role-panel:
+    if: github.event_name != 'pull_request'
+    needs: schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44076185311'
+          name: p07f-blind-only-44076185311
+          path: runs/p07f-blind-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Assert outcome and old analyst labels absent from blind input artifact
+        run: |
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          assert os.environ.get('OPENROUTER_API_KEY'),'OPENROUTER_KEY_UNAVAILABLE'
+          root=Path('runs/p07f-blind-original')
+          assert set(p.name for p in root.iterdir())=={'blind_model_inputs.json','manifest.json'}
+          m=json.loads((root/'manifest.json').read_text())
+          p=root/'blind_model_inputs.json'
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256'][p.name]
+          c=json.loads(p.read_text())
+          assert len(c['cases'])==8
+          assert c['author_approval']=='PENDING'
+          for item in c['cases']:
+              assert 'observed_disposition' not in item
+              assert 'documentary_qualification' not in item
+              assert 'source_topic_tag' not in item
+          print('ORIGINAL_BLIND_DATA_IDENTICAL_NO_EVALUATOR_SIDE_CAR')
+          PY
+      - name: Distinct paid exploration, 24 AI method reviews and at most 8 syntheses
+        run: |
+          python -m scripts.p07f_v2_evidence_id_panel --execute \
+            --prepared runs/p07f-blind-original/ \
+            --config protocol/P07F_V2_SOURCE_ID_EXPERIMENTAL_PANEL.json \
+            --out runs/p07f-v2-original-outputs/
+      - name: Preserve original paid provider outputs, including nonvalid cases
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07f-v2-original-source-id-reviews-${{ github.run_id }}
+          path: runs/p07f-v2-original-outputs/
+          if-no-files-found: warn
+          retention-days: 90
+  audit-v2:
+    if: always() && github.event_name != 'pull_request' && needs.ai-v2-role-panel.result == 'success'
+    needs: ai-v2-role-panel
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p07f-v2-original-source-id-reviews-${{ github.run_id }}
+          path: runs/p07f-v2-evidence/
+      - name: Independently replay every original response and deterministic source quote
+        run: |
+          python -m scripts.p07f_v2_detached_audit \
+            --review-dir runs/p07f-v2-evidence/ \
+            --out runs/p07f-v2-audit/
+      - name: Ensure author approval remains pending and human gold zero
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/p07f-v2-audit/audit.json').read_text())
+          assert a['first_round_expected']==24
+          assert a['author_approval']=='PENDING'
+          assert a['genuine_human_policy_gold']==0
+          assert a['qualified_human_adjudicators']==0
+          assert not a['scientifically_approved'] and not a['holdout_touched']
+          assert a['new_paid_calls']==0 and a['original_v1_run_44076185311_kept_immutable']
+          print('NEW_V2_AI_ONLY_REVIEW_AUDITED_AUTHOR_APPROVAL_PENDING')
+          PY
+      - name: Archive detached zero-call source-ID v2 audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p07f-v2-detached-source-id-audit-${{ github.run_id }}
+          path: runs/p07f-v2-audit/
+          if-no-files-found: warn
+          retention-days: 90
