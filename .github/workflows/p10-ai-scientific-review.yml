@@ -1,0 +1,86 @@
+name: Article 1 | P10 independent AI science review and author decision record
+on:
+  pull_request:
+    paths:
+      - 'protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json'
+      - 'scripts/p10_ai_scientific_*'
+      - 'tests/test_p10_ai_scientific_panel.py'
+      - '.github/workflows/p10-ai-scientific-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p10-ai-scientific-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p10-scientific-ai-advisory-five-calls
+  cancel-in-progress: false
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Four separate role and decision contracts, offline
+        run: |
+          python -m unittest discover -s tests -p 'test_p10_ai_scientific_panel.py' -v
+          python -m scripts.check_consolidated_exploratory_report
+  ai-only-review:
+    if: github.event_name != 'pull_request'
+    needs: contract-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute exactly four cross-provider blind critics and separate AI chair
+        run: |
+          python -m scripts.p10_ai_scientific_independent_panel \
+            --execute \
+            --config protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json \
+            --out runs/p10-ai-scientific-review-original/
+      - name: Preserve all raw original advisory results and invalid cases
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p10-original-ai-science-panel-${{ github.run_id }}
+          path: runs/p10-ai-scientific-review-original/
+          retention-days: 90
+          if-no-files-found: warn
+  detached-advisory-audit:
+    if: always() && github.event_name != 'pull_request'
+    needs: [contract-tests,ai-only-review]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: p10-original-ai-science-panel-${{ github.run_id }}
+          path: runs/p10-original/
+      - name: Verify exact reviewer identity, original response, case evidence and empty author final decision without API calls
+        run: |
+          python -m scripts.p10_ai_scientific_review_detached_audit \
+            --config protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json \
+            --original runs/p10-original/ \
+            --out runs/p10-detached/
+      - name: Preserve detached evidence report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p10-detached-science-advisory-audit-${{ github.run_id }}
+          path: runs/p10-detached/
+          retention-days: 90
+          if-no-files-found: warn
