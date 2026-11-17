@@ -1,0 +1,83 @@
+{
+  "schema": "WAMBU-P10-OBSERVED-AI-ADVISORY-DECISION-V1",
+  "study_id": "WAMBU-001",
+  "record_date": "2026-11-16",
+  "original_frozen_manuscript": "manuscript/CONSOLIDATED_EXPLORATORY_REPORT_2026-11-16_EN_GB.md",
+  "predeclared_review_protocol": "protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json",
+  "original_git_run": {
+    "run_id": 44009705898,
+    "conclusion": "failure",
+    "artifact_id": 14296356384,
+    "archive_sha256": "aa1d0adb68bee1f1a4b058daed561247f270ef296b6296da8271e9455369befd",
+    "original_metadata_sha256": "23eabe00141e583cb03f4b7563aced5fc8f34a70d4c7ad98cc2694e82beb6326",
+    "original_four_reviews_sha256": "c25f6679f6c29c6a6e08c283b0b484fc55b062b78cc7069322a9b0df23287b5d",
+    "real_original_provider_responses": 4,
+    "strict_valid_reviews": 0,
+    "crash_before_original_chair": true,
+    "failure_by_role": {
+      "statistics_and_estimand": "UNDECLARED_SOURCE_ID",
+      "benchmark_and_comparator": "REVIEW_NOT_SINGLE_JSON",
+      "operational_provenance": "NON_VERBATIM_EVIDENCE",
+      "adversarial_novelty_and_ethics": "REVIEW_NOT_SINGLE_JSON"
+    },
+    "raw_unqualified_recommendation_fields": {
+      "statistics_and_estimand": "support_exploratory_review",
+      "benchmark_and_comparator": "support_exploratory_review",
+      "operational_provenance": "support_exploratory_review",
+      "adversarial_novelty_and_ethics": "reject_scientific_claim"
+    },
+    "the_above_raw_recommendations_are_not_strictly_valid_votes": true
+  },
+  "recovery_git_run": {
+    "run_id": 44010165893,
+    "conclusion": "success",
+    "artifact_id": 14296675901,
+    "archive_sha256": "2b39eb0909c9af536f71d62def3b33c48004111f48680b1ddfa9828de97fe797",
+    "original_four_reviews_reused_exactly": true,
+    "additional_original_reviewer_calls": 0,
+    "one_posthoc_chair_call": true,
+    "chair_response_id": "gen-1794885980-FIQIgIW7bFVXlNRVAas8",
+    "chair_original_response_sha256": "ef28ccd2e0d2c09d6412b2c83afcd06784050a6fe50f1243ac5e232962d08fde",
+    "original_chair_response_contains_provisional_recommendation": "support_exploratory_review",
+    "strict_chair_validation": "CHAIR_SCHEMA_INVALID",
+    "original_field_deviation": "minor_objections instead of predeclared minority_positions",
+    "the_chair_original_response_is_not_a_validated_decision": true
+  },
+  "scientific_assessment": {
+    "panel_completely_valid": false,
+    "independent_ai_providers_invoked": 5,
+    "qualified_human_reviewers": 0,
+    "new_experiment_confirmatory_run": false,
+    "confirmatory_sample_touched": false,
+    "scientific_confirmation_established": false,
+    "full_original_knowledge_triage_replicated": false,
+    "eligible_interpretation": "AI-generated critical commentary supports considering a narrowly framed exploratory report for external scientific critique, conditional on major validity and novelty remediation. It does not support confirmed policy-safety or architectural superiority claims.",
+    "critical_objections": [
+      "Authentic independent human adjudication of policy-correctness absent",
+      "Full original Knowledge Triage method not replicated",
+      "Unequal source information between memory arms",
+      "Temporal synthetic evaluation probes saturated",
+      "Very small independent episode counts and invalid/nonrandom model outputs",
+      "Retrospective GitHub PR histories not proven point-in-time policy actions",
+      "Novelty against Knowledge Triage, Supersede and other prior methods not independently cleared",
+      "Public source contributor privacy, licence and publication declarations not verified"
+    ]
+  },
+  "author_control": {
+    "author_final_verdict": null,
+    "author_final_decision_timestamp": null,
+    "exact_version_approved_by_author": null,
+    "author_signature_or_explicit_approval": null,
+    "author_preregistration_freeze": false,
+    "author_approval_for_private_holdout": false,
+    "author_approval_for_external_journal_submission": false
+  },
+  "status": "AI_ADVISORY_ORIGINAL_STRICT_PARTIAL_POSTHOC_CHAIR_SCHEMA_INVALID_AUTHOR_FINAL_PENDING",
+  "forbidden_claims": [
+    "independent_human_peer_review",
+    "confirmatory_scientific_validation",
+    "author_final_approval",
+    "journal_submission",
+    "journal_acceptance"
+  ]
+}
