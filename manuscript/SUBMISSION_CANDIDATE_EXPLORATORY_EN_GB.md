@@ -1,6 +1,6 @@
 # When Temporal Policy Updates Fail to Discriminate Agent Memories: Exploratory GPT Pilots, Compaction Feasibility and a Synthetic Instrument-Repair Audit
 
-**Submission-candidate manuscript, not yet cleared for journal submission.** The public source repository is author-identifying; do not include its URLs or this file in an anonymous submission without a separate blinded supplement. **Research status:** exploratory, not independently reviewed or confirmed.
+**Author-requested major revision (GitHub issue #50), not cleared for journal submission.** The public source repository is author-identifying; do not include its URLs or this file in an anonymous submission without a separate blinded supplement. **Research status:** exploratory, not independently reviewed or confirmed.
 
 ## Abstract
 
@@ -54,6 +54,16 @@ A separate set of 16 AI-authored policy scenarios was prepared as development-on
 
 Six pinned source/target document pairs from Python PEP and Rust RFC histories were independently verified at original Git commits and blob identities. They were not converted into labelled decision tasks and cannot substitute for independent case authorship or adjudication.
 
+### 3.7. Evidence qualification and AI-review missingness (post-pilot; no new performance claims)
+
+Eight public CPython/Rust code-change cases were subsequently assembled for methodological screening. The P07f v2 AI-only board produced 24 first-round model responses with 22 strict-schema/evidence-linkage valid outputs and six valid same-case adversarial syntheses from eight attempted cases. The two first-round failures comprised invalid JSON and a non-existent case-specific evidence identifier; two cases lacked a valid synthesis. All six valid syntheses requested additional contemporaneous authority or exception sources. These are counts of format and source-linkage validity, **not** independent scientific agreement, action correctness, or policy gold. Roles were simulated by models, not qualified human adjudicators. The original P07f v2 paid workflow ended with a detached-auditor implementation failure; its unchanged provider outputs were subsequently replayed successfully without new inference. The P10 scientific advisory's four strict-invalid initial reviews and schema-invalid chair response are retained as dissenting, nonbinding critique, not approval.
+
+The historical GitHub state of a code-change request (merged or closed) cannot be used as normative authorisation truth. The current corpus does not establish the applicable event-time policy/exception/actor action for every case. Consequently none of the eight cases is admitted to an operational agent-memory-safety accuracy denominator. These later screens were not part of either archived pilot and did not touch the confirmatory holdout.
+
+### 3.8. Matched-information requirement and prospective design boundary
+
+The current-policy ledger, full history, recent window, recursive summary and adapted typed archive are **systems conditions with non-equivalent information access**. Existing descriptive differences cannot identify a memory-compression-specific treatment effect. A future architecture-specific comparison must explicitly audit per-turn authorised source visibility, source revision/effective date, token budgets, identical base model/settings, and evaluator-only outcome isolation before predeclaring any causal estimand. No such matched-information empirical comparison is claimed here. Prospective independent episode counts, uncertainty intervals, missing-data rules, and multiplicity must be fixed before accessing a holdout. Zero differences across eight/four development episodes do not justify equivalence or non-inferiority.
+
 ## 4. Results
 
 ### 4.1. Eight-episode development pilot
@@ -104,7 +114,7 @@ The zero ledger-versus-summary contrast is an observed null finding, not evidenc
 
 The original-source TypeCompact check separately illustrates a feasibility boundary. Constraint preservation may exceed a finite compression budget, and the operator can signal this rather than silently discard protected text. This is a diagnostic of an existing method, not an improvement over it.
 
-The source-provenance checks provide a path towards naturalistic policy-update cases but no adjudicated gold actions. A future discriminative evaluation should distinguish publication time, effective time, issuer authority, supersession scope and revocation, with human adjudicators blinded to model outcomes. The methods must have matched evidence and documented context budgets.
+The source-provenance checks provide a path towards naturalistic policy-update cases but no adjudicated gold actions. A future discriminative evaluation should distinguish publication time, effective time, issuer authority, supersession scope and revocation, with event-time source provenance and independently justified action labels assessed without access to model outcomes. The author has elected to use AI-only specialist simulations during development; these cannot be presented as human adjudication or third-party peer review. The methods must have matched evidence and documented context budgets.
 
 ## 6. Threats to validity
 
@@ -116,7 +126,7 @@ Original experiments and component outputs were archived with immutable workflow
 
 ## 8. Conclusion
 
-Across two small, provenance-audited synthetic development pilots, explicit policy-update probes did not distinguish memory methods, even though a recent-window baseline failed on controls. A separate pinned TypeCompact component sweep identified budget infeasibility in part of the original authors' public sample. A 16-case synthetic instrument was revised for clarity but has not undergone independent adjudication or confirmatory model evaluation. These are limited descriptive and methodological observations, not evidence of a new superior memory architecture. Future work requires independently adjudicated naturalistic cases, source-matched comparators and a prospective statistical design.
+Across two small, provenance-audited synthetic development pilots, explicit policy-update probes did not distinguish memory methods, even though a recent-window baseline failed on controls. A separate pinned TypeCompact component sweep identified budget infeasibility in part of the original authors' public sample. A 16-case synthetic instrument was revised for clarity but has not undergone independent adjudication or confirmatory model evaluation. These are limited descriptive and methodological observations, not evidence of a new superior memory architecture. Future work requires source-qualified naturalistic cases with defensible event-time action labels, source-matched comparators and a prospective statistical design. AI-only specialist role simulations can support screening but cannot independently establish human expert ground truth.
 
 ## References
 
@@ -133,6 +143,10 @@ Across two small, provenance-audited synthetic development pilots, explicit poli
 ## Author and ethics declarations (verification pending)
 
 This work reports synthetic agent tasks and software experiments, not recruitment or intervention with human research participants. Whether a formal exemption statement is required depends on the selected journal and institution. AI assistance was used in drafting, case generation and simulated editorial roleplay; all simulated roles are explicitly non-human. Funding, conflicts of interest, affiliation, author identity and contact, data licensing, repository anonymisation and the journal-specific AI disclosure must be confirmed by the author before submission. No independent human review is claimed.
+
+## Author-directed major revision and outstanding objections
+
+The author requested major corrections on 17 November 2026 (issue #50), without authorising either confirmatory release or external submission. The machine-readable R01–R08 evidence-status ledger records outstanding qualifications on event-time policy labels, faithful comparator replication, information-parity analysis, discriminative power, provider failure/missingness, temporal source provenance, novelty, and editorial disclosures. The R01–R08 ledger is a **repair-tracking artifact**, not independent validation. The manuscript is not an accepted, approved, or confirmatory result, and no automatic AI panel or CI success changes that.
 
 ## Submission disclosure
 
