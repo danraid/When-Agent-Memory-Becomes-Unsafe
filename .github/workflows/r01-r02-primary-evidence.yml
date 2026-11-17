@@ -1,0 +1,57 @@
+name: Article 1 | R01 primary authority and R02 original method runtime preflight
+on:
+  pull_request:
+    paths:
+      - 'scripts/r01_replay_case001_authority.py'
+      - 'tests/test_r01_live_source_replay.py'
+      - '.github/workflows/r01-r02-primary-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-primary-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+      CUSTOM_LLM_API_KEY: ''
+      CUSTOM_LLM_ENDPOINT: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Test time and authority checks offline
+        run: python -m unittest discover -s tests -p 'test_r01_live_source_replay.py' -v
+      - name: Verify real public steering-council decision from GitHub primary endpoints
+        run: python -m scripts.r01_replay_case001_authority --out runs/r01-r02/real_authority_case001.json
+      - name: Recheck exact original Knowledge Triage fidelity preflight without provider calls
+        run: |
+          python -m scripts.p08_full_original_knowledge_triage_preflight --upstream third_party/knowledge-triage --out runs/r01-r02/original_kt_preflight.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r01-r02/real_authority_case001.json').read_text())
+          b=json.loads(Path('runs/r01-r02/original_kt_preflight.json').read_text())
+          assert a['passed'] and a['does_not_establish_agent_action_gold']
+          assert b['upstream_sha']=='a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4'
+          assert not b['full_original_knowledge_triage_reproduction']
+          assert b['new_paid_model_calls']==0 and b['confirmatory_touched'] is False
+          assert not a['external_submission']
+          PY
+      - name: Archive original-source replay and upstream preflight separately from any confirmation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-primary-r02-upstream-${{ github.run_id }}
+          path: runs/r01-r02/
+          if-no-files-found: warn
+          retention-days: 90
