@@ -55,6 +55,18 @@ jobs:
           assert b['new_paid_model_calls']==0 and b['confirmatory_touched'] is False
           assert not a['external_submission']
           PY
+      - name: Execute unmodified original Knowledge Triage operators offline
+        run: |
+          python -m scripts.verify_knowledge_triage_operators --upstream third_party/knowledge-triage --out runs/r01-r02/real_upstream_operators.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r01-r02/real_upstream_operators.json').read_text())
+          assert r['official_modules_unmodified'] is True
+          assert r['typecompact_overflow_status']=='COMPACTION_UNSAFE'
+          assert r['official_classifier_cascade_executed'] is False
+          assert r['holdout_touched'] is False
+          PY
       - name: Archive original-source replay and upstream preflight separately from any confirmation
         if: always()
         uses: actions/upload-artifact@v4
