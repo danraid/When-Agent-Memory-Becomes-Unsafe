@@ -1,0 +1,56 @@
+name: Article 1 | R01 R02 source-bound qualification gates
+on:
+  pull_request:
+    paths:
+      - 'scripts/r01_qualify_public_policy_actions.py'
+      - 'scripts/r02_audit_original_kt_parity.py'
+      - 'tests/test_r01_r02_scientific_gates.py'
+      - 'protocol/P07D_REAL_CODE_CHANGE_MATRIX.json'
+      - 'protocol/P07E_HISTORICAL_SCOPE_TRIAGE.json'
+      - 'protocol/KNOWLEDGE_TRIAGE_REPLICATION_REQUIREMENTS.md'
+      - '.github/workflows/r01-r02-scientific-gates.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scientific-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run source qualification and strict comparator tests
+        run: python -m unittest discover -s tests -p 'test_r01_r02_scientific_gates.py' -v
+      - name: Generate audited offline outputs
+        run: |
+          python -m scripts.r01_qualify_public_policy_actions --out runs/r01-r02/r01.json
+          python -m scripts.r02_audit_original_kt_parity --out runs/r01-r02/r02.json
+      - name: Assert nonpromotion and archived identity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("runs/r01-r02/r01.json").read_text())
+          b=json.loads(Path("runs/r01-r02/r02.json").read_text())
+          assert a["case_count"]==8 and a["qualified_action_gold"]==0
+          assert a["direct_documentary_candidates"]==5
+          assert a["excluded_current_document_pairs"]==3
+          assert not a["protected_holdout_touched"]
+          assert not b["full_original_knowledge_triage_replication"]
+          assert not b["original_cascade_executed"]
+          assert b["new_model_calls"]==0
+          assert not b["external_submission_authorised"]
+          PY
+      - name: Archive bounded R01/R02 scientific limitation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-r02-evidence-${{ github.run_id }}
+          path: runs/r01-r02/
+          if-no-files-found: error
+          retention-days: 90
