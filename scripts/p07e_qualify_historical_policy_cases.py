@@ -60,7 +60,7 @@ def history(repo:str,path:str,at:str,token:str="",fetch=None):
     blob=get_bytes(raw_url,token,fetch)
     text=blob.decode("utf-8")
     strict(len(blob)>100,"HISTORICAL_NORMATIVE_SOURCE_TRUNCATED")
-    return {
+    return ({
         "available":True,"prior_commit":sha,
         "source_sha256":digest(blob),
         "committer_date":committed,
@@ -68,7 +68,7 @@ def history(repo:str,path:str,at:str,token:str="",fetch=None):
         "source_text":text,
         "evidence":"GIT_COMMIT_AND_SOURCE_BYTES_PRIOR_TO_EVENT"},
         {"commits_api_sha256":digest(raw),
-         "raw_git_text_sha256":digest(blob)}
+         "raw_git_text_sha256":digest(blob)})
 
 
 def extract_line(text:str|None, anchor:str):
