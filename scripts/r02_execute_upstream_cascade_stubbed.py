@@ -60,15 +60,15 @@ def run(upstream:Path):
     assert c.decided_by=="encoder" and c.type==K.BELIEF and enc.calls==1 and llm.calls==0
     outcomes["encoder_confident"]={"type":c.type.value,"decided_by":c.decided_by}
     enc=EncoderStub("middle",K);llm=LLMStub("CONSTRAINT")
-    c=CascadeClassifier(encoder=enc,llm_client=llm).predict("Account data was recently updated.")
+    c=CascadeClassifier(encoder=enc,llm_client=llm).predict("A catalog contains a blue widget.")
     assert c.decided_by=="llm" and c.type==K.CONSTRAINT and enc.calls==llm.calls==1
     outcomes["llm_adjudicator_stub"]={"type":c.type.value,"decided_by":c.decided_by}
     enc=EncoderStub("low",K);llm=LLMStub("UNKNOWN_OUTPUT")
-    c=CascadeClassifier(encoder=enc,llm_client=llm).predict("A particular status was recorded.")
+    c=CascadeClassifier(encoder=enc,llm_client=llm).predict("A catalog contains a red widget.")
     assert c.decided_by=="abstain_as_hard" and c.type==K.CONSTRAINT and c.abstained and llm.calls==1
     outcomes["abstain_as_hard"]={"type":c.type.value,"decided_by":c.decided_by}
     enc=EncoderStub("middle",K)
-    c=CascadeClassifier(encoder=enc,llm_client=None,use_llm=False).predict("Account data was recently updated.")
+    c=CascadeClassifier(encoder=enc,llm_client=None,use_llm=False).predict("A catalog contains a blue widget.")
     assert c.decided_by=="encoder" and c.type==K.BELIEF and enc.calls==1
     outcomes["disabled_llm_fallback"]={"type":c.type.value,"decided_by":c.decided_by}
     return {"schema":"WAMBU-R02-ORIGINAL-CASCADE-STUBBED-LOGIC-V1",
