@@ -120,7 +120,7 @@ def interpret(raw:str, packet:list[dict], manuscript:str):
 
 def chair_prompt(manuscript_sha:str, records:list[dict])->str:
     panel=[{"reviewer":r["reviewer_id"],"model":r["requested_model"],
-            "response_id":r.get("response_id"),"parsed_recommendation":r.get("review",{}).get("recommendation"),
+            "response_id":r.get("response_id"),"parsed_recommendation":(r.get("review") or {}).get("recommendation"),
             "valid_review":r.get("review") is not None,
             "full_original_text":r.get("original_response_text"),
             "error":r.get("error")} for r in records]
