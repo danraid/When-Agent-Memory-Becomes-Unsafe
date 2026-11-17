@@ -1,0 +1,78 @@
+{
+  "schema": "WAMBU-P07E-CASE-SCOPE-TRIAGE-V1",
+  "date": "2026-11-17",
+  "classification": "ANALYST_PROPOSED_SCOPE_TAGS_NOT_HUMAN_BLIND_REFERENCE",
+  "original_run": 43977945404,
+  "source_artifact_id": 14281751027,
+  "original_run_status": "FAILED_AI_PANEL_PARTIAL",
+  "purpose": "Reconstruct exact pre-creation and pre-closure normative document versions and screen direct task-rule relevance, without calling validity or correct action.",
+  "labels_do_not_derive_from_original_ai_votes": true,
+  "rules": [
+    "Temporal source proof requires a publicly queryable commit of the named document path strictly on or before the relevant event timestamp; current pinned source is not enough.",
+    "Temporal source proof is not a proof that the rule was adopted, in force, applicable to the particular code change or conclusive of any action.",
+    "Direct-topic is a proposed editorial case selection based on documented PR topic, not an independent human interpretation or scientific ground truth.",
+    "Missing historical document path or unrelated quoted clause excludes the current pairing from code-policy evaluation, but does not prove an alternate policy was absent.",
+    "All source checks are exploratory development-only. No authorisation labels in model-visible inputs, no human labels, no holdout, no changed original results."
+  ],
+  "cases": [
+    {
+      "id": "P07D-CODE-001",
+      "scope_tag": "DIRECT_POLICY_TOPIC",
+      "reason": "CPython C-API removal, explicit PEP 387 exception invoked in proposal; applicability and exception must be checked independently.",
+      "topic": "compatibility-removal-exception",
+      "proposed_for_source_aligned_development": true
+    },
+    {
+      "id": "P07D-CODE-002",
+      "scope_tag": "DIRECT_POLICY_TOPIC",
+      "reason": "CPython ast deprecation warnings directly concern deprecation process, not a demonstrated unsafe removal.",
+      "topic": "warning-issuance",
+      "proposed_for_source_aligned_development": true
+    },
+    {
+      "id": "P07D-CODE-003",
+      "scope_tag": "DIRECT_POLICY_TOPIC",
+      "reason": "CPython Unicode C API deprecation and possible removal timing; actual applicability remains undecided.",
+      "topic": "c-api-deprecation",
+      "proposed_for_source_aligned_development": true
+    },
+    {
+      "id": "P07D-CODE-004",
+      "scope_tag": "DIRECT_POLICY_TOPIC",
+      "reason": "CPython inspect API deprecation; PR spans several historical source-policy changes and closure is not a correctness judgment.",
+      "topic": "standard-library-deprecation",
+      "proposed_for_source_aligned_development": true
+    },
+    {
+      "id": "P07D-CODE-005",
+      "scope_tag": "LATER_RULE_NOT_ADOPTED_AS_OF_CASE",
+      "reason": "Rust #87652 closed 2021-08-03, while RFC #2972 merged 2021-11-16. RFC 2972 is a later proposal/adoption; cannot use it retrospectively as the accepted rule at the decision.",
+      "topic": "naked-inline",
+      "proposed_for_source_aligned_development": false
+    },
+    {
+      "id": "P07D-CODE-006",
+      "scope_tag": "NONMATCHING_RULE_SCOPE",
+      "reason": "Rust #161002 addresses the cold attribute on extern custom ABI, while supplied RFC 2972 excerpts concern inline and operand limitations of naked functions.",
+      "topic": "extern-custom-cold",
+      "proposed_for_source_aligned_development": false
+    },
+    {
+      "id": "P07D-CODE-007",
+      "scope_tag": "ADJACENT_BUT_NO_VERIFIED_NORMATIVE_CLAUSE",
+      "reason": "Rust #159382 concerns naked entry implementation shims; quoted RFC 2972 clauses govern inline and assembly operands, with no established direct adjudicatory link to the proposed patch.",
+      "topic": "naked-eii-shim",
+      "proposed_for_source_aligned_development": false
+    },
+    {
+      "id": "P07D-CODE-008",
+      "scope_tag": "DIRECT_POLICY_TOPIC",
+      "reason": "CPython deprecated global configuration variables and removal strategy fall in compatibility/deprecation process; actual exception and notice requirements still unresolved.",
+      "topic": "c-api-global-removal",
+      "proposed_for_source_aligned_development": true
+    }
+  ],
+  "scientifically_qualified_action_labels": 0,
+  "human_adjudications": 0,
+  "confirmatory_access": false
+}
