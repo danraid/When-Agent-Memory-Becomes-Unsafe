@@ -57,20 +57,24 @@ def audit(root:Path):
         bycase.setdefault(cid,[]).append(row)
         valid+=1
     require(len(seen)==24 and valid==summary["valid_first_round"] and
-            len(provider_ids)==summary["provider_response_ids"],
-            "UNFAITHFUL_24_REVIEW_SUMMARY")
+            len(provider_ids)<=summary["provider_response_ids"],
+            "UNFAITHFUL_FIRST_ROUND_REVIEW_SUMMARY")
     syn_by_id={}
     for row in syn:
         cid=row["case_id"]
         require(cid in cases and cid not in syn_by_id,"SYNTHESIS_CASE_ID_DUPLICATE")
         syn_by_id[cid]=row
         prior=bycase.get(cid,[])
+        sid=row.get("provider_response_id")
+        if sid is not None:
+            require(isinstance(sid,str) and sid and sid not in provider_ids,
+                    "DUPLICATED_SYNTHESIS_PROVIDER_RESPONSE")
+            provider_ids.add(sid)
         if row["synthesis"] is None:
             require(bool(row.get("error")),"SILENT_FAILED_SYNTHESIS")
         else:
-            require(len(prior)==3 and row.get("provider_response_id") not in provider_ids,
+            require(len(prior)==3 and sid is not None,
                     "INVALID_SYNTHESIS_PROVIDER_OR_MISSING_ROLES")
-            provider_ids.add(row["provider_response_id"])
             p=synth_prompt(cases[cid],prior)
             require(row["prompt_sha256"]==digest(p.encode()),
                     "SYNTHESIS_PROMPT_NOT_FROM_THIS_CASE")
@@ -78,8 +82,9 @@ def audit(root:Path):
             require(parsed==row["synthesis"] and unboxed==row["normalized_json_fence"],
                     "SYNTHESIS_RESPONSE_TAMPER")
     require(len(syn_by_id)==8 and
-            sum(x["synthesis"] is not None for x in syn)==summary["valid_syntheses"],
-            "INVALID_SYNTHESIS_COUNTS")
+            sum(x["synthesis"] is not None for x in syn)==summary["valid_syntheses"]
+            and len(provider_ids)==summary["provider_response_ids"],
+            "INVALID_SYNTHESIS_COUNTS_OR_PROVIDER_IDS")
     require(summary["human_adjudicators"]==0
             and summary["actual_human_policy_ground_truth"]==0
             and summary["author_approval"]=="PENDING"
