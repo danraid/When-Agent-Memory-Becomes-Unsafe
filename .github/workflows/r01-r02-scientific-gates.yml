@@ -4,6 +4,10 @@ on:
     paths:
       - 'scripts/r01_qualify_public_policy_actions.py'
       - 'scripts/r02_audit_original_kt_parity.py'
+      - 'scripts/check_r01_r02_subsidies.py'
+      - 'tests/test_r01_r02_subsidies.py'
+      - 'protocol/R01_EVENT_TIME_EVIDENCE_ACQUISITION_V1.json'
+      - 'protocol/R02_ORIGINAL_KT_REPLICATION_EVIDENCE_V1.json'
       - 'tests/test_r01_r02_scientific_gates.py'
       - 'protocol/P07D_REAL_CODE_CHANGE_MATRIX.json'
       - 'protocol/P07E_HISTORICAL_SCOPE_TRIAGE.json'
@@ -27,6 +31,10 @@ jobs:
           python-version: '3.12'
       - name: Run source qualification and strict comparator tests
         run: python -m unittest discover -s tests -p 'test_r01_r02_scientific_gates.py' -v
+      - name: Validate all source-specific subsidy contracts
+        run: |
+          python -m unittest discover -s tests -p 'test_r01_r02_subsidies.py' -v
+          python -m scripts.check_r01_r02_subsidies --out runs/r01-r02/subsidy_contract.json
       - name: Generate audited offline outputs
         run: |
           python -m scripts.r01_qualify_public_policy_actions --out runs/r01-r02/r01.json
