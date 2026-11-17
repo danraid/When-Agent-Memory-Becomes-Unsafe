@@ -1,0 +1,96 @@
+name: Article 1 | P10 source-preserving posthoc AI chair recovery
+on:
+  pull_request:
+    paths:
+      - 'scripts/p10_recover_original_ai_chair_once.py'
+      - 'tests/test_p10_chair_recovery.py'
+      - '.github/workflows/p10-recover-original-chair.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p10-recover-original-chair.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-p10-original-failed-four-one-chair-amendment
+  cancel-in-progress: false
+jobs:
+  offline-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test validity gates and null author verdict
+        run: python -m unittest discover -s tests -p 'test_p10_chair_recovery.py' -v
+  recover-original-without-rerunning-reviewers:
+    if: github.event_name != 'pull_request'
+    needs: offline-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download original four paid reviewer responses from unmodified original run
+        uses: actions/download-artifact@v4
+        with:
+          name: p10-original-ai-science-panel-44009705898
+          run-id: 44009705898
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: runs/p10-original-four/
+      - name: Refuse if any original identity/role/provider/prompt or invalid status has changed
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.p10_recover_original_ai_chair_once import verify_original
+          c,m,rows,proof=verify_original(
+            Path('runs/p10-original-four/'),
+            Path('protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json'))
+          assert proof['source_run_id']==44009705898
+          assert proof['original_strict_valid_reviews']==0
+          assert len(proof['original_response_ids'])==4
+          print('ORIGINAL_FOUR_PROVIDER_RESPONSES_PRESERVED; NO_RERUN_OR_LABEL_REPAIR')
+          PY
+      - name: One new AI-chair synthesis call only, transparent posthoc amendment
+        run: |
+          python -m scripts.p10_recover_original_ai_chair_once --execute \
+            --original runs/p10-original-four/ \
+            --config protocol/P10_AI_MANAGED_SCIENTIFIC_REVIEW_V1.json \
+            --out runs/p10-chair-recovery/
+      - name: Detached zero-call hash and scientific non-promotion check
+        if: always()
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('runs/p10-chair-recovery')
+          p=root/'manifest.json'
+          if not p.exists():
+              print('CHAIR_MANIFEST_MISSING; PAID_CALL_MAY_HAVE_FAILED')
+              raise SystemExit(1)
+          m=json.loads(p.read_text())
+          for name,expected in m['sha256'].items():
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest()==expected,name
+          s=json.loads((root/'summary.json').read_text())
+          assert s['original_four_valid']==0 and s['original_four_invalid']==4
+          assert s['author_final_decision'] is None
+          assert not s['confirmed_scientific_result']
+          assert not s['protected_holdout_touched']
+          assert not s['scientifically_approved']
+          print('POSTHOC_AI_CHAIR_SCIENTIFIC_NON_PROMOTION_CONFIRMED')
+          PY
+      - name: Preserve original-proof and the only new AI-chair response even when invalid
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p10-original-four-one-chair-posthoc-${{ github.run_id }}
+          path: runs/p10-chair-recovery/
+          retention-days: 90
+          if-no-files-found: warn
