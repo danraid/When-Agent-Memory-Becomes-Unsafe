@@ -1,0 +1,71 @@
+name: Article 1 | P07f v2 detached read-only independent replay
+on:
+  pull_request:
+    paths:
+      - 'scripts/p07f_detached_ai_review_audit.py'
+      - 'scripts/p07f_v2_detached_audit.py'
+      - '.github/workflows/p07f-v2-original-evidence-replay.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p07f-v2-original-evidence-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  detached-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+      OPENAI_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run original scientific boundary and v2 source-ID tests
+        run: |
+          python -m unittest discover -s tests -p 'test_p07f_ai_experimental_design.py' -v
+          python -m unittest discover -s tests -p 'test_p07f_v2_evidence_ids.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44077278524'
+          name: p07f-v2-original-source-id-reviews-44077278524
+          path: runs/p07f-v2-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Independently reproduce original v2 results from immutable sources, no API
+        run: |
+          python -m scripts.p07f_v2_detached_audit \
+            --review-dir runs/p07f-v2-original/ \
+            --out runs/p07f-v2-replay/
+      - name: Verify human signoff and original v1 science-status boundaries
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          r=Path('runs/p07f-v2-replay')
+          doc=(r/'audit.json').read_bytes()
+          m=json.loads((r/'manifest.json').read_text())
+          assert hashlib.sha256(doc).hexdigest()==m['audit_sha256']
+          a=json.loads(doc)
+          assert a['cases']==8 and a['first_round_expected']==24
+          assert a['first_round_strict_valid']==22
+          assert a['synthesis_valid']==6
+          assert a['original_v1_run_44076185311_kept_immutable']
+          assert a['author_approval']=='PENDING'
+          assert a['qualified_human_adjudicators']==0
+          assert a['genuine_human_policy_gold']==0
+          assert not a['scientifically_approved'] and not a['holdout_touched']
+          assert a['new_paid_calls']==0
+          print('V2_DETACHED_REPLAY_PASS_AUTHOR_REVIEW_PENDING')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p07f-v2-original-evidence-replay-${{ github.run_id }}
+          path: runs/p07f-v2-replay/
+          retention-days: 90
+          if-no-files-found: warn
