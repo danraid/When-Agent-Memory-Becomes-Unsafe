@@ -1,0 +1,116 @@
+{
+  "schema": "WAMBU-CONSOLIDATED-EXPLORATORY-CLAIMS-V1",
+  "date": "2026-11-16",
+  "manuscript": "manuscript/CONSOLIDATED_EXPLORATORY_REPORT_2026-11-16_EN_GB.md",
+  "classification": "EXPLORATORY_ONLY_NON_CONFIRMATORY",
+  "claims": [
+    {
+      "id": "V2-CEILING",
+      "evidence": "docs/PILOT_V2_AUDIT_2026-11-14.md",
+      "independent_episodes": 8,
+      "summary": "144/144 full, recursive and ledger versus 105/144 recent, candidate contrast zero"
+    },
+    {
+      "id": "V3-TEMPORAL-CEILING",
+      "evidence": "docs/V3_RUN_43640571248_INDEPENDENT_AUDIT_2026-11-14.md",
+      "independent_episodes": 4,
+      "summary": "72/72 temporal cases for nonrecent conditions; recent 52/72, all temporal probes saturated"
+    },
+    {
+      "id": "OPENROUTER-V2-MIXED",
+      "evidence": "docs/OPENROUTER_POLICY_V2_DETACHED_EVIDENCE_AUDIT_2026-11-16.md",
+      "independent_episodes": 4,
+      "summary": "1433/1440 scored; 20/20 compactions; model contrasts zero/zero/negative/NA",
+      "original_workflow": "failure",
+      "audit_workflow": "success"
+    },
+    {
+      "id": "OPENROUTER-V1-PARTIAL",
+      "evidence": "docs/OPENROUTER_POLICY_SAFETY_DEVELOPMENT_2026-11-16.md",
+      "independent_episodes": 2,
+      "summary": "714/720 scored in separate exploration",
+      "original_workflow": "failure"
+    },
+    {
+      "id": "LONGMEMEVAL-S-SIX",
+      "evidence": "manuscript/SUPPLEMENT_OPENROUTER_CROSS_LLM_DEV_EN_GB.md",
+      "independent_questions": 6,
+      "summary": "72/72 scored across four models and three arms; not policy-safety benchmark"
+    },
+    {
+      "id": "KT-UPSTREAM-ORIGINAL-COMPONENT",
+      "evidence": "docs/P07B_P08B_PUBLIC_SOURCE_AUDIT_2026-11-14.md",
+      "summary": "327 public sample files across four budgets, 19/4/1/0 COMPACTION_UNSAFE",
+      "full_method_replication": false
+    },
+    {
+      "id": "P07B-LINKS-AI-ROLEPLAY",
+      "evidence": "docs/P07B_AI_PANEL_REAL_SOURCE_OUTCOME_AUDIT_2026-11-16.md",
+      "summary": "6 genuine external source pairs, 12 constructed questions; 36 recovered AI votes; never human gold",
+      "human_qualified_gold": 0
+    },
+    {
+      "id": "P07C-PUBLIC-PR",
+      "evidence": "docs/P07C_REAL_GOVERNANCE_AI_EXPERT_OUTCOMES_2026-11-16.md",
+      "summary": "8 public PR dispositions, 17/24 AI role outputs valid; not policy-authorisation decisions",
+      "human_qualified_gold": 0
+    },
+    {
+      "id": "P07D-REAL-CODE",
+      "evidence": "docs/P07D_REAL_CODE_AI_EXPERT_EVIDENCE_AUDIT_2026-11-16.md",
+      "summary": "8 real-code PRs; 4 integrated, 4 closed without merge; 17/24 strict-valid AI opinions",
+      "human_qualified_gold": 0
+    }
+  ],
+  "scientific_flags": {
+    "independent_human_policy_adjudications": 0,
+    "full_original_knowledge_triage_reproduced": false,
+    "protected_holdout_touched": false,
+    "preregistration_frozen_by_author": false,
+    "confirmatory_study_executed": false,
+    "independent_peer_reviewed": false,
+    "final_author_manuscript_approved": false,
+    "journal_submitted": false,
+    "journal_accepted": false
+  },
+  "external_primary_references": [
+    {
+      "key": "knowledge_triage",
+      "locator": "https://doi.org/10.1145/3799682.3840567",
+      "kind": "direct_prior_art",
+      "full_text_claim_check": "partial"
+    },
+    {
+      "key": "supersede",
+      "locator": "https://arxiv.org/abs/2606.27472",
+      "kind": "direct_prior_art",
+      "full_text_claim_check": "partial"
+    },
+    {
+      "key": "acon",
+      "locator": "https://proceedings.mlr.press/v306/kang26b.html",
+      "kind": "conference_publisher",
+      "metadata_verified": true
+    },
+    {
+      "key": "longmemeval",
+      "locator": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/d813d324dbf0598bbdc9c8e79740ed01-Abstract-Conference.html",
+      "kind": "conference_publisher",
+      "metadata_verified": true
+    },
+    {
+      "key": "lost_in_middle",
+      "locator": "https://aclanthology.org/2024.tacl-1.9/",
+      "kind": "publisher",
+      "metadata_verified": "pending"
+    }
+  ],
+  "future_submission_requirements": [
+    "Author validates all assertions, funding, conflicts, affiliation, licensing and ethical declaration",
+    "Qualified external scientific review of methodology and originality",
+    "Naturalistic operational decision gold and full-method comparability for confirmatory claims",
+    "Prospective author-frozen preregistration before protected holdout use",
+    "Current official journal LaTeX template and anonymisation",
+    "Explicit author approval of the final paper and external submission"
+  ]
+}
