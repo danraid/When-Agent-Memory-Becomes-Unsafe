@@ -32,9 +32,9 @@
       "reason": "Current-policy ledger receives privileged information; no matched-information contrast executed"
     },
     "R04": {
-      "state": "OPEN",
-      "evidence": "manuscript/SUBMISSION_CANDIDATE_EXPLORATORY_EN_GB.md",
-      "reason": "Temporal probes saturated, episode numbers 8 and 4; prospective power not justified"
+      "state": "PARTIAL",
+      "evidence": "docs/R04_SENSITIVITY_CHECKED_2026-11-18.md",
+      "reason": "CI-verified nominal paired-episode sensitivity under assumed SDs .15/.20/.25 and delta .10 gives n=18/32/50; 32 episodes imply 2464 calls under existing cap. Still no observed episode variance, non-ceiling discriminative task or authorised frozen confirmatory protocol."
     },
     "R05": {
       "state": "PARTIAL",
