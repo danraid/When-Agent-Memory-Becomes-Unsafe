@@ -1,9 +1,5 @@
 name: Article 1 | R02 one-shot live cascade development attempt
 on:
-  push:
-    branches: [revision/author-decision-50-scientific-remediation]
-    paths:
-      - 'protocol/R02_OCTEN_ONE_SHOT_TRIGGER_2026-11-18.json'
   workflow_dispatch:
 permissions:
   contents: read
