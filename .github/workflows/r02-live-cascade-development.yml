@@ -1,5 +1,9 @@
 name: Article 1 | R02 one-shot live cascade development attempt
 on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R02_OCTEN_ONE_SHOT_TRIGGER_2026-11-18.json'
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,6 +16,7 @@ jobs:
     timeout-minutes: 20
     env:
       R02_ALLOW_LIVE_CALLS: 'true'
+      R02_REQUIRE_LANE: 'OCTEN_VENDOR_AND_ORIGINAL_LLM'
       OCTEN_API_KEY: ${{ secrets.OCTEN_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       CUSTOM_LLM_API_KEY: ${{ secrets.CUSTOM_LLM_API_KEY }}
@@ -45,6 +50,8 @@ jobs:
           assert r['status'] in {'REAL_CASCADE_COMPLETE','BLOCKED_NO_ACCESSIBLE_LIVE_CASCADE','PRECONDITION_FAILED'}
           assert r['full_original_knowledge_triage_replication'] is False
           assert r['external_journal_submission'] is False
+          assert r.get('required_lane') == 'OCTEN_VENDOR_AND_ORIGINAL_LLM' or r['status'] == 'PRECONDITION_FAILED'
+          assert not any(a['lane']=='ADAPTED_OPENROUTER' for a in r.get('attempts',[]))
           assert r['protected_holdout_access'] is False
           result=r.get('result')
           if result:
