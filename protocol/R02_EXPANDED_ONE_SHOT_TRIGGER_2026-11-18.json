@@ -1,0 +1,13 @@
+{
+  "schema": "WAMBU-R02-EXPANDED-ONE-SHOT-V1",
+  "scope": "26_public_synthetic_development_probes",
+  "classifier_cases": 20,
+  "safety_margin_cases": 6,
+  "exclusive_lane": "OCTEN_VENDOR_AND_ORIGINAL_LLM",
+  "original_upstream_commit": "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4",
+  "no_openrouter_fallback": true,
+  "original_paper_benchmark": false,
+  "protected_holdout": false,
+  "author_approval": false,
+  "external_submission": false
+}
