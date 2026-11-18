@@ -47,9 +47,9 @@
       "reason": "Case histories verified partially; contemporaneous governing authority and exception trace missing"
     },
     "R07": {
-      "state": "OPEN",
-      "evidence": "protocol/KNOWLEDGE_TRIAGE_REPLICATION_REQUIREMENTS.md",
-      "reason": "Overlap remains, no established new superiority result"
+      "state": "PARTIAL",
+      "evidence": "docs/R07_PRIMARY_LITERATURE_OVERLAP_SCREEN_2026-11-18.md",
+      "reason": "Primary author/publisher descriptions for Knowledge Triage, Supersede, ACON and LongMemEval screened; claim restrictions and narrow possible measurement thesis documented. Full-text methodological comparison, wider search and independent novelty verdict remain open."
     },
     "R08": {
       "state": "OPEN",
