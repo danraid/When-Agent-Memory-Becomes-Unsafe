@@ -23,8 +23,8 @@
     },
     "R02": {
       "state": "PARTIAL",
-      "evidence": "docs/R02_ORIGINAL_PUBLIC_40_SUBSET_AUDITED_2026-11-18.md",
-      "reason": "Unmodified original cascade and SafetyMargin executed on 40 of 200 source-authored public stress cases, plus 26 additional synthetic development probes; independently verified artifacts. Source-defined declarative constraint retention: regex 0/10, cascade 6/10, SafetyMargin 9/10. Original author endpoint parity, remaining 160 cases, original paper corpus/budget and downstream action comparisons remain unverified."
+      "evidence": "docs/R02_COMPLETE_PUBLIC_200_AUDITED_2026-11-18.md",
+      "reason": "All original source-authored 200 phrasing items run with live Octen 8B vendor model-ID and GPT 5.4 mini; detached source-hash audit passed (40+160 disjoint). Observed source-defined constraint retention regex 109/200, original cascade 168/200, SafetyMargin 193/200. Full Knowledge Triage paper corpus, original authors' serving parity, matched-information downstream tasks and independent action gold remain unverified."
     },
     "R03": {
       "state": "OPEN",
