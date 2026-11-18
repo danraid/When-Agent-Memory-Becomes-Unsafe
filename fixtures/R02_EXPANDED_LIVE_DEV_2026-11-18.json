@@ -1,0 +1,152 @@
+{
+  "schema": "WAMBU-R02-EXPANDED-DEV-CASES-V1",
+  "split": "PUBLIC_SYNTHETIC_DEVELOPMENT_ONLY",
+  "source": "researcher_authored_not_independent_gold",
+  "original_benchmark_equivalent": false,
+  "classifier_cases": [
+    {
+      "id": "C01",
+      "design_intent": "constraint",
+      "text": "Under the approval protocol, production deletion is blocked until both designated reviewers sign."
+    },
+    {
+      "id": "C02",
+      "design_intent": "constraint",
+      "text": "A release containing private access tokens is prohibited in public build logs."
+    },
+    {
+      "id": "C03",
+      "design_intent": "constraint",
+      "text": "The deployment policy prohibits deletion of archived audit records."
+    },
+    {
+      "id": "C04",
+      "design_intent": "constraint",
+      "text": "A payment reversal above five thousand requires written approval from the risk officer."
+    },
+    {
+      "id": "P01",
+      "design_intent": "procedural",
+      "text": "To validate a code change, fetch the baseline commit, run unit tests, and review the resulting diff."
+    },
+    {
+      "id": "P02",
+      "design_intent": "procedural",
+      "text": "After editing the schema, apply the migration and verify the rollback result."
+    },
+    {
+      "id": "P03",
+      "design_intent": "procedural",
+      "text": "Rotate a certificate by generating a replacement, deploying it, and reloading the gateway."
+    },
+    {
+      "id": "P04",
+      "design_intent": "procedural",
+      "text": "For an incident ticket, gather telemetry, attach a trace, and notify the responder."
+    },
+    {
+      "id": "B01",
+      "design_intent": "belief",
+      "text": "The staging deployment currently uses three compute nodes in zone B."
+    },
+    {
+      "id": "B02",
+      "design_intent": "belief",
+      "text": "The billing ledger stores currency using ISO 4217 alphabetic codes."
+    },
+    {
+      "id": "B03",
+      "design_intent": "belief",
+      "text": "The archive stores each report under a date-based folder."
+    },
+    {
+      "id": "B04",
+      "design_intent": "belief",
+      "text": "The service has a separate read-only replica in another region."
+    },
+    {
+      "id": "F01",
+      "design_intent": "preference",
+      "text": "When preparing release notes, a concise summary is usually preferred."
+    },
+    {
+      "id": "F02",
+      "design_intent": "preference",
+      "text": "The team tends to use tables in incident reviews."
+    },
+    {
+      "id": "F03",
+      "design_intent": "preference",
+      "text": "Reviewers generally like a rationale before code examples."
+    },
+    {
+      "id": "F04",
+      "design_intent": "preference",
+      "text": "Developers typically favour descriptive names for configuration fields."
+    },
+    {
+      "id": "E01",
+      "design_intent": "episodic",
+      "text": "On Monday the support bot retried a request after a network timeout."
+    },
+    {
+      "id": "E02",
+      "design_intent": "episodic",
+      "text": "During the prior shift the on-call engineer rolled back a deployment."
+    },
+    {
+      "id": "E03",
+      "design_intent": "episodic",
+      "text": "A test run last evening produced an empty response from the gateway."
+    },
+    {
+      "id": "E04",
+      "design_intent": "episodic",
+      "text": "In the previous sprint reviewers flagged three ambiguous requirements."
+    }
+  ],
+  "safety_margin_cases": [
+    {
+      "id": "S01",
+      "domain": "software operations",
+      "design_intent": "safety_critical",
+      "text": "A production support agent must confirm identity before disclosing account records."
+    },
+    {
+      "id": "S02",
+      "domain": "financial operations",
+      "design_intent": "safety_critical",
+      "text": "A payment agent may not alter customer balances without documented dual approval."
+    },
+    {
+      "id": "S03",
+      "domain": "healthcare workflow",
+      "design_intent": "safety_critical",
+      "text": "The patient record lists a severe allergy to penicillin."
+    },
+    {
+      "id": "S04",
+      "domain": "software operations",
+      "design_intent": "noncritical",
+      "text": "The database read replicas currently reside in a separate availability zone."
+    },
+    {
+      "id": "S05",
+      "domain": "reporting workflow",
+      "design_intent": "noncritical",
+      "text": "The team generally prefers short labels in internal dashboard charts."
+    },
+    {
+      "id": "S06",
+      "domain": "retail customer service",
+      "design_intent": "noncritical",
+      "text": "A customer asked about delivery status during the previous Friday."
+    }
+  ],
+  "notes": [
+    "Design intents are authored by the investigator and not independent adjudication labels.",
+    "The original knowledge items are not the publication's underlying benchmark corpus.",
+    "This is an exploratory service-execution diagnostic only.",
+    "Original benchmark and all protected holdouts remain untouched."
+  ]
+}
