@@ -245,6 +245,13 @@ def run(upstream: Path, environ: dict):
         lanes.append("OCTEN_VENDOR_AND_ORIGINAL_LLM")
     if caps["openrouter_secret"]:
         lanes.append("ADAPTED_OPENROUTER")
+    required_lane = environ.get("R02_REQUIRE_LANE", "").strip()
+    if required_lane:
+        valid_lanes = {"ORIGINAL", "OCTEN_VENDOR_AND_ORIGINAL_LLM", "ADAPTED_OPENROUTER"}
+        if required_lane not in valid_lanes:
+            raise ValueError("INVALID_EXPLICIT_PROVIDER_LANE")
+        # A pinned original-model test MUST NOT silently fall back to OpenRouter.
+        lanes = [required_lane] if required_lane in lanes else []
     completed = None
     for mode in lanes:
         try:
@@ -265,6 +272,8 @@ def run(upstream: Path, environ: dict):
         "status": ("REAL_CASCADE_COMPLETE" if completed else
                    "BLOCKED_NO_ACCESSIBLE_LIVE_CASCADE"),
         "attempts": attempts,
+        "required_lane": required_lane or None,
+        "no_fallback_lane_attempted": bool(required_lane),
         "result": completed,
         "octen_vendor_endpoint_not_author_endpoint": True,
         "original_source_unchanged": True,
