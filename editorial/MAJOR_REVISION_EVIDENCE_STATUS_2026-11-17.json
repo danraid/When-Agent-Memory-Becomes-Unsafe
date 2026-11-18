@@ -52,9 +52,9 @@
       "reason": "Primary author/publisher descriptions for Knowledge Triage, Supersede, ACON and LongMemEval screened; claim restrictions and narrow possible measurement thesis documented. Full-text methodological comparison, wider search and independent novelty verdict remain open."
     },
     "R08": {
-      "state": "OPEN",
-      "evidence": "docs/INDEXED_JOURNAL_SUBMISSION_AUDIT_2026-11-14.md",
-      "reason": "Licences, disclosures and anonymous supplement require verification"
+      "state": "PARTIAL",
+      "evidence": "docs/R08_TMLR_OFFICIAL_READINESS_SCREEN_2026-11-18.md",
+      "reason": "Verified current official TMLR anonymous review, LaTeX style, OpenReview, author accountability and first-page AI disclosure requirements. Authorship/funding/conflicts/licences, anonymised supplement, final source-and-figure audit and independent author approval remain outstanding; no external submission."
     }
   }
 }
