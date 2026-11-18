@@ -1,9 +1,5 @@
 name: Article 1 | R02 one-shot live cascade development attempt
 on:
-  push:
-    branches: [revision/author-decision-50-scientific-remediation]
-    paths:
-      - '.github/workflows/r02-live-cascade-development.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,6 +12,7 @@ jobs:
     timeout-minutes: 20
     env:
       R02_ALLOW_LIVE_CALLS: 'true'
+      OCTEN_API_KEY: ${{ secrets.OCTEN_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       CUSTOM_LLM_API_KEY: ${{ secrets.CUSTOM_LLM_API_KEY }}
       CUSTOM_LLM_ENDPOINT: ${{ secrets.CUSTOM_LLM_ENDPOINT }}
@@ -52,7 +49,7 @@ jobs:
           result=r.get('result')
           if result:
               assert result['published_benchmark_reproduced'] is False
-              assert result['lane'] in {'ORIGINAL','ADAPTED_OPENROUTER'}
+              assert result['lane'] in {'ORIGINAL','OCTEN_VENDOR_AND_ORIGINAL_LLM','ADAPTED_OPENROUTER'}
               assert len(result['classification_results'])>=3
           print('LIVE_CASCADE_REPORT_AUDITED',r['status'])
           PY
