@@ -1,0 +1,53 @@
+name: Article 1 | R02 independent offline replay of expanded Octen evidence
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_r02_expanded_report.py'
+      - '.github/workflows/r02-expanded-detached-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  detached:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OCTEN_API_KEY: ''
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44290008758'
+          name: wambu-r02-expanded-octen-44290008758
+          path: runs/r02-expanded-original/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate that all 26 source cases were actually executed and were not promoted
+        run: |
+          python -m scripts.audit_r02_expanded_report \
+            --report runs/r02-expanded-original/diagnostic.json \
+            --out runs/r02-expanded-detached/audit.json
+      - name: Verify scientific safeguards and case counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r02-expanded-detached/audit.json').read_text())
+          assert r['passed'] and r['classifier_count']==20 and r['safety_margin_count']==6
+          assert r['genuine_human_reference_actions']==0 and not r['holdout_touched']
+          assert r['new_paid_model_calls']==0 and not r['original_paper_replicated']
+          assert not r['external_submission_authorised']
+          PY
+      - name: Archive detached zero-inference audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r02-expanded-detached-${{ github.run_id }}
+          path: runs/r02-expanded-detached/
+          if-no-files-found: warn
+          retention-days: 90
