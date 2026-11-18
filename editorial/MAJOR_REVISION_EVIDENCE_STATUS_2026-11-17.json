@@ -23,8 +23,8 @@
     },
     "R02": {
       "state": "PARTIAL",
-      "evidence": "docs/R02_EXPANDED_OCTEN_SAFETYMARGIN_DEV_AUDIT_2026-11-18.md",
-      "reason": "Real Octen 8B model-ID cascade (20 development probes) and original SafetyMargin (6 probes) executed and independently replay-audited; original author endpoint, paper corpus/budgets, end-to-end comparison and paired downstream scoring not reproduced."
+      "evidence": "docs/R02_ORIGINAL_PUBLIC_40_SUBSET_AUDITED_2026-11-18.md",
+      "reason": "Unmodified original cascade and SafetyMargin executed on 40 of 200 source-authored public stress cases, plus 26 additional synthetic development probes; independently verified artifacts. Source-defined declarative constraint retention: regex 0/10, cascade 6/10, SafetyMargin 9/10. Original author endpoint parity, remaining 160 cases, original paper corpus/budget and downstream action comparisons remain unverified."
     },
     "R03": {
       "state": "OPEN",
