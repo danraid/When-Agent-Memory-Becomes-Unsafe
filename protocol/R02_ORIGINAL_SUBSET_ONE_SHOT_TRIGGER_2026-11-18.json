@@ -1,0 +1,15 @@
+{
+  "schema": "WAMBU-R02-ORIGINAL-PUBLIC-STRESS-40-ONE-SHOT-V1",
+  "upstream_sha": "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4",
+  "original_base_rules": 10,
+  "original_forms": 4,
+  "expected_items": 40,
+  "original_model_identifiers": [
+    "octen-embedding-8b",
+    "gpt-5.4-mini"
+  ],
+  "no_fallback": true,
+  "original_full_200_benchmark": false,
+  "confirmatory_holdout": false,
+  "external_submission": false
+}
