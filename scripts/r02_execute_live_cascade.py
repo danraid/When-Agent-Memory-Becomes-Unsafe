@@ -40,6 +40,7 @@ def provider_error(exc: Exception) -> dict:
 
 def credentials(environ: dict) -> dict:
     return {
+        "octen_vendor_secret": bool(environ.get("OCTEN_API_KEY")),
         "original_embedding_secret": bool(environ.get("CUSTOM_LLM_API_KEY")),
         "original_embedding_endpoint": bool(environ.get("CUSTOM_LLM_ENDPOINT")),
         "original_llm_secret": bool(environ.get("OPENAI_API_KEY")),
@@ -97,6 +98,14 @@ def original_providers():
     return embed, adjudicator
 
 
+def octen_vendor_providers():
+    from knowledge_triage.clients import get_client
+    from scripts.r02_octen_vendor_embedding_bridge import OctenVendorEmbeddingClient
+    embed = OctenVendorEmbeddingClient(os.environ["OCTEN_API_KEY"])
+    adjudicator = get_client("openai:gpt-5.4-mini")
+    return embed, adjudicator
+
+
 def adapted_providers():
     from openai import OpenAI
     token = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER")
@@ -120,6 +129,16 @@ def execute_one(mode, CascadeClassifier, EncoderClassifier, K):
             input=[PROTOTYPES[K.CONSTRAINT][0]])
         if not check.data or not check.data[0].embedding:
             raise ValueError("ORIGINAL_EMBEDDING_EMPTY")
+        provider_count += 1
+    elif mode == "OCTEN_VENDOR_AND_ORIGINAL_LLM":
+        embed, adjudicator = octen_vendor_providers()
+        actual_embedding = ORIGINAL_EMBEDDING
+        actual_adjudicator = ORIGINAL_LLM
+        check = embed.embeddings.create(
+            model=ORIGINAL_EMBEDDING,
+            input=[PROTOTYPES[K.CONSTRAINT][0]])
+        if not check.data or not check.data[0].embedding:
+            raise ValueError("OCTEN_VENDOR_EMBEDDING_EMPTY")
         provider_count += 1
     elif mode == "ADAPTED_OPENROUTER":
         embed, adjudicator = adapted_providers()
@@ -169,6 +188,8 @@ def execute_one(mode, CascadeClassifier, EncoderClassifier, K):
         })
     if isinstance(embed, AdaptedEmbeddings):
         provider_count += embed.requests
+    elif mode == "OCTEN_VENDOR_AND_ORIGINAL_LLM":
+        provider_count += embed.requests
     # Original mode provider count is lower bound: 1 probe + 5 prototype
     # batches + per-case embeddings; no response count is fabricated.
     else:
@@ -185,10 +206,14 @@ def execute_one(mode, CascadeClassifier, EncoderClassifier, K):
         "llm_decision_observed": llm_observed,
         "provider_request_lower_bound": provider_count,
         "original_models_executed": mode == "ORIGINAL",
+        "vendor_original_model_pair_used": mode == "OCTEN_VENDOR_AND_ORIGINAL_LLM",
+        "original_author_endpoint_proven": mode == "ORIGINAL",
         "adapted_models_executed": mode == "ADAPTED_OPENROUTER",
         "published_benchmark_reproduced": False,
         "source_vs_method_parity": ("ORIGINAL_CLASSIFIER_RUNTIME_NOT_PAPER_BENCHMARK"
                                     if mode == "ORIGINAL"
+                                    else "ORIGINAL_MODEL_IDS_VENDOR_ENDPOINT_NOT_AUTHOR_ENDPOINT"
+                                    if mode == "OCTEN_VENDOR_AND_ORIGINAL_LLM"
                                     else "ADAPTED_SERVICE_MODELS_NOT_ORIGINAL"),
     }
 
@@ -211,10 +236,15 @@ def run(upstream: Path, environ: dict):
         "original_embedding_secret", "original_embedding_endpoint",
         "original_llm_secret"))
     attempts = []
-    lanes = (["ORIGINAL", "ADAPTED_OPENROUTER"] if complete_original
-             and caps["openrouter_secret"] else
-             ["ORIGINAL"] if complete_original else
-             ["ADAPTED_OPENROUTER"] if caps["openrouter_secret"] else [])
+    # Priority: original author services, original model IDs via Octen vendor,
+    # then transparently adapted OpenRouter models. No implied endpoint parity.
+    lanes = []
+    if complete_original:
+        lanes.append("ORIGINAL")
+    if caps["octen_vendor_secret"] and caps["original_llm_secret"]:
+        lanes.append("OCTEN_VENDOR_AND_ORIGINAL_LLM")
+    if caps["openrouter_secret"]:
+        lanes.append("ADAPTED_OPENROUTER")
     completed = None
     for mode in lanes:
         try:
@@ -236,6 +266,7 @@ def run(upstream: Path, environ: dict):
                    "BLOCKED_NO_ACCESSIBLE_LIVE_CASCADE"),
         "attempts": attempts,
         "result": completed,
+        "octen_vendor_endpoint_not_author_endpoint": True,
         "original_source_unchanged": True,
         "gold_labels": 0,
         "human_adjudications": 0,
