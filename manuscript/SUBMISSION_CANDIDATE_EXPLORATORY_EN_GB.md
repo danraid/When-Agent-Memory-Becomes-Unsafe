@@ -64,6 +64,12 @@ The historical GitHub state of a code-change request (merged or closed) cannot b
 
 The current-policy ledger, full history, recent window, recursive summary and adapted typed archive are **systems conditions with non-equivalent information access**. Existing descriptive differences cannot identify a memory-compression-specific treatment effect. A future architecture-specific comparison must explicitly audit per-turn authorised source visibility, source revision/effective date, token budgets, identical base model/settings, and evaluator-only outcome isolation before predeclaring any causal estimand. No such matched-information empirical comparison is claimed here. Prospective independent episode counts, uncertainty intervals, missing-data rules, and multiplicity must be fixed before accessing a holdout. Zero differences across eight/four development episodes do not justify equivalence or non-inferiority.
 
+### 3.9. Post-pilot source-aligned Knowledge Triage phrasing diagnostic (exploratory)
+
+After the archived development pilots, the exact original source release at `a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4` supplied a 200-item, author-constructed adversarial safety-rule corpus (50 base rules expressed imperatively, declaratively, conditionally and passively). We executed the original source-defined regex classifier, the unchanged original cascade with live vendor `octen-embedding-8b` embeddings and OpenAI `gpt-5.4-mini` adjudication, and the unchanged original `SafetyMargin` method. A 40-item development subset and the disjoint remaining 160 items were separately archived and reconstructed under a no-call source-identity audit, which passed for all 200 items with zero missing or duplicate source IDs. All 160 additional method calls completed without recorded case failures. The vendor API is **not proven identical to the authors' experimental endpoint**, and this study does not reproduce the publication's other corpora, retrieval/compaction budgets or downstream benchmarks.
+
+These labels were deliberately constructed by the original authors as safety-rule examples, rather than independently validated action-correctness gold for real agents. Consequently we report source-defined category retention as a descriptive classifier diagnostic only; it does not enter the agent-memory safety results, estimate causal risk, or qualify R01 real-case decisions.
+
 ## 4. Results
 
 ### 4.1. Eight-episode development pilot
@@ -106,6 +112,18 @@ The total is 1,308 file-budget observations. The perfect *conditional* retention
 
 The 16-case development instrument exposed four under-specified or internally inconsistent policy situations, which were repaired in a separately versioned casebook. The earlier two fictional reviewer-role reports described the original v1 cases, not a new independent assessment of v2. No claims of human adjudication, independent validation or prospective confirmatory success arise from this editorial exercise. The casebook is not pooled with the two GPT pilots or the TypeCompact component audit.
 
+### 4.5. Original public 200-item phrasing diagnostic (source-defined categories only)
+
+| Phrasing (50 each) | Source-defined constraint retained by regex | Original cascade (Octen + GPT) | Original SafetyMargin |
+| --- | ---: | ---: | ---: |
+| Imperative | 50/50 | 50/50 | 49/50 |
+| Declarative | 0/50 | 20/50 | 46/50 |
+| Conditional | 19/50 | 50/50 | 48/50 |
+| Passive | 40/50 | 48/50 | 50/50 |
+| **Total / 200** | **109/200** | **168/200** | **193/200** |
+
+The 40-item stratified pilot had suggested 60% declarative retention by the cascade; the complete original public 200-item corpus yields 40%. SafetyMargin retained 92% of source-defined declarative rules. These fractions concern researcher-authored class labels, not adjudicated downstream agent decisions, and do not justify a superiority or equivalence inference. The exact results, original source hashes, provider model identifiers, immutable GitHub Actions runs, detached 40+160 audit, and item-level discrepancies are recorded in the separately audited R02 appendix. The full Knowledge Triage paper's published behavioral benchmarks remain unreproduced.
+
 ## 5. Discussion
 
 The temporal probes showed a complete ceiling effect. The recent-window baseline's control failures indicate that the overall instrument can expose some information-loss errors, but those failures do **not** demonstrate a policy-supersession-specific problem. This distinction matters: reporting aggregate accuracy alone would falsely imply that the temporal hypothesis was tested discriminatively.
@@ -118,7 +136,7 @@ The source-provenance checks provide a path towards naturalistic policy-update c
 
 ## 6. Threats to validity
 
-**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** unequal policy-state access and an adapted, non-original typed comparator. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
+**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** unequal policy-state access and an adapted, non-original typed comparator. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. The additional 200 author-authored phrasings measure type-retention relative to source-designed examples, not independent normative safety. Differences in the Octen vendor serving environment from the original authors' endpoint remain unquantified. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
 
 ## 7. Reproducibility and responsible reporting
 
