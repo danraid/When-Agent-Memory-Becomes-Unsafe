@@ -1,9 +1,5 @@
 name: WAMBU | R04 temporal authority live discriminative development
 on:
-  push:
-    branches: [revision/author-decision-50-scientific-remediation]
-    paths:
-      - 'protocol/R04_STRESS_DEV_ONE_SHOT_TRIGGER_2026-11-19.json'
   workflow_dispatch:
 permissions:
   contents: read
