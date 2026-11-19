@@ -1,0 +1,58 @@
+name: WAMBU | R01 bounded retrospective provenance memory live pilot
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R01_MEMORY_LIVE_ONE_SHOT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r01-memory-real-25-calls
+  cancel-in-progress: false
+jobs:
+  retrospective-dev:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+      R01_ALLOW_MEMORY_DEV_CALLS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline preflight source parity and reference isolation
+        run: |
+          python -m unittest discover -s tests -p 'test_r01_real_documentary_challenge.py' -v
+          python -m unittest discover -s tests -p 'test_r01_memory_stress.py' -v
+      - name: Real 25-call source intake, compaction and paired documentary decisions
+        run: |
+          python -m scripts.r01_retrospective_memory_live \
+            --out runs/r01-memory-real/observed.json \
+            --ledger runs/r01-memory-real/usage-ledger.json
+      - name: Confirm complete record and no false operational gold
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r01-memory-real/observed.json').read_text())
+          assert a['status']=='EXECUTED_ALL_MEMORY_DEV'
+          assert a['observed_paid_calls']==25 and len(a['observations'])==24
+          assert set(a['summary'])=={'recursive_summary','deterministic_source_ledger'}
+          assert a['common_intake_to_both_arms'] is True
+          assert a['decision_time_source_exposure_matched'] is False
+          assert a['baseline_always_not_established']==10
+          assert a['qualified_real_operational_actions']==0
+          assert not a['confirmatory_touched'] and not a['external_submission_authorised']
+          PY
+      - name: Archive original evidence, even partially failed
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-memory-real-${{ github.run_id }}
+          path: runs/r01-memory-real/
+          if-no-files-found: warn
+          retention-days: 90
