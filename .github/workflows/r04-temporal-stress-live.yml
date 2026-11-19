@@ -1,0 +1,58 @@
+name: WAMBU | R04 temporal authority live discriminative development
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R04_STRESS_DEV_ONE_SHOT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r04-temporal-stress-one-shot
+  cancel-in-progress: false
+jobs:
+  exploratory-only-stress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 42
+    env:
+      R04_ALLOW_LIVE_DEV: 'true'
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate no model-facing gold and manual archetypes
+        run: |
+          python -m unittest discover -s tests -p 'test_r04_temporal_authority_stress.py' -v
+          python -m unittest discover -s tests -p 'test_r01_pep387_snapshot.py' -v
+      - name: Live source-matched 116-call bounded development pilot
+        run: |
+          python -m scripts.r04_temporal_authority_live \
+            --out runs/r04-temporal-stress/observed.json \
+            --ledger runs/r04-temporal-stress/provider-ledger.json
+      - name: Verify complete evidence and no scientific promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r04-temporal-stress/observed.json').read_text())
+          assert a['state']=='EXECUTED_ALL_DEV_CASES'
+          assert a['observed_provider_calls']==116
+          assert len(a['observations'])==108 and len(a['compactions'])==8
+          assert a['source_parity'] is True and a['token_budget_parity'] is False
+          assert a['gold_leaked_to_prompt'] is False
+          assert not a['measured_causal_effect'] and not a['confirmatory_touched']
+          assert not a['external_submission']
+          print('R04_STRESS_REAL_DEV_EVIDENCE_RECORDED',a['scientific_label'])
+          PY
+      - name: Archive even partial/provider-failed evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r04-stress-development-${{ github.run_id }}
+          path: runs/r04-temporal-stress/
+          if-no-files-found: warn
+          retention-days: 90
