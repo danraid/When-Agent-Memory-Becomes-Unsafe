@@ -1,0 +1,61 @@
+name: WAMBU | R03 shared-authority two-arm real development
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R03_SHARED_SOURCE_ONE_SHOT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r03-two-episode-one-shot
+  cancel-in-progress: false
+jobs:
+  matched-source-development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      R03_ALLOW_DEV_PAID_CALLS: 'true'
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run preflight leakage and shared-authority source contracts without provider calls
+        run: python -m unittest discover -s tests -p 'test_r03_common_authority.py' -v
+      - name: Execute two episodes, two model arms and 10 recursive compactions
+        run: |
+          python -m scripts.r03_common_authority_live_dev \
+            --out runs/r03-shared-source/observed.json \
+            --ledger runs/r03-shared-source/provider-ledger.json
+      - name: Validate bounded evidence and absence of confirmatory authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r03-shared-source/observed.json').read_text())
+          assert a['status']=='EXECUTED_ALL_DEVELOPMENT_DECISIONS'
+          assert a['max_real_provider_calls']==82
+          assert a['observed_provider_calls']==82
+          assert len(a['results'])==72 and len(a['compactions'])==10
+          assert a['source_packet_divergences']==0
+          assert a['source_access_matched'] is True
+          assert a['computation_matched'] is False
+          assert a['representation_matched'] is False
+          assert a['token_budget_matched'] is False
+          assert a['reference_labels_shared_with_model'] is False
+          assert a['confirmatory_access'] is False
+          assert a['causal_superiority_claim'] is False
+          assert a['external_submission_authorised'] is False
+          PY
+      - name: Archive observed outcomes and provider call ledger even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r03-shared-source-${{ github.run_id }}
+          path: runs/r03-shared-source/
+          retention-days: 90
+          if-no-files-found: warn
