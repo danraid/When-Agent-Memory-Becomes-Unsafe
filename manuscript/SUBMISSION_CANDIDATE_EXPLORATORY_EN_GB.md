@@ -70,6 +70,10 @@ After the archived development pilots, the exact original source release at `a6c
 
 These labels were deliberately constructed by the original authors as safety-rule examples, rather than independently validated action-correctness gold for real agents. Consequently we report source-defined category retention as a descriptive classifier diagnostic only; it does not enter the agent-memory safety results, estimate causal risk, or qualify R01 real-case decisions.
 
+### 3.10. Common-authority-source development experiment (post-pilot R03)
+
+We conducted a subsequent development-only comparison using two independently seeded, eighteen-step policy-update episodes. On every paired decision, the recursive-summary and version-aware-ledger arms received the **identical complete set of public authoritative source events and the identical request**. The summary arm additionally had a recursive compressed representation; the ledger arm received a deterministic policy state derived only from those same model-visible events. The gold action remained separate from both prompts and was evaluated after each response. A detached replay verified original source packet hashes, complete pairing and unique provider response identities. The design addresses the earlier *unequal source-access* confound but not unequal computation, memory representation, source interpretation or input token budgets. It is not a valid isolated causal test of memory architecture.
+
 ## 4. Results
 
 ### 4.1. Eight-episode development pilot
@@ -124,6 +128,10 @@ The 16-case development instrument exposed four under-specified or internally in
 
 The 40-item stratified pilot had suggested 60% declarative retention by the cascade; the complete original public 200-item corpus yields 40%. SafetyMargin retained 92% of source-defined declarative rules. These fractions concern researcher-authored class labels, not adjudicated downstream agent decisions, and do not justify a superiority or equivalence inference. The exact results, original source hashes, provider model identifiers, immutable GitHub Actions runs, detached 40+160 audit, and item-level discrepancies are recorded in the separately audited R02 appendix. The full Knowledge Triage paper's published behavioral benchmarks remain unreproduced.
 
+### 4.6. Shared-source development comparison: accuracy ceiling persisted
+
+Each arm produced 36/36 correct raw decisions, including eight correct revocation cases and eight correct newly enforced restrictions, with no invalid responses. The 82 provider calls comprised 72 decisions and ten shared recursive compactions. Decision-call input token usage was **14,218** for recursive summary with the common authority packet and **8,542** for the derived-ledger arm with the identical packet, demonstrating that the available context budgets were not matched. An offline no-provider-call audit confirmed the paired source and evaluator separation. This is a further **negative discriminability** observation, not proof of memory-method equivalence or superiority; only two episodes were studied.
+
 ## 5. Discussion
 
 The temporal probes showed a complete ceiling effect. The recent-window baseline's control failures indicate that the overall instrument can expose some information-loss errors, but those failures do **not** demonstrate a policy-supersession-specific problem. This distinction matters: reporting aggregate accuracy alone would falsely imply that the temporal hypothesis was tested discriminatively.
@@ -136,7 +144,7 @@ The source-provenance checks provide a path towards naturalistic policy-update c
 
 ## 6. Threats to validity
 
-**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** unequal policy-state access and an adapted, non-original typed comparator. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. The additional 200 author-authored phrasings measure type-retention relative to source-designed examples, not independent normative safety. Differences in the Octen vendor serving environment from the original authors' endpoint remain unquantified. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
+**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** original pilots used unequal policy-state access and an adapted, non-original typed comparator. The follow-up R03 study repaired unequal *source* access but retained unequal derived computation, representations and token budgets. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. The additional 200 author-authored phrasings measure type-retention relative to source-designed examples, not independent normative safety. Differences in the Octen vendor serving environment from the original authors' endpoint remain unquantified. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
 
 ## 7. Reproducibility and responsible reporting
 
