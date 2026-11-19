@@ -33,8 +33,8 @@
     },
     "R04": {
       "state": "PARTIAL",
-      "evidence": "docs/R04_SENSITIVITY_CHECKED_2026-11-18.md",
-      "reason": "CI-verified nominal paired-episode sensitivity under assumed SDs .15/.20/.25 and delta .10 gives n=18/32/50; 32 episodes imply 2464 calls under existing cap. Still no observed episode variance, non-ceiling discriminative task or authorised frozen confirmatory protocol."
+      "evidence": "docs/R04_TEMPORAL_STRESS_REAL_AND_AUDITED_2026-11-19.md",
+      "reason": "Predeclared balanced 36-query temporal authority stress test executed as 116 real calls, 108 model decisions and 8 compactions; independent sidecar/source replay PASS. All three arms 36/36 correct, no paired disagreements, so empirical discriminative terminal state FAILED due to ceiling; scientific hypothesis/power not ready."
     },
     "R05": {
       "state": "PARTIAL",
@@ -43,8 +43,8 @@
     },
     "R06": {
       "state": "PARTIAL",
-      "evidence": "docs/R01_CASE002_008_EVENT_TIME_SOURCE_AUDIT_2026-11-19.md",
-      "reason": "Original CPython issue/PR and review comment timelines reconstructed for cases 002 and 008; PEP 387 recommendation/comments after PR creation are excluded as initial-decision context, edited issue bodies flagged. Historic adopted rule and independent operational action gold remain unqualified."
+      "evidence": "docs/R01_R06_PREDECISION_PEP387_SNAPSHOTS_2026-11-19.md",
+      "reason": "PEP 387 source commits and Git blob identities proved historically available before PR #133654 and #140345, with updated event-time comment filtering; no feature-specific independently qualified correct action or adopted exception scope."
     },
     "R07": {
       "state": "PARTIAL",
