@@ -18,8 +18,8 @@
   "revisions": {
     "R01": {
       "state": "BLOCKED",
-      "evidence": "docs/P07F_V2_AI_BOARD_AUTHOR_REVIEW_PACKET_2026-11-17.md",
-      "reason": "No independent agent-action policy gold; six syntheses request further contemporaneous authority sources"
+      "evidence": "docs/R01_RETROSPECTIVE_MEMORY_STRESS_REAL_AUDITED_2026-11-19.md",
+      "reason": "Five real CPython documentary candidates source-screened. One narrow Steering Council pre-PR grant for two named APIs proven; zero independent code-action gold. 12/12 real documentary source-defined judgments passed with 10/12 abstention baseline. Retrospective 25-call bounded memory test passed independent audit and showed pre-cutoff case-admissible source citations 6/12 summary vs 9/12 derived ledger (binary statuses both 12/12). This is not event-time operational correctness, causal memory superiority or qualified independent gold."
     },
     "R02": {
       "state": "PARTIAL",
@@ -34,7 +34,7 @@
     "R04": {
       "state": "PARTIAL",
       "evidence": "docs/R04_TEMPORAL_STRESS_REAL_AND_AUDITED_2026-11-19.md",
-      "reason": "Predeclared balanced 36-query temporal authority stress test executed as 116 real calls, 108 model decisions and 8 compactions; independent sidecar/source replay PASS. All three arms 36/36 correct, no paired disagreements, so empirical discriminative terminal state FAILED due to ceiling; scientific hypothesis/power not ready."
+      "reason": "Original 116-call temporal-authority stress stayed at 36/36 accuracy ceiling for 3 arms. A separate R01 retrospective provenance-memory diagnostic later observed a limited citation-admissibility contrast (6/12 vs 9/12) across two unequally computed memory representations, without independent operational action gold or a prospective causal hypothesis; see docs/R01_RETROSPECTIVE_MEMORY_STRESS_REAL_AUDITED_2026-11-19.md."
     },
     "R05": {
       "state": "PARTIAL",
