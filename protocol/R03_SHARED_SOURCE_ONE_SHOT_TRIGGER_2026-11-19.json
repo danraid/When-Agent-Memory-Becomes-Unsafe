@@ -1,0 +1,14 @@
+{
+  "schema": "WAMBU-R03-ONE-SHOT-EXPLORATORY-V1",
+  "purpose": "Check shared-authority-source operational feasibility with 2 paired independent episodes and 2 memory representations",
+  "source": "public_development_only",
+  "episodes": 2,
+  "steps": 18,
+  "max_paid_calls": 82,
+  "environment": "OPENAI_API_KEY",
+  "octen_required": false,
+  "holdout": false,
+  "causal_effect_claim": false,
+  "author_approval": false,
+  "submission": false
+}
