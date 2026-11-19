@@ -1,0 +1,35 @@
+{
+  "schema": "WAMBU-R03-COMMON-SOURCE-DEV-PROTOCOL-V1",
+  "study_id": "WAMBU-001-R03",
+  "status": "EXPLORATORY_NOT_FROZEN",
+  "purpose": "Assess technical feasibility of removing privileged ledger source access in a paired development experiment; this does not establish causal memory effects.",
+  "source_upstream": "temporal_v3.generator.generate_episode",
+  "splits_allowed": [
+    "development"
+  ],
+  "episodes": 2,
+  "steps": 18,
+  "arms": [
+    "recursive_summary_shared_source",
+    "version_aware_ledger_shared_source"
+  ],
+  "each_arm_receives_identical_authorised_source_packet": true,
+  "source_packet_constructed_from": [
+    "INITIAL AUTHORISED POLICY:",
+    "AUTHORISED POLICY AMENDMENT #"
+  ],
+  "source_packet_excludes_all_evaluator_fields": true,
+  "comparison_deviation": "The ledger arm gets a deterministic computed active policy from the SAME public event packet, the summary arm does not; representation and token lengths differ. Equal source access is NOT matched computation, memory budget or equivalent content.",
+  "model_source": "study/model_config.json",
+  "approved_live_calls_upper_bound": 82,
+  "breakdown": "2 episodes x (18 turns x 2 model arms + 5 compactions) = 82 real calls",
+  "independent_unit": "episode",
+  "no_p_values": true,
+  "non_saturated_probes_not_established": true,
+  "preregistration": false,
+  "blind_gold_sidecar_after_inference": true,
+  "confirmatory_holdout": false,
+  "author_final_approval": false,
+  "external_submission": false,
+  "author_decision_issue": 50
+}
