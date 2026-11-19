@@ -1,0 +1,30 @@
+name: WAMBU | R01 event-time source documentary challenge contracts
+on:
+  pull_request:
+    paths:
+      - 'fixtures/R01_REAL_DOCUMENTARY_TEMPORAL_CHALLENGE_V1.json'
+      - 'evidence/R01_OPERATIONAL_AUTHORITY_5_CASES_2026-11-19.json'
+      - 'r01_documentary/challenge.py'
+      - 'tests/test_r01_real_documentary_challenge.py'
+      - '.github/workflows/r01-documentary-challenge-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-exclusion-and-reference-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check 12 prompt cases and absence of post-cutoff sources and oracle references
+        run: python -m unittest discover -s tests -p 'test_r01_real_documentary_challenge.py' -v
+      - name: Check frozen source-exception provenance
+        run: |
+          python -m unittest discover -s tests -p 'test_r01_pep387_snapshot.py' -v
+          python -m py_compile r01_documentary/challenge.py
