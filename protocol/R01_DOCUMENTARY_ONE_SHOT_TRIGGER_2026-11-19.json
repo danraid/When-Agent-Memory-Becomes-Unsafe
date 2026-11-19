@@ -1,0 +1,15 @@
+{
+  "schema": "WAMBU-R01-REAL-DOCUMENTARY-ONE-SHOT-V1",
+  "task_count": 12,
+  "expected_reference_distribution": {
+    "grant_supported": 2,
+    "not_established": 10
+  },
+  "original_sources_only": true,
+  "formal_sc_grant_only_for_two_named_interfaces": true,
+  "max_paid_calls": 12,
+  "split": "public_development",
+  "human_action_gold": 0,
+  "no_holdout": true,
+  "external_submission": false
+}
