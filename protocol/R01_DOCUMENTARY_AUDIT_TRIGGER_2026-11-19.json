@@ -1,0 +1,11 @@
+{
+  "schema": "WAMBU-R01-DOCUMENTARY-DETACHED-TRIGGER-V1",
+  "source_run_id": 44556331337,
+  "source_artifact_id": 14545447018,
+  "record_count": 12,
+  "payment_permitted": false,
+  "preconfirmed_passing": false,
+  "scientific_operational_action_gold": 0,
+  "holdout": false,
+  "submission": false
+}
