@@ -76,9 +76,9 @@ def current_policy_text(query, events):
     """A deterministic source-only parser, NOT a look-up of answer labels."""
     import re
     t=query["at_tick"]
-    p0=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[0])
-    p1=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[1])
-    p2=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[3])
+    p0=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[0],re.I)
+    p1=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[1],re.I)
+    p2=re.search(r"deny actor ([A-Za-z]+) in region (north|south)",events[3],re.I)
     e1=re.search(r"allow actor ([A-Za-z]+) in region (north|south)",events[2])
     e2=re.search(r"allow actor ([A-Za-z]+) in region (north|south)",events[4])
     if not all((p0,p1,p2,e1,e2)) or "SIGNED REVOCATION R2 effective tick 11" not in events[5]:
@@ -97,10 +97,12 @@ def prompt_for(item,arm,summary,events):
     if arm not in ARMS:
         raise ValueError("UNRECOGNISED_ARM")
     source=source_text(events)
-    memory={"source_only":"no additional memory",
-        "recursive_summary":"recursive memory representation:\n"+summary,
-        "derived_temporal_ledger":"derived active source state:\n"+
-                                 current_policy_text(item["query"],events)}[arm]
+    if arm=="source_only":
+        memory="no additional memory"
+    elif arm=="recursive_summary":
+        memory="recursive memory representation:\n"+summary
+    else:
+        memory="derived active source state:\n"+current_policy_text(item["query"],events)
     q=json.dumps(item["query"],sort_keys=True,separators=(",",":"))
     # Explicitly isolate case metadata and gold. No simulated time-of-day
     # provenance or chosen action is inserted.
