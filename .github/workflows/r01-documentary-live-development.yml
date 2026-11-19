@@ -1,0 +1,55 @@
+name: WAMBU | R01 real-source documentary temporal development pilot
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R01_DOCUMENTARY_ONE_SHOT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r01-12-documentary-one-shot
+  cancel-in-progress: false
+jobs:
+  source-grounded-documentary-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      R01_ALLOW_DOCUMENTARY_DEV_CALLS: 'true'
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source chronology, reference isolation and citation grading before paid calls
+        run: python -m unittest discover -s tests -p 'test_r01_real_documentary_challenge.py' -v
+      - name: Run 12 source-aligned timestamp and policy-scope questions
+        run: |
+          python -m scripts.r01_documentary_live_dev \
+            --out runs/r01-documentary/observed.json \
+            --ledger runs/r01-documentary/usage-ledger.json
+      - name: Validate complete real evidence without promoting provisional reference
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r01-documentary/observed.json').read_text())
+          assert r['state']=='EXECUTED_DOCUMENTARY_DEV'
+          assert r['observed_paid_calls']==12 and len(r['observations'])==12
+          assert r['fully_independent_real_operational_action_gold']==0
+          assert r['scope_qualified_real_case_count']==1
+          assert r['scientific_state']=='NO_INDEPENDENT_OPERATIONAL_ACTION_GOLD'
+          assert r['no_holdout_access'] and not r['external_submission_authorised']
+          print('DOCUMENTARY_DEVELOPMENT_EVIDENCE_PRESERVED',r['source_defined_documentary_matches'])
+          PY
+      - name: Archive even partial real evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-documentary-${{ github.run_id }}
+          path: runs/r01-documentary/
+          if-no-files-found: warn
+          retention-days: 90
