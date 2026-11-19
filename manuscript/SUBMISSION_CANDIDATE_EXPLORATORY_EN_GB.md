@@ -74,6 +74,10 @@ These labels were deliberately constructed by the original authors as safety-rul
 
 We conducted a subsequent development-only comparison using two independently seeded, eighteen-step policy-update episodes. On every paired decision, the recursive-summary and version-aware-ledger arms received the **identical complete set of public authoritative source events and the identical request**. The summary arm additionally had a recursive compressed representation; the ledger arm received a deterministic policy state derived only from those same model-visible events. The gold action remained separate from both prompts and was evaluated after each response. A detached replay verified original source packet hashes, complete pairing and unique provider response identities. The design addresses the earlier *unequal source-access* confound but not unequal computation, memory representation, source interpretation or input token budgets. It is not a valid isolated causal test of memory architecture.
 
+### 3.11. Prospective development-only temporal-authority stress instrument
+
+To investigate repeated ceiling effects, we separately predeclared a development instrument with two independently seeded 18-question episodes, nine synthetic oracle approvals and nine rejections per episode, and three source-matched arms: a common original signed event packet only; the same packet plus recursive summary; and the same packet plus a deterministic time-aware ledger. Questions covered authorised policy supersession, limited-time exceptions, revocation, historical effective-time decisions, critical-risk precedence and unauthorised messages. Case presentation order was shuffled before model inference. Reference actions were withheld from prompts and evaluated after responses. The comparison matched *source availability*, not model-side computation, context representation or token budgets. Synthetic signatures and oracle actions are not naturalistic institutional evidence.
+
 ## 4. Results
 
 ### 4.1. Eight-episode development pilot
@@ -131,6 +135,10 @@ The 40-item stratified pilot had suggested 60% declarative retention by the casc
 ### 4.6. Shared-source development comparison: accuracy ceiling persisted
 
 Each arm produced 36/36 correct raw decisions, including eight correct revocation cases and eight correct newly enforced restrictions, with no invalid responses. The 82 provider calls comprised 72 decisions and ten shared recursive compactions. Decision-call input token usage was **14,218** for recursive summary with the common authority packet and **8,542** for the derived-ledger arm with the identical packet, demonstrating that the available context budgets were not matched. An offline no-provider-call audit confirmed the paired source and evaluator separation. This is a further **negative discriminability** observation, not proof of memory-method equivalence or superiority; only two episodes were studied.
+
+### 4.7. Prospective temporal-authority development stress: a second accuracy ceiling
+
+The bounded live development run completed **116 real provider calls** (108 decisions and eight compactions), with no provider errors. All three arms returned **36/36 correct raw actions**, no invalid outputs and zero paired disagreements. Recorded decision-call input tokens were **10,810** for the source-only arm, **19,342** for recursive summary and **12,054** for the derived temporal ledger. An independent zero-inference replay of the original questions, event-source hashes, oracle sidecar, response IDs and usage passed without missing evidence. No model advantage can be inferred from the identical binary results. The new scenario complexity did not generate an observable discriminative signal, and this must be reported as a negative instrument-qualification result rather than a positive safety finding. The real-world R01 qualification and scientific comparison remain incomplete.
 
 ## 5. Discussion
 
