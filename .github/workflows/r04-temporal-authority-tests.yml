@@ -1,0 +1,27 @@
+name: WAMBU | R04 temporal authority stress instrument tests
+on:
+  pull_request:
+    paths:
+      - 'r04_stress/instrument.py'
+      - 'tests/test_r04_temporal_authority_stress.py'
+      - 'scripts/r04_temporal_authority_live.py'
+      - '.github/workflows/r04-temporal-authority-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-oracle-and-noleak-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify balanced policy archetypes and sidecar isolation
+        run: python -m unittest discover -s tests -p 'test_r04_temporal_authority_stress.py' -v
+      - name: Compile provider runner without calling it
+        run: python -m py_compile r04_stress/instrument.py scripts/r04_temporal_authority_live.py
