@@ -1,0 +1,66 @@
+name: Article 1 | R02 one-shot live cascade development attempt
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r02-one-development-live-cascade
+  cancel-in-progress: false
+jobs:
+  development-only-live-cascade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      R02_ALLOW_LIVE_CALLS: 'true'
+      R02_REQUIRE_LANE: 'OCTEN_VENDOR_AND_ORIGINAL_LLM'
+      OCTEN_API_KEY: ${{ secrets.OCTEN_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      CUSTOM_LLM_API_KEY: ${{ secrets.CUSTOM_LLM_API_KEY }}
+      CUSTOM_LLM_ENDPOINT: ${{ secrets.CUSTOM_LLM_ENDPOINT }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Install source-declared minimum cascade import requirements
+        run: python -m pip install 'numpy>=1.24' 'tenacity>=8.2' 'openai>=1.40' 'python-dotenv>=1.0'
+      - name: Execute bounded real API development-only cascade
+        run: |
+          python -m scripts.r02_execute_live_cascade \
+            --upstream third_party/knowledge-triage \
+            --out runs/r02-live/cascade_live_report.json
+      - name: Audit report claims, never promote an adapter to full replication
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('runs/r02-live/cascade_live_report.json')
+          r=json.loads(p.read_text())
+          assert r['status'] in {'REAL_CASCADE_COMPLETE','BLOCKED_NO_ACCESSIBLE_LIVE_CASCADE','PRECONDITION_FAILED'}
+          assert r['full_original_knowledge_triage_replication'] is False
+          assert r['external_journal_submission'] is False
+          assert r.get('required_lane') == 'OCTEN_VENDOR_AND_ORIGINAL_LLM' or r['status'] == 'PRECONDITION_FAILED'
+          assert not any(a['lane']=='ADAPTED_OPENROUTER' for a in r.get('attempts',[]))
+          assert r['protected_holdout_access'] is False
+          result=r.get('result')
+          if result:
+              assert result['published_benchmark_reproduced'] is False
+              assert result['lane'] in {'ORIGINAL','OCTEN_VENDOR_AND_ORIGINAL_LLM','ADAPTED_OPENROUTER'}
+              assert len(result['classification_results'])>=3
+          print('LIVE_CASCADE_REPORT_AUDITED',r['status'])
+          PY
+      - name: Preserve original/adapter lane and observed evidence, including blocked attempts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r02-live-cascade-${{ github.run_id }}
+          path: runs/r02-live/
+          if-no-files-found: warn
+          retention-days: 90

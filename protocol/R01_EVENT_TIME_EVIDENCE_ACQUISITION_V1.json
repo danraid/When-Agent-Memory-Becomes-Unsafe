@@ -1,0 +1,295 @@
+{
+  "schema": "WAMBU-R01-EVIDENCE-ACQUISITION-REGISTER-V1",
+  "split": "public_development_only",
+  "based_on": [
+    "protocol/P07D_REAL_CODE_CHANGE_MATRIX.json",
+    "protocol/P07E_HISTORICAL_SCOPE_TRIAGE.json"
+  ],
+  "case_count": 8,
+  "casewriter_is_not_independent_human_expert": true,
+  "expected_human_adjudications": 0,
+  "operational_gold_labels": 0,
+  "confirmatory_eligible": false,
+  "cases": [
+    {
+      "case_id": "P07D-CODE-001",
+      "public_pr": "https://github.com/python/cpython/pull/133080",
+      "historical_topic_tag": "DIRECT_POLICY_TOPIC",
+      "normative_candidate_key": "python_backwards_compatibility",
+      "normative_document": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "documentary_candidate": true,
+      "source_requirements": [
+        "PEP 387 version applicable before PR creation",
+        "record of an exception explicitly invoked for the C-API removal",
+        "decision-maker authority and approval/objection trace"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-002",
+      "public_pr": "https://github.com/python/cpython/pull/140345",
+      "historical_topic_tag": "DIRECT_POLICY_TOPIC",
+      "normative_candidate_key": "python_backwards_compatibility",
+      "normative_document": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "documentary_candidate": true,
+      "source_requirements": [
+        "PEP 387 warning obligation for the targeted ast API at decision time",
+        "release/version sequence proving notice duration",
+        "scope showing warning issuance is distinguishable from removal"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-003",
+      "public_pr": "https://github.com/python/cpython/pull/130697",
+      "historical_topic_tag": "DIRECT_POLICY_TOPIC",
+      "normative_candidate_key": "python_backwards_compatibility",
+      "normative_document": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "documentary_candidate": true,
+      "source_requirements": [
+        "historical Unicode C API deprecation/removal rule",
+        "release version where warning became observable",
+        "exact exception and compatibility impact"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-004",
+      "public_pr": "https://github.com/python/cpython/pull/112639",
+      "historical_topic_tag": "DIRECT_POLICY_TOPIC",
+      "normative_candidate_key": "python_backwards_compatibility",
+      "normative_document": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "documentary_candidate": true,
+      "source_requirements": [
+        "which PEP 387 revision governed each change during the long-lived PR",
+        "authoritative review decision time and API target",
+        "evidence distinguishing no-merge from disallowed change"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-005",
+      "public_pr": "https://github.com/rust-lang/rust/pull/87652",
+      "historical_topic_tag": "LATER_RULE_NOT_ADOPTED_AS_OF_CASE",
+      "normative_candidate_key": "rust_naked_function_constraints",
+      "normative_document": "https://github.com/rust-lang/rfcs/blob/f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07/text/2972-constrained-naked.md",
+      "documentary_candidate": false,
+      "source_requirements": [
+        "pre-2021-08-03 Rust authority on naked inline independent of later RFC 2972",
+        "original PR event timeline",
+        "proof that later adopted RFC text was not used retroactively"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-006",
+      "public_pr": "https://github.com/rust-lang/rust/pull/161002",
+      "historical_topic_tag": "NONMATCHING_RULE_SCOPE",
+      "normative_candidate_key": "rust_naked_function_constraints",
+      "normative_document": "https://github.com/rust-lang/rfcs/blob/f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07/text/2972-constrained-naked.md",
+      "documentary_candidate": false,
+      "source_requirements": [
+        "governing Rust rule for #[cold] on extern custom ABI",
+        "contemporaneous design/reviewer authority and scope",
+        "exclude unrelated RFC 2972 inline/operand quotations"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-007",
+      "public_pr": "https://github.com/rust-lang/rust/pull/159382",
+      "historical_topic_tag": "ADJACENT_BUT_NO_VERIFIED_NORMATIVE_CLAUSE",
+      "normative_candidate_key": "rust_naked_function_constraints",
+      "normative_document": "https://github.com/rust-lang/rfcs/blob/f43d5789b838fb0d80962e3d4b45fb9ddfcc9a07/text/2972-constrained-naked.md",
+      "documentary_candidate": false,
+      "source_requirements": [
+        "contemporaneous naked EII implementation governance",
+        "rule directly applicable to shim decision",
+        "avoid extrapolating RFC 2972 assembly operand clause"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    },
+    {
+      "case_id": "P07D-CODE-008",
+      "public_pr": "https://github.com/python/cpython/pull/133654",
+      "historical_topic_tag": "DIRECT_POLICY_TOPIC",
+      "normative_candidate_key": "python_backwards_compatibility",
+      "normative_document": "https://github.com/python/peps/blob/5595f77d7d9cdddae99d4510b145df2496a9c891/peps/pep-0387.rst",
+      "documentary_candidate": true,
+      "source_requirements": [
+        "PEP 387 applicability to deprecated global configuration variables",
+        "exact warning/removal lifecycle evidence",
+        "issuer-approved exception evidence"
+      ],
+      "source_capture": {
+        "normative_commit_at_decision": null,
+        "normative_sha256_at_decision": null,
+        "adoption_and_effective_time_proof_url": null,
+        "issuer_authority_evidence_url": null,
+        "actor_authorisation_evidence_url": null,
+        "exception_evidence_url": null,
+        "action_definition": null,
+        "decision_timestamp_utc": null,
+        "quote_with_line_numbers": null,
+        "independent_source_verification": null
+      },
+      "ai_specialist_screening": {
+        "requested": true,
+        "role": "methodology_provenance",
+        "not_human": true,
+        "verdict": null,
+        "quoted_source_ids": []
+      },
+      "scientific_classification": "AWAITING_AUTHORITY_EVIDENCE",
+      "qualified_action": null,
+      "confidence_note": "Not estimable without verified applicable authority and decision context"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+name: Article 1 | R04 episode sensitivity validation
+on:
+  pull_request:
+    paths:
+      - 'scripts/r04_episode_sensitivity.py'
+      - '.github/workflows/r04-episode-sensitivity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  standalone-prospective-sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compute independent-episode sample sensitivity without any provider credentials
+        run: python -m scripts.r04_episode_sensitivity --out runs/r04-sensitivity/report.json
+      - name: Fail if variance assumptions are mistaken for observed power
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r04-sensitivity/report.json').read_text())
+          assert [x['normal_approx_n_rounded'] for x in r['rows']]==[18,32,50]
+          assert r['calls_per_episode']==77
+          assert r['rows'][1]['estimated_calls']==2464
+          assert r['rows'][1]['fits_existing_2500_call_cap']
+          assert not r['rows'][2]['fits_existing_2500_call_cap']
+          assert r['episode_variance_is_assumed_not_empirically_estimated']
+          assert not r['author_protocol_authorisation']
+          assert not r['confirmatory_holdout_touched']
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r04-sensitivity-${{ github.run_id }}
+          path: runs/r04-sensitivity/
+          retention-days: 90

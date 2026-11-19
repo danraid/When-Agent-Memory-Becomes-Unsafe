@@ -1,0 +1,46 @@
+name: WAMBU | R01 retrospective bounded provenance-memory instrument
+on:
+  pull_request:
+    paths:
+      - 'r01_documentary/memory_stress.py'
+      - 'protocol/R01_RETROSPECTIVE_PROVENANCE_MEMORY_STRESS_V1.json'
+      - 'tests/test_r01_memory_stress.py'
+      - '.github/workflows/r01-memory-stress-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bounded-source-memory-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate common source intake, memory cap, no source/gold leakage
+        run: python -m unittest discover -s tests -p 'test_r01_memory_stress.py' -v
+      - name: Produce reproducible source-memory manifest without a model call
+        run: |
+          mkdir -p runs/r01-memory-stress
+          python - <<'PY'
+          from r01_documentary.memory_stress import manifest
+          import json
+          from pathlib import Path
+          d=manifest()
+          assert d['model_calls']==0
+          assert d['independent_action_gold']==0
+          assert d['source_words']>d['ledger_words']
+          assert d['ledger_words']<=220
+          assert len(d['cases'])==12
+          Path('runs/r01-memory-stress/preflight.json').write_text(json.dumps(d,indent=2))
+          print('PRECOMMITTED_MEMORY_INSTRUMENT_PASS',d['source_words'],d['ledger_words'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-memory-instrument-${{ github.run_id }}
+          path: runs/r01-memory-stress/
+          retention-days: 90

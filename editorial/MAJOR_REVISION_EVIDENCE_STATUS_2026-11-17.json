@@ -1,0 +1,60 @@
+{
+  "schema": "WAMBU-MAJOR-REVISION-EVIDENCE-V1",
+  "source_commit": "c84f7a07e49878a4081d2e0b616ff1c50d011f3a",
+  "author_decision": "MAJOR_REVISIONS_REQUESTED",
+  "author_final_approval": false,
+  "confirmatory_protocol_freeze_authorised": false,
+  "confirmatory_holdout_access_authorised": false,
+  "external_submission_authorised": false,
+  "scientific_scope": "EXPLORATORY_ONLY",
+  "ai_panel": {
+    "first_round": 24,
+    "strict_valid": 22,
+    "valid_syntheses": 6,
+    "case_count": 8,
+    "human_adjudications": 0,
+    "full_knowledge_triage_reproduced": false
+  },
+  "revisions": {
+    "R01": {
+      "state": "BLOCKED",
+      "evidence": "docs/R01_RETROSPECTIVE_MEMORY_STRESS_REAL_AUDITED_2026-11-19.md",
+      "reason": "Five real CPython documentary candidates source-screened. One narrow Steering Council pre-PR grant for two named APIs proven; zero independent code-action gold. 12/12 real documentary source-defined judgments passed with 10/12 abstention baseline. Retrospective 25-call bounded memory test passed independent audit and showed pre-cutoff case-admissible source citations 6/12 summary vs 9/12 derived ledger (binary statuses both 12/12). This is not event-time operational correctness, causal memory superiority or qualified independent gold."
+    },
+    "R02": {
+      "state": "PARTIAL",
+      "evidence": "docs/R02_COMPLETE_PUBLIC_200_AUDITED_2026-11-18.md",
+      "reason": "All original source-authored 200 phrasing items run with live Octen 8B vendor model-ID and GPT 5.4 mini; detached source-hash audit passed (40+160 disjoint). Observed source-defined constraint retention regex 109/200, original cascade 168/200, SafetyMargin 193/200. Full Knowledge Triage paper corpus, original authors' serving parity, matched-information downstream tasks and independent action gold remain unverified."
+    },
+    "R03": {
+      "state": "PARTIAL",
+      "evidence": "docs/R03_COMMON_SOURCE_REAL_PILOT_AUDITED_2026-11-19.md",
+      "reason": "Two real development episodes received identical public authoritative source packets across recursive summary and ledger arms; 82 real provider calls and 72 paired decisions independently replay-audited. Both arms 36/36 correct, 0/8 revocation errors and 0/8 enforcement errors; complete ceiling persists, input tokens 14218 vs 8542 and computational representations unmatched. No causal effect or confirmatory inference."
+    },
+    "R04": {
+      "state": "PARTIAL",
+      "evidence": "docs/R04_TEMPORAL_STRESS_REAL_AND_AUDITED_2026-11-19.md",
+      "reason": "Original 116-call temporal-authority stress stayed at 36/36 accuracy ceiling for 3 arms. A separate R01 retrospective provenance-memory diagnostic later observed a limited citation-admissibility contrast (6/12 vs 9/12) across two unequally computed memory representations, without independent operational action gold or a prospective causal hypothesis; see docs/R01_RETROSPECTIVE_MEMORY_STRESS_REAL_AUDITED_2026-11-19.md."
+    },
+    "R05": {
+      "state": "PARTIAL",
+      "evidence": "docs/P07F_V2_AI_BOARD_AUTHOR_REVIEW_PACKET_2026-11-17.md",
+      "reason": "Deterministic replay audits exist, but 2 first-round and 2 syntheses incomplete; P10 votes invalid"
+    },
+    "R06": {
+      "state": "PARTIAL",
+      "evidence": "docs/R01_R06_PREDECISION_PEP387_SNAPSHOTS_2026-11-19.md",
+      "reason": "PEP 387 source commits and Git blob identities proved historically available before PR #133654 and #140345, with updated event-time comment filtering; no feature-specific independently qualified correct action or adopted exception scope."
+    },
+    "R07": {
+      "state": "PARTIAL",
+      "evidence": "docs/R07_PRIMARY_LITERATURE_OVERLAP_SCREEN_2026-11-18.md",
+      "reason": "Primary author/publisher descriptions for Knowledge Triage, Supersede, ACON and LongMemEval screened; claim restrictions and narrow possible measurement thesis documented. Full-text methodological comparison, wider search and independent novelty verdict remain open."
+    },
+    "R08": {
+      "state": "PARTIAL",
+      "evidence": "docs/R08_TMLR_OFFICIAL_READINESS_SCREEN_2026-11-18.md",
+      "reason": "Verified current official TMLR anonymous review, LaTeX style, OpenReview, author accountability and first-page AI disclosure requirements. Authorship/funding/conflicts/licences, anonymised supplement, final source-and-figure audit and independent author approval remain outstanding; no external submission."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+name: Article 1 | R02 Octen vendor transport contract
+on:
+  pull_request:
+    paths:
+      - 'scripts/r02_octen_vendor_embedding_bridge.py'
+      - 'scripts/r02_execute_live_cascade.py'
+      - 'tests/test_r02_octen_vendor_embedding_bridge.py'
+      - '.github/workflows/r02-octen-vendor-bridge-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bridge-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OCTEN_API_KEY: ''
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test official Octen 8B transport and fail-closed response validators
+        run: python -m unittest discover -s tests -p 'test_r02_octen_vendor_embedding_bridge.py' -v
+      - name: Compile integration and check no live credentials were required
+        run: |
+          python -m py_compile scripts/r02_octen_vendor_embedding_bridge.py scripts/r02_execute_live_cascade.py
+          python - <<'PY'
+          from scripts.r02_execute_live_cascade import credentials
+          c=credentials({})
+          assert not any(c.values())
+          from scripts.r02_octen_vendor_embedding_bridge import ENDPOINT, MODEL, DIMENSION
+          assert ENDPOINT=="https://api.octen.ai/embedding"
+          assert MODEL=="octen-embedding-8b" and DIMENSION==4096
+          print("OFFLINE_BRIDGE_CONTRACT_PASS_NO_VENDOR_ACCESS_CLAIM")
+          PY

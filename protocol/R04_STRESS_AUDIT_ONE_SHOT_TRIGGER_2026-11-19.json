@@ -1,0 +1,13 @@
+{
+  "schema": "WAMBU-R04-DETACHED-AUDIT-TRIGGER-V1",
+  "run_id": 44518845870,
+  "artifact_id": 14527287005,
+  "expected_decisions": 108,
+  "expected_compactions": 8,
+  "expected_unique_provider_ids": 116,
+  "expected_source_gold_leakage": 0,
+  "new_paid_calls": 0,
+  "protected_holdout": false,
+  "author_approval": false,
+  "external_submission": false
+}

@@ -1,0 +1,111 @@
+{
+  "schema": "WAMBU-R01-REAL-OPERATIONAL-SOURCE-QUALIFICATION-V2",
+  "kind": "PRIMARY_VERIFIED_PREDECISION_DOCUMENTARY_ACTION_SCOPE_NOT_POLICY_GOLD",
+  "date": "2026-11-19",
+  "source_method": "GitHub immutable PEP blob and primary issue/PR timestamps, original PR commit identities, explicit grant scope",
+  "task_universe": "previously screened 5 Python policy-topic PRs of original 8",
+  "cases": [
+    {
+      "id": "P07D-CODE-001",
+      "pr": 133080,
+      "pr_created": "2025-04-28T11:41:01Z",
+      "policy_sha": "65029b3f1f4e656a54395a9b04e8cfa06a569240",
+      "policy_commit_at": "2025-02-24T14:51:08Z",
+      "policy_blob": "e5132ba0f9afb7c8527b7d2678a720e40b5db37d",
+      "initial_commit_sha": "4e1690b30317d24247d31c8866d9633d2da39e97",
+      "initial_commit_at": "2025-04-28T11:38:29Z",
+      "decision_source": "https://github.com/python/steering-council/issues/288#issuecomment-2828390956",
+      "decision_issued_at": "2025-04-24T17:46:12Z",
+      "decision_author": "emilyemorehouse",
+      "decision_text": "The SC is fine with this removal sans-deprecation.",
+      "request_source": "https://github.com/python/steering-council/issues/288",
+      "request_issued_at": "2025-04-23T13:27:30Z",
+      "explicit_scope": [
+        "Py_C_RECURSION_LIMIT",
+        "PyThreadState.c_recursion_remaining"
+      ],
+      "scope_verified_from_original_request": true,
+      "first_commit_files": [
+        "Include/cpython/pystate.h",
+        "Python/pystate.c",
+        "Doc/whatsnew/3.14.rst"
+      ],
+      "qualification": "NARROW_EXCEPTION_SCOPE_SUPPORTED",
+      "action_gold": null,
+      "qualification_limit": "SC says exception acceptable only for two named APIs in request; full PR code correctness or downstream compatibility not inferred"
+    },
+    {
+      "id": "P07D-CODE-002",
+      "pr": 140345,
+      "pr_created": "2025-10-20T00:54:39Z",
+      "policy_sha": "fdd514309718092256484670a8191f8e747ce3b2",
+      "policy_commit_at": "2025-09-10T02:08:01Z",
+      "policy_blob": "07a0fcb7ee5cd5af1218c4885fa4558bf8564240",
+      "initial_commit_sha": "3249a2e73f7908e225f5dcfd87ef489f1a27b6d3",
+      "initial_commit_at": "2025-10-20T14:43:40Z",
+      "review_source": "https://github.com/python/cpython/issues/140344#issuecomment-3420516752",
+      "review_published_at": "2025-10-20T04:37:26Z",
+      "author_source": "https://github.com/python/cpython/issues/140344#issuecomment-3422089335",
+      "author_published_at": "2025-10-20T13:33:56Z",
+      "qualification": "POLICY_TEXT_VERIFIED_CREATION_TIME_DIFF_NOT_PROVEN",
+      "action_gold": null,
+      "qualification_limit": "PR opened before initial listed commit and before reviewer/author comments, hence no source-level approve/reject at opening"
+    },
+    {
+      "id": "P07D-CODE-003",
+      "pr": 130697,
+      "pr_created": "2025-02-28T17:12:51Z",
+      "policy_sha": "65029b3f1f4e656a54395a9b04e8cfa06a569240",
+      "policy_commit_at": "2025-02-24T14:51:08Z",
+      "policy_blob": "e5132ba0f9afb7c8527b7d2678a720e40b5db37d",
+      "initial_commit_sha": "6d266ee064acd960bedc98f76fa5eb244a99bde9",
+      "initial_commit_at": "2025-02-28T17:03:25Z",
+      "qualification": "DRAFT_PROPOSAL_SCOPE_VERIFIED_NO_AUTHORISED_FINAL_ACTION",
+      "action_gold": null,
+      "qualification_limit": "PR opening text expressly describes discussion draft; cannot infer authority to remove APIs from it"
+    },
+    {
+      "id": "P07D-CODE-004",
+      "pr": 112639,
+      "pr_created": "2023-12-03T07:44:52Z",
+      "policy_sha": "bf0b381704265f2d013255744a92671895287332",
+      "policy_commit_at": "2023-11-14T15:46:11Z",
+      "policy_blob": "068684b5d27d76217a5d716e8c3f7b294931b7ea",
+      "initial_commit_sha": "ad7389bb20d437b3c04f57a0923012bdd6380e7d",
+      "initial_commit_at": "2023-11-22T14:55:03Z",
+      "qualification": "POLICY_SOURCE_AVAILABLE_NO_INDEPENDENT_ACTION_LABEL",
+      "action_gold": null,
+      "qualification_limit": "The pre-opening PEP and proposal exist but change-specific removal criteria not independently established"
+    },
+    {
+      "id": "P07D-CODE-008",
+      "pr": 133654,
+      "pr_created": "2025-05-08T10:14:55Z",
+      "policy_sha": "65029b3f1f4e656a54395a9b04e8cfa06a569240",
+      "policy_commit_at": "2025-02-24T14:51:08Z",
+      "policy_blob": "e5132ba0f9afb7c8527b7d2678a720e40b5db37d",
+      "initial_commit_sha": "12f494a17016ba66c7f87fb79d915a64f526ebea",
+      "initial_commit_at": "2025-05-08T07:33:14Z",
+      "explicitly_excluded_from_proposal": [
+        "Py_UTF8Mode",
+        "Py_InteractiveFlag"
+      ],
+      "qualification": "DOCUMENTED_SCOPE_EXCLUSION_VERIFIED_EXCEPTION_UNRESOLVED",
+      "action_gold": null,
+      "qualification_limit": "Proposal explicitly left two variables untouched due conflicting deprecation vs pending-removal documentation; final policy action remains unverified"
+    }
+  ],
+  "original_eight_preserved": true,
+  "rust_other_three_not_resurrected": true,
+  "scope_qualified": 1,
+  "documentary_topic_cases": 5,
+  "fully_independent_correct_operational_actions": 0,
+  "provisional_reference_labels_for_diagnostic_only": true,
+  "source_comments_after_cutoff_not_model_visible_in_asof_tasks": true,
+  "merges_are_not_correctness_gold": true,
+  "ai_adjudicators_are_not_human": true,
+  "independent_human_adjudicators": 0,
+  "confirmatory_touched": false,
+  "external_submission_authorised": false,
+  "author_approved": false
+}

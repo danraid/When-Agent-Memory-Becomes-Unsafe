@@ -1,0 +1,55 @@
+name: WAMBU | R03 independent common-authority source replay
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R03_SHARED_SOURCE_AUDIT_ONE_SHOT_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  no-provider-independent-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44499126116'
+          name: wambu-r03-shared-source-44499126116
+          path: runs/r03-source/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Independently reconstruct source packets and paired outcomes
+        run: |
+          python -m scripts.audit_r03_shared_authority_dev \
+            --report runs/r03-source/observed.json \
+            --out runs/r03-audit/audit.json
+      - name: Verify methodology and protected-stage boundaries
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('runs/r03-audit/audit.json').read_text())
+          assert d['passed']
+          assert d['development_episode_count']==2
+          assert d['paired_model_decision_count']==36
+          assert d['new_paid_calls']==0 and not d['holdout']
+          assert d['scientific_inference']=='EXPLORATORY_NO_CAUSAL_COMPARISON'
+          assert d['author_approval'] is False and d['external_submission'] is False
+          PY
+      - name: Archive detached audit only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r03-independent-audit-${{ github.run_id }}
+          path: runs/r03-audit/
+          retention-days: 90
+          if-no-files-found: warn

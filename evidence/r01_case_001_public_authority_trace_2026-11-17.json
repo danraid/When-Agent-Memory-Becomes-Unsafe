@@ -1,0 +1,66 @@
+{
+  "schema": "WAMBU-R01-REAL-AUTHORITY-TRACE-V1",
+  "case_id": "P07D-CODE-001",
+  "classification": "CONTEMPORANEOUS_PUBLIC_AUTHORITY_EVIDENCE_NO_AGENT_ACTION_GOLD",
+  "pr": {
+    "repository": "python/cpython",
+    "number": 133080,
+    "url": "https://github.com/python/cpython/pull/133080",
+    "created_at": "2025-04-28T11:41:01Z",
+    "closed_at": "2025-04-29T10:56:21Z",
+    "merged_at": "2025-04-29T10:56:21Z",
+    "observed_state": "merged"
+  },
+  "requested_action": "remove Py_C_RECURSION_LIMIT and PyThreadState.c_recursion_remaining without a deprecation period in Python 3.14",
+  "authority_chain": [
+    {
+      "role": "technical_working_group_recommendation",
+      "url": "https://github.com/capi-workgroup/decisions/issues/59",
+      "api_url": "https://api.github.com/repos/capi-workgroup/decisions/issues/59",
+      "created_at": "2025-03-10T15:52:42Z",
+      "caveat": "WG recommendation alone not sufficient to grant exception"
+    },
+    {
+      "role": "formal_exception_request",
+      "url": "https://github.com/python/steering-council/issues/288",
+      "api_url": "https://api.github.com/repos/python/steering-council/issues/288",
+      "created_at": "2025-04-23T13:27:30Z",
+      "caveat": "Request does not itself confer permission"
+    },
+    {
+      "role": "public_steering_council_approval_statement",
+      "url": "https://github.com/python/steering-council/issues/288#issuecomment-2828390956",
+      "api_url": "https://api.github.com/repos/python/steering-council/issues/comments/2828390956",
+      "created_at": "2025-04-24T17:46:12Z",
+      "author": "emilyemorehouse",
+      "literal_evidence": "Thanks for bringing this to our attention! The SC is fine with this removal sans-deprecation.",
+      "caveat": "Public statement establishes case-specific exception evidence, not full independent experimental adjudication"
+    },
+    {
+      "role": "wg_postapproval_acknowledgement",
+      "url": "https://github.com/capi-workgroup/decisions/issues/59#issuecomment-2834971171",
+      "api_url": "https://api.github.com/repos/capi-workgroup/decisions/issues/comments/2834971171",
+      "created_at": "2025-04-28T11:41:40Z",
+      "author": "encukou",
+      "literal_evidence": "Approved by SC, tracked in https://github.com/python/cpython/issues/133079",
+      "caveat": "This acknowledgement was posted 39 seconds after the PR creation; not admissible as pre-creation prompt context"
+    }
+  ],
+  "temporal_observation": "Steering Council approval comment predates PR creation by more than three days. WG acknowledgement postdates PR creation and cannot be included in creation-time prompts.",
+  "source_scope_limits": [
+    "no independent policy-action gold",
+    "PR description and issue may be edited after the fact",
+    "no verified complete policy state delivered to a particular agent",
+    "original policy commit at event time must be independently archived",
+    "no independent genuine human experimental adjudication"
+  ],
+  "case_specific_exception_documented": true,
+  "exception_applies_to_named_interfaces": true,
+  "historical_approval_visible_before_pr_creation": true,
+  "action_ground_truth": null,
+  "qualified_agent_action_gold": false,
+  "independent_human_adjudication_count": 0,
+  "confirmatory_access": false,
+  "author_final_approval": false,
+  "source_capture_status": "PRIMARY_PUBLIC_GITHUB_RECORDS_VERIFIED_BY_CONNECTOR_METADATA; DETACHED_CONTENT_HASH_AUDIT_PENDING"
+}

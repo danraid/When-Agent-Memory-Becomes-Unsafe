@@ -1,6 +1,6 @@
 # When Temporal Policy Updates Fail to Discriminate Agent Memories: Exploratory GPT Pilots, Compaction Feasibility and a Synthetic Instrument-Repair Audit
 
-**Submission-candidate manuscript, not yet cleared for journal submission.** The public source repository is author-identifying; do not include its URLs or this file in an anonymous submission without a separate blinded supplement. **Research status:** exploratory, not independently reviewed or confirmed.
+**Author-requested major revision (GitHub issue #50), not cleared for journal submission.** The public source repository is author-identifying; do not include its URLs or this file in an anonymous submission without a separate blinded supplement. **Research status:** exploratory, not independently reviewed or confirmed.
 
 ## Abstract
 
@@ -54,6 +54,36 @@ A separate set of 16 AI-authored policy scenarios was prepared as development-on
 
 Six pinned source/target document pairs from Python PEP and Rust RFC histories were independently verified at original Git commits and blob identities. They were not converted into labelled decision tasks and cannot substitute for independent case authorship or adjudication.
 
+### 3.7. Evidence qualification and AI-review missingness (post-pilot; no new performance claims)
+
+Eight public CPython/Rust code-change cases were subsequently assembled for methodological screening. The P07f v2 AI-only board produced 24 first-round model responses with 22 strict-schema/evidence-linkage valid outputs and six valid same-case adversarial syntheses from eight attempted cases. The two first-round failures comprised invalid JSON and a non-existent case-specific evidence identifier; two cases lacked a valid synthesis. All six valid syntheses requested additional contemporaneous authority or exception sources. These are counts of format and source-linkage validity, **not** independent scientific agreement, action correctness, or policy gold. Roles were simulated by models, not qualified human adjudicators. The original P07f v2 paid workflow ended with a detached-auditor implementation failure; its unchanged provider outputs were subsequently replayed successfully without new inference. The P10 scientific advisory's four strict-invalid initial reviews and schema-invalid chair response are retained as dissenting, nonbinding critique, not approval.
+
+The historical GitHub state of a code-change request (merged or closed) cannot be used as normative authorisation truth. The current corpus does not establish the applicable event-time policy/exception/actor action for every case. Consequently none of the eight cases is admitted to an operational agent-memory-safety accuracy denominator. These later screens were not part of either archived pilot and did not touch the confirmatory holdout.
+
+### 3.8. Matched-information requirement and prospective design boundary
+
+The current-policy ledger, full history, recent window, recursive summary and adapted typed archive are **systems conditions with non-equivalent information access**. Existing descriptive differences cannot identify a memory-compression-specific treatment effect. A future architecture-specific comparison must explicitly audit per-turn authorised source visibility, source revision/effective date, token budgets, identical base model/settings, and evaluator-only outcome isolation before predeclaring any causal estimand. No such matched-information empirical comparison is claimed here. Prospective independent episode counts, uncertainty intervals, missing-data rules, and multiplicity must be fixed before accessing a holdout. Zero differences across eight/four development episodes do not justify equivalence or non-inferiority.
+
+### 3.9. Post-pilot source-aligned Knowledge Triage phrasing diagnostic (exploratory)
+
+After the archived development pilots, the exact original source release at `a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4` supplied a 200-item, author-constructed adversarial safety-rule corpus (50 base rules expressed imperatively, declaratively, conditionally and passively). We executed the original source-defined regex classifier, the unchanged original cascade with live vendor `octen-embedding-8b` embeddings and OpenAI `gpt-5.4-mini` adjudication, and the unchanged original `SafetyMargin` method. A 40-item development subset and the disjoint remaining 160 items were separately archived and reconstructed under a no-call source-identity audit, which passed for all 200 items with zero missing or duplicate source IDs. All 160 additional method calls completed without recorded case failures. The vendor API is **not proven identical to the authors' experimental endpoint**, and this study does not reproduce the publication's other corpora, retrieval/compaction budgets or downstream benchmarks.
+
+These labels were deliberately constructed by the original authors as safety-rule examples, rather than independently validated action-correctness gold for real agents. Consequently we report source-defined category retention as a descriptive classifier diagnostic only; it does not enter the agent-memory safety results, estimate causal risk, or qualify R01 real-case decisions.
+
+### 3.10. Common-authority-source development experiment (post-pilot R03)
+
+We conducted a subsequent development-only comparison using two independently seeded, eighteen-step policy-update episodes. On every paired decision, the recursive-summary and version-aware-ledger arms received the **identical complete set of public authoritative source events and the identical request**. The summary arm additionally had a recursive compressed representation; the ledger arm received a deterministic policy state derived only from those same model-visible events. The gold action remained separate from both prompts and was evaluated after each response. A detached replay verified original source packet hashes, complete pairing and unique provider response identities. The design addresses the earlier *unequal source-access* confound but not unequal computation, memory representation, source interpretation or input token budgets. It is not a valid isolated causal test of memory architecture.
+
+### 3.11. Prospective development-only temporal-authority stress instrument
+
+To investigate repeated ceiling effects, we separately predeclared a development instrument with two independently seeded 18-question episodes, nine synthetic oracle approvals and nine rejections per episode, and three source-matched arms: a common original signed event packet only; the same packet plus recursive summary; and the same packet plus a deterministic time-aware ledger. Questions covered authorised policy supersession, limited-time exceptions, revocation, historical effective-time decisions, critical-risk precedence and unauthorised messages. Case presentation order was shuffled before model inference. Reference actions were withheld from prompts and evaluated after responses. The comparison matched *source availability*, not model-side computation, context representation or token budgets. Synthetic signatures and oracle actions are not naturalistic institutional evidence.
+
+### 3.12. Real-source documentary authority and retrospective provenance-memory diagnostic
+
+A subsequent public-development-only source study assembled five historical CPython changes with dated primary Github issue, PR and policy evidence. One narrowly scoped formal Steering Council exception for two explicitly named recursion-related interfaces was corroborated by an original pre-PR public comment. For the other four cases, documentary availability did not establish an independently adjudicated operationally correct action. Twelve researcher-designed documentary queries tested whether a specific formal exception was evidenced within the supplied casebook as of a stated historical date. They comprised two positive documentary-grant cases and ten cases of insufficient casebook evidence; "not established" is not equivalent to a global absence-of-grant claim.
+
+The first model run used the dated, case-linked documentary source excerpts. A second, prespecified development instrument assessed source citation retention after compaction: a common 246-word retrospective public digest was given at intake, then decisions were made using either an LLM-generated summary or a deterministic source ledger, with a 220-word memory cap and the same twelve questions. The digest intentionally included later-dated sources to test retrospective as-of filtering; it must not be mistaken for an event-time operational agent workflow. The methods differed in computation and memory representations, so no isolated causal comparison of memory architecture is possible.
+
 ## 4. Results
 
 ### 4.1. Eight-episode development pilot
@@ -96,6 +126,30 @@ The total is 1,308 file-budget observations. The perfect *conditional* retention
 
 The 16-case development instrument exposed four under-specified or internally inconsistent policy situations, which were repaired in a separately versioned casebook. The earlier two fictional reviewer-role reports described the original v1 cases, not a new independent assessment of v2. No claims of human adjudication, independent validation or prospective confirmatory success arise from this editorial exercise. The casebook is not pooled with the two GPT pilots or the TypeCompact component audit.
 
+### 4.5. Original public 200-item phrasing diagnostic (source-defined categories only)
+
+| Phrasing (50 each) | Source-defined constraint retained by regex | Original cascade (Octen + GPT) | Original SafetyMargin |
+| --- | ---: | ---: | ---: |
+| Imperative | 50/50 | 50/50 | 49/50 |
+| Declarative | 0/50 | 20/50 | 46/50 |
+| Conditional | 19/50 | 50/50 | 48/50 |
+| Passive | 40/50 | 48/50 | 50/50 |
+| **Total / 200** | **109/200** | **168/200** | **193/200** |
+
+The 40-item stratified pilot had suggested 60% declarative retention by the cascade; the complete original public 200-item corpus yields 40%. SafetyMargin retained 92% of source-defined declarative rules. These fractions concern researcher-authored class labels, not adjudicated downstream agent decisions, and do not justify a superiority or equivalence inference. The exact results, original source hashes, provider model identifiers, immutable GitHub Actions runs, detached 40+160 audit, and item-level discrepancies are recorded in the separately audited R02 appendix. The full Knowledge Triage paper's published behavioral benchmarks remain unreproduced.
+
+### 4.6. Shared-source development comparison: accuracy ceiling persisted
+
+Each arm produced 36/36 correct raw decisions, including eight correct revocation cases and eight correct newly enforced restrictions, with no invalid responses. The 82 provider calls comprised 72 decisions and ten shared recursive compactions. Decision-call input token usage was **14,218** for recursive summary with the common authority packet and **8,542** for the derived-ledger arm with the identical packet, demonstrating that the available context budgets were not matched. An offline no-provider-call audit confirmed the paired source and evaluator separation. This is a further **negative discriminability** observation, not proof of memory-method equivalence or superiority; only two episodes were studied.
+
+### 4.7. Prospective temporal-authority development stress: a second accuracy ceiling
+
+The bounded live development run completed **116 real provider calls** (108 decisions and eight compactions), with no provider errors. All three arms returned **36/36 correct raw actions**, no invalid outputs and zero paired disagreements. Recorded decision-call input tokens were **10,810** for the source-only arm, **19,342** for recursive summary and **12,054** for the derived temporal ledger. An independent zero-inference replay of the original questions, event-source hashes, oracle sidecar, response IDs and usage passed without missing evidence. No model advantage can be inferred from the identical binary results. The new scenario complexity did not generate an observable discriminative signal, and this must be reported as a negative instrument-qualification result rather than a positive safety finding. The real-world R01 qualification and scientific comparison remain incomplete.
+
+### 4.8. Documentary authority and provenance-under-compaction diagnostic
+
+The original twelve-query real model run matched all twelve researcher-authored documentary evidence states and returned twelve admissible citations; the always-`not_established` baseline would match ten of twelve cases. An independent no-inference audit of all model replies, source IDs and record hashes passed. The subsequent retrospective memory study completed twenty-five real model calls: one source compaction and twenty-four decisions across two representations. Both representations again matched the twelve source-defined documentary statuses, with no unsupported formal grants. Nevertheless, the number of answers citing source IDs that belonged to the relevant case and were admissible at the historical cutoff differed: **6/12** for the LLM summary and **9/12** for the deterministic ledger. Source IDs were present in each retained memory in 12/12 responses of both arms. All outputs and grading were independently replayed with no extra model calls. The observed discrepancy is a bounded **citation-admissibility signal**, not source-semantic correctness, independent operational action gold or an estimate of memory safety benefit. The two representations have different information transformations, and all questions cluster within five original public PRs.
+
 ## 5. Discussion
 
 The temporal probes showed a complete ceiling effect. The recent-window baseline's control failures indicate that the overall instrument can expose some information-loss errors, but those failures do **not** demonstrate a policy-supersession-specific problem. This distinction matters: reporting aggregate accuracy alone would falsely imply that the temporal hypothesis was tested discriminatively.
@@ -104,11 +158,11 @@ The zero ledger-versus-summary contrast is an observed null finding, not evidenc
 
 The original-source TypeCompact check separately illustrates a feasibility boundary. Constraint preservation may exceed a finite compression budget, and the operator can signal this rather than silently discard protected text. This is a diagnostic of an existing method, not an improvement over it.
 
-The source-provenance checks provide a path towards naturalistic policy-update cases but no adjudicated gold actions. A future discriminative evaluation should distinguish publication time, effective time, issuer authority, supersession scope and revocation, with human adjudicators blinded to model outcomes. The methods must have matched evidence and documented context budgets.
+The source-provenance checks provide a path towards naturalistic policy-update cases but no adjudicated gold actions. A future discriminative evaluation should distinguish publication time, effective time, issuer authority, supersession scope and revocation, with event-time source provenance and independently justified action labels assessed without access to model outcomes. The author has elected to use AI-only specialist simulations during development; these cannot be presented as human adjudication or third-party peer review. The methods must have matched evidence and documented context budgets.
 
 ## 6. Threats to validity
 
-**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** unequal policy-state access and an adapted, non-original typed comparator. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
+**Construct:** synthetic transactions and explicit updates may be substantially easier than naturalistic operational policies. The 16 additional development cases were constructed and revised post-hoc and were not evaluated by genuine independent reviewers. **Internal:** original pilots used unequal policy-state access and an adapted, non-original typed comparator. The follow-up R03 study repaired unequal *source* access but retained unequal derived computation, representations and token budgets. **Statistical:** only eight and four independent episodes, no preregistered confirmatory contrast, and no justified equivalence test. **Measurement:** regex-classified constraints are not independently labelled semantic safety constraints; unsafe budgets must remain separate. The additional 200 author-authored phrasings measure type-retention relative to source-designed examples, not independent normative safety. Differences in the Octen vendor serving environment from the original authors' endpoint remain unquantified. **Operational:** provider/model version changes and a failed advisory stage in the original temporal workflow. **Novelty:** direct prior-art overlap remains and has not been cleared by independent human scientific review.
 
 ## 7. Reproducibility and responsible reporting
 
@@ -116,7 +170,7 @@ Original experiments and component outputs were archived with immutable workflow
 
 ## 8. Conclusion
 
-Across two small, provenance-audited synthetic development pilots, explicit policy-update probes did not distinguish memory methods, even though a recent-window baseline failed on controls. A separate pinned TypeCompact component sweep identified budget infeasibility in part of the original authors' public sample. A 16-case synthetic instrument was revised for clarity but has not undergone independent adjudication or confirmatory model evaluation. These are limited descriptive and methodological observations, not evidence of a new superior memory architecture. Future work requires independently adjudicated naturalistic cases, source-matched comparators and a prospective statistical design.
+Across two small, provenance-audited synthetic development pilots, explicit policy-update probes did not distinguish memory methods, even though a recent-window baseline failed on controls. A separate pinned TypeCompact component sweep identified budget infeasibility in part of the original authors' public sample. A 16-case synthetic instrument was revised for clarity but has not undergone independent adjudication or confirmatory model evaluation. These are limited descriptive and methodological observations, not evidence of a new superior memory architecture. Future work requires source-qualified naturalistic cases with defensible event-time action labels, source-matched comparators and a prospective statistical design. AI-only specialist role simulations can support screening but cannot independently establish human expert ground truth.
 
 ## References
 
@@ -133,6 +187,10 @@ Across two small, provenance-audited synthetic development pilots, explicit poli
 ## Author and ethics declarations (verification pending)
 
 This work reports synthetic agent tasks and software experiments, not recruitment or intervention with human research participants. Whether a formal exemption statement is required depends on the selected journal and institution. AI assistance was used in drafting, case generation and simulated editorial roleplay; all simulated roles are explicitly non-human. Funding, conflicts of interest, affiliation, author identity and contact, data licensing, repository anonymisation and the journal-specific AI disclosure must be confirmed by the author before submission. No independent human review is claimed.
+
+## Author-directed major revision and outstanding objections
+
+The author requested major corrections on 17 November 2026 (issue #50), without authorising either confirmatory release or external submission. The machine-readable R01–R08 evidence-status ledger records outstanding qualifications on event-time policy labels, faithful comparator replication, information-parity analysis, discriminative power, provider failure/missingness, temporal source provenance, novelty, and editorial disclosures. The R01–R08 ledger is a **repair-tracking artifact**, not independent validation. The manuscript is not an accepted, approved, or confirmatory result, and no automatic AI panel or CI success changes that.
 
 ## Submission disclosure
 

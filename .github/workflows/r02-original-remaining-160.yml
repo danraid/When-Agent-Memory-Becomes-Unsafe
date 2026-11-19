@@ -1,0 +1,73 @@
+name: Article 1 | R02 remaining 160 original public cases
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r02-remaining160-original-public
+  cancel-in-progress: false
+jobs:
+  remaining-160:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      R02_ALLOW_LIVE_CALLS: 'true'
+      R02_REQUIRE_LANE: 'OCTEN_VENDOR_AND_ORIGINAL_LLM'
+      OCTEN_API_KEY: ${{ secrets.OCTEN_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENROUTER_API_KEY: ''
+      CUSTOM_LLM_API_KEY: ''
+      CUSTOM_LLM_ENDPOINT: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Install source runtime dependencies
+        run: python -m pip install 'numpy>=1.24' 'tenacity>=8.2' 'openai>=1.40' 'python-dotenv>=1.0'
+      - name: Verify original corpus split before paid calls
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,"third_party/knowledge-triage")
+          from experiments.adversarial_classifier import BASE_RULES
+          from scripts.r02_original_remaining_160 import remaining_items
+          from scripts.r02_original_adversarial_subset import build_items
+          old={x["id"] for x in build_items(BASE_RULES)}
+          new={x["id"] for x in remaining_items(BASE_RULES)}
+          assert len(old)==40 and len(new)==160 and not old.intersection(new)
+          assert len(old|new)==200
+          print("VALID_ORIGINAL_SOURCE_SPLIT_40_PLUS_160")
+          PY
+      - name: Execute source-original cascade and SafetyMargin on remaining 160 cases
+        run: |
+          python -m scripts.r02_original_remaining_160 \
+            --upstream third_party/knowledge-triage \
+            --out runs/r02-remaining160/report.json
+      - name: Validate report is complete and still exploratory
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("runs/r02-remaining160/report.json").read_text())
+          assert r["status"]=="ALL_160_SOURCE_CASES_COMPLETE"
+          assert len(r["cases"])==160 and len(set(x["id"] for x in r["cases"]))==160
+          assert r["method_coverage"]=={"regex":160,"cascade":160,"safety_margin":160,"explicit_margin_marker":160}
+          assert not r["failed_case_ids"] and not r["full_paper_replication"]
+          assert not r["protected_holdout_touched"] and not r["external_submission_authorised"]
+          assert r["reference_action_gold_count"]==0 and not r["reported_accuracy_claim"]
+          PY
+      - name: Archive original model-ID live evidence including partial failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r02-original-remaining160-${{ github.run_id }}
+          path: runs/r02-remaining160/
+          if-no-files-found: warn
+          retention-days: 90

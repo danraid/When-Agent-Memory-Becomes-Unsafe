@@ -1,0 +1,26 @@
+{
+  "schema": "WAMBU-R02-PUBLIC-REMAINING160-ONE-SHOT-V1",
+  "source_commit": "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4",
+  "excluded_previous_40_indices": [
+    0,
+    1,
+    12,
+    13,
+    22,
+    23,
+    30,
+    31,
+    38,
+    39
+  ],
+  "expected_new_original_source_items": 160,
+  "models": [
+    "octen-embedding-8b",
+    "gpt-5.4-mini"
+  ],
+  "purpose": "finish published public 200-item source stress-test coverage at development stage",
+  "no_fallback": true,
+  "protected_holdout_access": false,
+  "external_submission_authorised": false,
+  "scientific_approval": false
+}

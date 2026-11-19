@@ -1,0 +1,73 @@
+name: Article 1 | R02 exact 200-public-case detached verification
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R02_DETACHED_200_TRIGGER_2026-11-18.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  independent-combined-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OCTEN_API_KEY: ''
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Install original source imports for independent text verification
+        run: python -m pip install 'numpy>=1.24' 'tenacity>=8.2' 'openai>=1.40' 'python-dotenv>=1.0'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44290963608'
+          name: wambu-r02-original-40-44290963608
+          path: runs/original40/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44396020700'
+          name: wambu-r02-original-remaining160-44396020700
+          path: runs/original160/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Detached 200-case audit against exact upstream source
+        run: |
+          python -m scripts.audit_r02_complete_public_200 \
+            --first40 runs/original40/report.json \
+            --remaining160 runs/original160/report.json \
+            --upstream third_party/knowledge-triage \
+            --out runs/original200-detached/audit.json
+      - name: Ensure no false scientific validation or holdout reuse
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("runs/original200-detached/audit.json").read_text())
+          assert r["passed"] and r["observed_source_public_items"]==200
+          assert all(x["n"]==50 for x in r["source_authored_retention_counts_by_form"].values())
+          assert r["new_paid_model_calls"]==0
+          assert r["independently_qualified_operational_gold"]==0
+          assert not r["confirmatory_holdout_used"]
+          assert not r["original_entire_paper_reproduced"]
+          assert not r["external_submission_authorised"]
+          print("DETACHED_200_ORIGINAL_PUBLIC_SOURCE_AUDIT_PASS")
+          PY
+      - name: Archive audited results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r02-public200-detached-${{ github.run_id }}
+          path: runs/original200-detached/
+          if-no-files-found: warn
+          retention-days: 90

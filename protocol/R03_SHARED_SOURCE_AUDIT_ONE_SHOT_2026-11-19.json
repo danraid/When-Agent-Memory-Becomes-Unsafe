@@ -1,0 +1,11 @@
+{
+  "schema": "WAMBU-R03-DETACHED-ONE-SHOT-V1",
+  "live_run": 44499126116,
+  "live_artifact": 14516607397,
+  "expected_calls": 82,
+  "expected_model_decisions": 72,
+  "expected_compactions": 10,
+  "no_provider_calls": true,
+  "no_holdout": true,
+  "no_submission": true
+}

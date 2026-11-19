@@ -1,0 +1,87 @@
+name: Article 1 | R01 primary authority and R02 original method runtime preflight
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-primary-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+      OPENROUTER: ''
+      CUSTOM_LLM_API_KEY: ''
+      CUSTOM_LLM_ENDPOINT: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Install minimum upstream import dependencies for stub-only cascade logic
+        run: python -m pip install 'numpy>=1.24' 'tenacity>=8.2' 'openai>=1.40' 'python-dotenv>=1.0'
+      - name: Test time and authority checks offline
+        run: python -m unittest discover -s tests -p 'test_r01_live_source_replay.py' -v
+      - name: Verify operational task drafts have no future sources or action-gold leakage
+        run: python -m unittest discover -s tests -p 'test_r01_operational_task_drafts.py' -v
+      - name: Test additional original issue and PR timelines
+        run: python -m unittest discover -s tests -p 'test_r01_issue_pr_chronology.py' -v
+      - name: Verify real public steering-council decision from GitHub primary endpoints
+        run: python -m scripts.r01_replay_case001_authority --out runs/r01-r02/real_authority_case001.json
+      - name: Retrieve more R01 primary events without auto-adjudication
+        run: python -m scripts.r01_replay_case002_008_chronology --out runs/r01-r02/public_issue_pr_002_008.json
+      - name: Recheck exact original Knowledge Triage fidelity preflight without provider calls
+        run: |
+          python -m scripts.p08_full_original_knowledge_triage_preflight --upstream third_party/knowledge-triage --out runs/r01-r02/original_kt_preflight.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r01-r02/real_authority_case001.json').read_text())
+          b=json.loads(Path('runs/r01-r02/original_kt_preflight.json').read_text())
+          c=json.loads(Path('runs/r01-r02/public_issue_pr_002_008.json').read_text())
+          assert a['passed'] and a['does_not_establish_agent_action_gold']
+          assert c['real_event_pairs']==2 and c['qualifying_new_gold_actions']==0
+          assert b['upstream_sha']=='a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4'
+          assert not b['full_original_knowledge_triage_reproduction']
+          assert b['new_paid_model_calls']==0 and b['confirmatory_touched'] is False
+          assert not a['external_submission']
+          PY
+      - name: Execute unmodified original Knowledge Triage operators offline
+        run: |
+          python -m scripts.verify_knowledge_triage_operators --upstream third_party/knowledge-triage --out runs/r01-r02/real_upstream_operators.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r01-r02/real_upstream_operators.json').read_text())
+          assert r['official_modules_unmodified'] is True
+          assert r['typecompact_overflow_status']=='COMPACTION_UNSAFE'
+          assert r['official_classifier_cascade_executed'] is False
+          assert r['holdout_touched'] is False
+          PY
+      - name: Exercise original cascade control flow using deterministic offline stubs
+        run: |
+          python -m scripts.r02_execute_upstream_cascade_stubbed --upstream third_party/knowledge-triage --out runs/r01-r02/upstream_cascade_stubbed.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r01-r02/upstream_cascade_stubbed.json').read_text())
+          assert r['branch_count']==5
+          assert r['original_encoder_runtime_executed'] is False
+          assert r['original_llm_runtime_executed'] is False
+          assert r['full_knowledge_triage_reproduction'] is False
+          assert r['actual_paid_model_calls']==0
+          PY
+      - name: Archive original-source replay and upstream preflight separately from any confirmation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-primary-r02-upstream-${{ github.run_id }}
+          path: runs/r01-r02/
+          if-no-files-found: warn
+          retention-days: 90

@@ -1,0 +1,74 @@
+name: Article 1 | R02 original-paper stratified public 40-item pilot
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wambu-r02-original-public-stress-test-pilot
+  cancel-in-progress: false
+jobs:
+  forty-item-original-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      R02_ALLOW_LIVE_CALLS: 'true'
+      R02_REQUIRE_LANE: OCTEN_VENDOR_AND_ORIGINAL_LLM
+      OCTEN_API_KEY: ${{ secrets.OCTEN_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENROUTER_API_KEY: ''
+      CUSTOM_LLM_API_KEY: ''
+      CUSTOM_LLM_ENDPOINT: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: searchsim-org/cikm26-knowledge-triage
+          ref: a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4
+          path: third_party/knowledge-triage
+          persist-credentials: false
+      - name: Install pinned-source runtime imports
+        run: python -m pip install 'numpy>=1.24' 'tenacity>=8.2' 'openai>=1.40' 'python-dotenv>=1.0'
+      - name: Preflight public corpus and expected scope before paying
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,'third_party/knowledge-triage')
+          from experiments.adversarial_classifier import BASE_RULES
+          from scripts.r02_original_adversarial_subset import build_items
+          d=build_items(BASE_RULES)
+          assert len(d)==40 and len({i['id'] for i in d})==40
+          print('ORIGINAL_PUBLIC_40_OF_200_SOURCE_ALIGNED')
+          PY
+      - name: Execute real Octen embedding and original GPT cascade and SafetyMargin
+        run: |
+          python -m scripts.r02_original_adversarial_subset \
+            --upstream third_party/knowledge-triage \
+            --out runs/r02-original-subset/report.json
+      - name: Audit non-promotion of source-defined intent labels
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r02-original-subset/report.json').read_text())
+          assert r['schema']=='WAMBU-R02-ORIGINAL-ADVERSARIAL-SUBSET-DEVELOPMENT-V1'
+          assert r['status'] in {'ALL_40_DEVELOPMENT_ITEMS_EXECUTED','PARTIAL_OR_FAILED_DEVELOPMENT_ITEMS','BLOCKED_ENCODER_INITIALIZATION','PRECONDITION_FAILED'}
+          assert r['original_paper_full_benchmark_reproduced'] is False
+          assert r['protected_holdout_access'] is False
+          assert r['external_submission_authorised'] is False
+          if r['status'] in {'ALL_40_DEVELOPMENT_ITEMS_EXECUTED','PARTIAL_OR_FAILED_DEVELOPMENT_ITEMS'}:
+              assert len(r['results'])==40
+              assert r['model_ids_requested']=={'embedding':'octen-embedding-8b','llm':'gpt-5.4-mini'}
+              assert r['provider_substitution'] is False
+          print('ORIGINAL_SOURCE_DEV_SCOPE_AUDITED',r['status'])
+          PY
+      - name: Archive successful or failed source-aligned execution
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r02-original-40-${{ github.run_id }}
+          path: runs/r02-original-subset/
+          if-no-files-found: warn
+          retention-days: 90

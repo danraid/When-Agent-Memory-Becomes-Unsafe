@@ -1,0 +1,11 @@
+{
+  "schema": "WAMBU-R04-DEV-ONE-SHOT-V1",
+  "protocol": "protocol/R04_TEMPORAL_AUTHORITY_STRESS_DEV_V1.json",
+  "scope": "2 synthetic development episodes, 18 queries each, 3 paired arms",
+  "expected_live_calls": 116,
+  "expected_decisions": 108,
+  "expected_compactions": 8,
+  "no_holdout": true,
+  "reason": "new non-ceiling development instrument under prospective predeclared cases",
+  "no_external_submission": true
+}
