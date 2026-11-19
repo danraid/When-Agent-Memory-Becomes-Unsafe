@@ -67,6 +67,7 @@ def execute(out:Path,ledger:Path):
           "reference_documentary_state_evaluator_only":task["reference_documentary_state"],
           "source_defined_not_operational_gold":True,
           "response_sha256":sha256(response["advisory_text"].encode()).hexdigest(),
+          "raw_model_response":response["advisory_text"],
           "provider_response_id":rid,"model":response["model"],
           "usage":usage,"grade":graded
         })
