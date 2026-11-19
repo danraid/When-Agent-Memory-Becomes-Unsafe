@@ -1,9 +1,5 @@
 name: WAMBU | R03 shared-authority two-arm real development
 on:
-  push:
-    branches: [revision/author-decision-50-scientific-remediation]
-    paths:
-      - 'protocol/R03_SHARED_SOURCE_ONE_SHOT_TRIGGER_2026-11-19.json'
   workflow_dispatch:
 permissions:
   contents: read
