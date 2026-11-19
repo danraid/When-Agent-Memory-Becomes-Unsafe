@@ -104,6 +104,9 @@ def grade(task,response,visible):
     except (ValueError,TypeError):
         return {"valid":False,"reason":"INVALID_JSON","status":None,
                 "documentary_match":False,"valid_source_ids":False}
+    if not isinstance(data,dict):
+        return {"valid":False,"reason":"NON_OBJECT_JSON","status":None,
+                "documentary_match":False,"valid_source_ids":False}
     valid=(isinstance(data,dict) and
            set(data)=={"status","evidence_ids","reason"} and
            data.get("status") in ALLOWED and isinstance(data.get("evidence_ids"),list)
