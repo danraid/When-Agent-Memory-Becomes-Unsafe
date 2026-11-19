@@ -1,0 +1,16 @@
+{
+  "schema": "WAMBU-R01-RETROSPECTIVE-MEMORY-25-CALL-ONE-SHOT-V1",
+  "source": "public developer casebook",
+  "split": "development",
+  "task_count": 12,
+  "decision_arms": 2,
+  "real_decisions": 24,
+  "compactions": 1,
+  "provider_call_cap": 25,
+  "source_intake_equal": true,
+  "source_available_at_decision": false,
+  "memory_budget_words": 220,
+  "real_operational_action_gold": 0,
+  "confirmatory_holdout": false,
+  "external_submission": false
+}
