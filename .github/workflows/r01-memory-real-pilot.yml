@@ -1,9 +1,5 @@
 name: WAMBU | R01 bounded retrospective provenance memory live pilot
 on:
-  push:
-    branches: [revision/author-decision-50-scientific-remediation]
-    paths:
-      - 'protocol/R01_MEMORY_LIVE_ONE_SHOT_TRIGGER_2026-11-19.json'
   workflow_dispatch:
 permissions:
   contents: read
