@@ -1,0 +1,12 @@
+{
+  "schema": "WAMBU-R01-MEMORY-DETACHED-ONE-SHOT-V1",
+  "source_run": 44557723644,
+  "artifact_id": 14545822419,
+  "expected_paid_calls": 25,
+  "expected_model_decisions": 24,
+  "reference_type": "researcher_source_defined_documentary_only",
+  "no_inference": true,
+  "real_action_gold": 0,
+  "holdout": false,
+  "external_submission": false
+}
