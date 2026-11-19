@@ -1,0 +1,55 @@
+name: WAMBU | R04 temporal authority independent detached audit
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R04_STRESS_AUDIT_ONE_SHOT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source-gold-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44518845870'
+          name: wambu-r04-stress-development-44518845870
+          path: runs/r04-source/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reconstruct 36 actual queries, pairing and model usage with no API requests
+        run: |
+          python -m scripts.audit_r04_temporal_stress \
+            --report runs/r04-source/observed.json \
+            --out runs/r04-detached/audit.json
+      - name: Verify no invalid scientific promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('runs/r04-detached/audit.json').read_text())
+          assert a['passed']
+          assert a['new_provider_calls']==0
+          assert a['real_world_action_gold']==0
+          assert not a['causal_result'] and not a['holdout_touched']
+          assert not a['external_submission']
+          print('R04_DETACHED_AUDIT_PASS',a['discriminative_observed'])
+          PY
+      - name: Archive detached audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r04-stress-detached-${{ github.run_id }}
+          path: runs/r04-detached/
+          retention-days: 90
+          if-no-files-found: warn
