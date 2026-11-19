@@ -1,0 +1,43 @@
+{
+  "schema": "WAMBU-R01-PEP387-BEFORE-PR-SNAPSHOTS-V1",
+  "classification": "HISTORIC_POLICY_TEXT_VERIFIED_PRE_DECISION_NOT_ACTION_GOLD",
+  "source_repository": "python/peps",
+  "source_path": "peps/pep-0387.rst",
+  "cases": [
+    {
+      "case_id": "P07D-CODE-008",
+      "target_pr": "python/cpython#133654",
+      "cutoff_utc": "2025-05-08T10:14:55Z",
+      "last_source_commit": "65029b3f1f4e656a54395a9b04e8cfa06a569240",
+      "source_commit_time": "2025-02-24T14:51:08Z",
+      "source_blob_sha": "e5132ba0f9afb7c8527b7d2678a720e40b5db37d",
+      "source_url": "https://github.com/python/peps/blob/65029b3f1f4e656a54395a9b04e8cfa06a569240/peps/pep-0387.rst",
+      "in_source": true
+    },
+    {
+      "case_id": "P07D-CODE-002",
+      "target_pr": "python/cpython#140345",
+      "cutoff_utc": "2025-10-20T00:54:39Z",
+      "last_source_commit": "fdd514309718092256484670a8191f8e747ce3b2",
+      "source_commit_time": "2025-09-10T02:08:01Z",
+      "source_blob_sha": "07a0fcb7ee5cd5af1218c4885fa4558bf8564240",
+      "source_url": "https://github.com/python/peps/blob/fdd514309718092256484670a8191f8e747ce3b2/peps/pep-0387.rst",
+      "in_source": true
+    }
+  ],
+  "policy_clauses_verified": [
+    "warnings before incompatible removal",
+    "at least two minor versions of warning, preferred five years",
+    "Steering Council exceptions and warning-impossible consultation",
+    "soft deprecation does not itself schedule removal"
+  ],
+  "gaps": [
+    "no verified feature-specific warning history and exceptions",
+    "no independent correct action adjudication",
+    "current issue contents may have been edited after target decision"
+  ],
+  "qualified_action_gold": 0,
+  "independent_human_adjudication": 0,
+  "confirmatory_holdout": false,
+  "external_submission": false
+}
