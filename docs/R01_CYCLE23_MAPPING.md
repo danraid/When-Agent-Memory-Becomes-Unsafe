@@ -1,0 +1,2 @@
+# Mapping-only development appraisal
+Eight original questions and three negative controls (operation, target, version), two model families, 22 calls max, local reservation USD 0.44. No authority records, labels or prior votes supplied. Original categorical decisions and historical mapping disagreements remain unchanged. Negative control failure prevents mapping acceptance. No operational gold or holdout. Results pending.
