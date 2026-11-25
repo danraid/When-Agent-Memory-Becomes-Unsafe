@@ -11,12 +11,13 @@
     {
       "id": "R01",
       "status": "PARTIAL",
-      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested.",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested. Cycle 9: third Q04 opinion REJECT, reason absence of immediate-removal grant, not explicit prohibition. Preserve all 17 responses; 7/8 original two-model agreement; quarantine Q04 from scored development comparisons, no operational gold.",
       "runs": [
         44556331337,
         44556730396,
         45573015890,
-        45608449806
+        45608449806,
+        45681672210
       ]
     },
     {
@@ -59,7 +60,7 @@
     {
       "id": "R06",
       "status": "PARTIAL",
-      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. Historical PEP 13 and developer roster pinned for all four additional decisions. Detached cutoff and source replay workflow added. Source replay 45573015890 succeeded: four historical sources, four verified authority memberships, zero future records."
+      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. Historical PEP 13 and developer roster pinned for all four additional decisions. Detached cutoff and source replay workflow added. Source replay 45573015890 succeeded: four historical sources, four verified authority memberships, zero future records. Q04 source E02 verifies version-specific permission only, not general removal authority. Distinguish scope non-establishment from explicit denial."
     },
     {
       "id": "R07",

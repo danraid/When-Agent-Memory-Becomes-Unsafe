@@ -1,0 +1,47 @@
+{
+  "classification": "DEVELOPMENT_SOURCE_SCOPE_ADJUDICATION_NOT_OPERATIONAL_GOLD",
+  "run_id": 45681672210,
+  "artifact_id": 15054052550,
+  "archive_sha256": "2069e43aa959db4a65246a6ec8b81c52ae60c88c5075e6c928efd291d95c2b7a",
+  "sensitivity_sha256": "e55c1e77a0cc93de8a7a4f5cfeae6585bee949c7040a12b9025cf7e04835a706",
+  "third_sha256": "6291810171ab4b815bdfac22c52180f08ade0109d3c13df8143f3d52b91ad479",
+  "crc_verified": true,
+  "original_strict_valid": 4,
+  "original_assigned": 16,
+  "original_sensitivity_valid": 16,
+  "original_concordant_questions": 7,
+  "third": {
+    "model": "google/gemini-2.5-flash",
+    "receipt_id": "gen-1795633527-s2zMJoIorcOsWJQUmuUZ",
+    "request_sha256": "75d9b91f4b435f29870b8167f9f05533d241d395b00d0483f1b709115e44f894",
+    "response_sha256": "72f68ff52bb883d791046450e4f6d566dba9b3c30be3cccad71ef3c6383312fb",
+    "cost_usd": 0.0002597,
+    "decision": "REJECT",
+    "source_ids": [
+      "E02"
+    ],
+    "reason": "The record establishes soft-deprecation and a future warning, not immediate removal, for F and D in Python 3.15."
+  },
+  "q04": {
+    "original_reference": "ABSTAIN",
+    "votes": [
+      "REJECT",
+      "ABSTAIN",
+      "REJECT"
+    ],
+    "disposition": "QUARANTINED_SEMANTIC_AMBIGUITY",
+    "reason": "No explicit refusal of immediate removal is established by E02; action not supported is not synonymous with explicit denial. Third reason supports absence of grant. No majority override."
+  },
+  "retained_development_candidates": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08"
+  ],
+  "operational_gold_count": 0,
+  "holdout_accessed": false,
+  "author_approval": false
+}
