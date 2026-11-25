@@ -11,13 +11,14 @@
     {
       "id": "R01",
       "status": "PARTIAL",
-      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested. Cycle 9: third Q04 opinion REJECT, reason absence of immediate-removal grant, not explicit prohibition. Preserve all 17 responses; 7/8 original two-model agreement; quarantine Q04 from scored development comparisons, no operational gold. Cycle 11: isolated SQLite mock-action environment and detached state/intent oracle implemented for seven retained source-scope questions. Exhaustive controls pending CI; no operational gold promotion.",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested. Cycle 9: third Q04 opinion REJECT, reason absence of immediate-removal grant, not explicit prohibition. Preserve all 17 responses; 7/8 original two-model agreement; quarantine Q04 from scored development comparisons, no operational gold. Cycle 11: isolated SQLite mock-action environment and detached state/intent oracle implemented for seven retained source-scope questions. Exhaustive controls pending CI; no operational gold promotion. Cycle 11 controls verified: 28/28 expected, four unsupported mock effects detected, no real operational gold.",
       "runs": [
         44556331337,
         44556730396,
         45573015890,
         45608449806,
-        45681672210
+        45681672210,
+        45683892684
       ]
     },
     {
@@ -37,7 +38,7 @@
     {
       "id": "R03",
       "status": "PARTIAL",
-      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched.",
+      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens.",
       "runs": [
         44499126116,
         44499598557
@@ -46,7 +47,7 @@
     {
       "id": "R04",
       "status": "PARTIAL_NONDISCRIMINATIVE",
-      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements.",
+      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens.",
       "runs": [
         44518845870,
         44519469398
