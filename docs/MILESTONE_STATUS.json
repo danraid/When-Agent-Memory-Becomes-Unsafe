@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-25",
+  "classification": "RECONCILED_MILESTONE_STATUS_NOT_SCIENTIFIC_APPROVAL",
+  "author_decision_issue": 50,
+  "author_decision": "MAJOR_REVISIONS_REQUESTED",
+  "revision_pr": 51,
+  "revision_source_commit": "978232db147ad42c732f872bf687808c84e90a5f",
+  "active": "R01_R06",
+  "gates": [
+    {
+      "id": "R01",
+      "status": "PARTIAL",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12.",
+      "runs": [
+        44556331337,
+        44556730396
+      ]
+    },
+    {
+      "id": "R02A",
+      "status": "COMPLETE_TECHNICAL_PUBLIC_PHRASING_DIAGNOSTIC",
+      "observed": "200/200 upstream phrasings; regex 109/200, cascade 168/200, SafetyMargin 193/200; not full downstream replication.",
+      "runs": [
+        44396020700,
+        44396939218
+      ]
+    },
+    {
+      "id": "R02B",
+      "status": "PARTIAL",
+      "observed": "Original source and model IDs used; authors' serving parity and full corpora, retrieval, budget and downstream decision parity not established."
+    },
+    {
+      "id": "R03",
+      "status": "PARTIAL",
+      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched.",
+      "runs": [
+        44499126116,
+        44499598557
+      ]
+    },
+    {
+      "id": "R04",
+      "status": "PARTIAL_NONDISCRIMINATIVE",
+      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements.",
+      "runs": [
+        44518845870,
+        44519469398
+      ]
+    },
+    {
+      "id": "R05",
+      "status": "PARTIAL",
+      "observed": "22/24 valid original specialist reviews and 6/8 syntheses; evidence-first AI panel needs valid conclusions, not fabricated human review."
+    },
+    {
+      "id": "R06",
+      "status": "PARTIAL",
+      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified."
+    },
+    {
+      "id": "R07",
+      "status": "PARTIAL",
+      "observed": "Method overlap with Knowledge Triage, Supersede, ACON, LongMemEval remains to be resolved."
+    },
+    {
+      "id": "R08",
+      "status": "PARTIAL",
+      "observed": "TMLR screen and exploratory drafts exist; rights, durable package and declarations pending."
+    }
+  ],
+  "next_eligible": "R01/R06: qualify a bounded corpus of publicly sourced event-time operational decisions with explicit authority, scope, applicability, evidence hashes, independent source checks and independently auditable action/abstention labels. Exclude ambiguous cases. Separate development gold from model prompts. Preserve null/failed evidence; no holdout or paid rerun of existing pilots.",
+  "author_gates": {
+    "final_approval": false,
+    "protocol_freeze": false,
+    "confirmatory_release": false,
+    "external_submission": false
+  }
+}

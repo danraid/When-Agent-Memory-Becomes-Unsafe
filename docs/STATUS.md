@@ -1,3 +1,32 @@
+# Current revision checkpoint | 25 November 2026
+
+The active scientific authority is [author decision #50](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/issues/50) and the revision contract in [PR #51](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/pull/51). This status reconciles observed results from the unmerged revision branch `978232db147ad42c732f872bf687808c84e90a5f`; it does not assert those changes are integrated into main. Earlier status entries remain historical evidence.
+
+| Gate | Reconciled state |
+|---|---|
+| R01 | PARTIAL: Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. |
+| R02A | COMPLETE_TECHNICAL_PUBLIC_PHRASING_DIAGNOSTIC: 200/200 upstream phrasings; regex 109/200, cascade 168/200, SafetyMargin 193/200; not full downstream replication. |
+| R02B | PARTIAL: Original source and model IDs used; authors' serving parity and full corpora, retrieval, budget and downstream decision parity not established. |
+| R03 | PARTIAL: Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. |
+| R04 | PARTIAL_NONDISCRIMINATIVE: Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. |
+| R05 | PARTIAL: 22/24 valid original specialist reviews and 6/8 syntheses; evidence-first AI panel needs valid conclusions, not fabricated human review. |
+| R06 | PARTIAL: Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. |
+| R07 | PARTIAL: Method overlap with Knowledge Triage, Supersede, ACON, LongMemEval remains to be resolved. |
+| R08 | PARTIAL: TMLR screen and exploratory drafts exist; rights, durable package and declarations pending. |
+
+## Next eligible bounded objective
+R01/R06: qualify a bounded corpus of publicly sourced event-time operational decisions with explicit authority, scope, applicability, evidence hashes, independent source checks and independently auditable action/abstention labels. Exclude ambiguous cases. Separate development gold from model prompts. Preserve null/failed evidence; no holdout or paid rerun of existing pilots.
+
+Read the [R01 qualification](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/blob/978232db147ad42c732f872bf687808c84e90a5f/docs/R01_PRIMARY_SOURCE_CASEBOOK_QUALIFICATION_2026-11-19.md), [R02 diagnostic](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/blob/978232db147ad42c732f872bf687808c84e90a5f/docs/R02_COMPLETE_PUBLIC_200_AUDITED_2026-11-18.md), [R03 report](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/blob/978232db147ad42c732f872bf687808c84e90a5f/docs/R03_COMMON_SOURCE_REAL_PILOT_AUDITED_2026-11-19.md), and [R04 report](https://github.com/danraid/When-Agent-Memory-Becomes-Unsafe/blob/978232db147ad42c732f872bf687808c84e90a5f/docs/R04_TEMPORAL_STRESS_REAL_AND_AUDITED_2026-11-19.md). The original failed and null outcomes remain immutable. R02A is complete only as a public phrasing diagnostic, not full Knowledge Triage reproduction. R04 is an engineering pass and a scientific discrimination failure.
+
+Do not conflate source qualification with human validation. Use AI advisory reviews under the author-directed protocol and document their limits. No author decision is changed. No confirmatory sample may be accessed. No submission.
+
+[Machine-readable checkpoint](MILESTONE_STATUS.json).
+
+---
+
+## Historical status log (unchanged)
+
 # Article 1 | Status
 
 - Repository: version-pinned standalone copy of Agentic Research Hub v0.5.0.
