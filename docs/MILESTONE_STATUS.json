@@ -37,20 +37,22 @@
     },
     {
       "id": "R03",
-      "status": "PARTIAL",
-      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens.",
+      "status": "PARTIAL_DEVELOPMENT_PILOT_OBSERVED",
+      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption.",
       "runs": [
         44499126116,
-        44499598557
+        44499598557,
+        45694130424
       ]
     },
     {
       "id": "R04",
-      "status": "PARTIAL_NONDISCRIMINATIVE",
-      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens.",
+      "status": "PARTIAL_DEVELOPMENT_PILOT_OBSERVED",
+      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption.",
       "runs": [
         44518845870,
-        44519469398
+        44519469398,
+        45694130424
       ]
     },
     {
@@ -74,7 +76,7 @@
       "observed": "TMLR screen and exploratory drafts exist; rights, durable package and declarations pending."
     }
   ],
-  "next_eligible": "R01/R06: qualify a bounded corpus of publicly sourced event-time operational decisions with explicit authority, scope, applicability, evidence hashes, independent source checks and independently auditable action/abstention labels. Exclude ambiguous cases. Separate development gold from model prompts. Preserve null/failed evidence; no holdout or paid rerun of existing pilots.",
+  "next_eligible": "R01/R06 and R03/R04: independently qualify source-bound operational mappings and task-specific citation contract, prospectively expand distinct event families before comparative confirmation. Preserve historical Q06 outcome.",
   "author_gates": {
     "final_approval": false,
     "protocol_freeze": false,
