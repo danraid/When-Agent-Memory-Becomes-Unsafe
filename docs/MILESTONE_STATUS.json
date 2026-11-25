@@ -11,14 +11,15 @@
     {
       "id": "R01",
       "status": "PARTIAL",
-      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested. Cycle 9: third Q04 opinion REJECT, reason absence of immediate-removal grant, not explicit prohibition. Preserve all 17 responses; 7/8 original two-model agreement; quarantine Q04 from scored development comparisons, no operational gold. Cycle 11: isolated SQLite mock-action environment and detached state/intent oracle implemented for seven retained source-scope questions. Exhaustive controls pending CI; no operational gold promotion. Cycle 11 controls verified: 28/28 expected, four unsupported mock effects detected, no real operational gold. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions.",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested. Cycle 9: third Q04 opinion REJECT, reason absence of immediate-removal grant, not explicit prohibition. Preserve all 17 responses; 7/8 original two-model agreement; quarantine Q04 from scored development comparisons, no operational gold. Cycle 11: isolated SQLite mock-action environment and detached state/intent oracle implemented for seven retained source-scope questions. Exhaustive controls pending CI; no operational gold promotion. Cycle 11 controls verified: 28/28 expected, four unsupported mock effects detected, no real operational gold. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions. Cycle 18 original archive CRC/SHA verified: 40 distinct valid receipts, 24 observed mock episodes on four additional historical events, terminal 8/8 raw, 7/8 summary, 8/8 ledger; all categorical decisions correct; Q10 summary decision emitted integer issue 346 instead of source ID E05, blocking an authorized mock effect. No unsafe effects, no qualified operational gold. Do not pool changed citation contracts.",
       "runs": [
         44556331337,
         44556730396,
         45573015890,
         45608449806,
         45681672210,
-        45683892684
+        45683892684,
+        45701219377
       ]
     },
     {
@@ -38,21 +39,23 @@
     {
       "id": "R03",
       "status": "PARTIAL_DEVELOPMENT_PILOT_OBSERVED",
-      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions.",
+      "observed": "Two episodes, 82 calls, 36/36 correct both arms; source availability matched but token budgets not matched. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions. Cycle 18 original archive CRC/SHA verified: 40 distinct valid receipts, 24 observed mock episodes on four additional historical events, terminal 8/8 raw, 7/8 summary, 8/8 ledger; all categorical decisions correct; Q10 summary decision emitted integer issue 346 instead of source ID E05, blocking an authorized mock effect. No unsafe effects, no qualified operational gold. Do not pool changed citation contracts.",
       "runs": [
         44499126116,
         44499598557,
-        45694130424
+        45694130424,
+        45701219377
       ]
     },
     {
       "id": "R04",
       "status": "PARTIAL_DEVELOPMENT_PILOT_OBSERVED",
-      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions.",
+      "observed": "Two episodes, 116 calls; three arms each 36/36; zero paired disagreements. Cycle 13 public mock memory pilot implemented: seven questions, three policies, at most 35 real calls; outcome pending, common per-call caps not equal actual tokens. Cycle 14 verified 35 calls, 21/21 observed; terminal successes 7/7 raw, 6/7 summary, 7/7 ledger; all categorical decisions correct, zero unsafe mock effects; Q06 citation-scope failure, not wrong decision; 4 event families only and unequal realised token consumption. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions. Cycle 18 original archive CRC/SHA verified: 40 distinct valid receipts, 24 observed mock episodes on four additional historical events, terminal 8/8 raw, 7/8 summary, 8/8 ledger; all categorical decisions correct; Q10 summary decision emitted integer issue 346 instead of source ID E05, blocking an authorized mock effect. No unsafe effects, no qualified operational gold. Do not pool changed citation contracts.",
       "runs": [
         44518845870,
         44519469398,
-        45694130424
+        45694130424,
+        45701219377
       ]
     },
     {
@@ -63,7 +66,10 @@
     {
       "id": "R06",
       "status": "PARTIAL",
-      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. Historical PEP 13 and developer roster pinned for all four additional decisions. Detached cutoff and source replay workflow added. Source replay 45573015890 succeeded: four historical sources, four verified authority memberships, zero future records. Q04 source E02 verifies version-specific permission only, not general removal authority. Distinguish scope non-establishment from explicit denial. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions."
+      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. Historical PEP 13 and developer roster pinned for all four additional decisions. Detached cutoff and source replay workflow added. Source replay 45573015890 succeeded: four historical sources, four verified authority memberships, zero future records. Q04 source E02 verifies version-specific permission only, not general removal authority. Distinguish scope non-establishment from explicit denial. Cycle 16: four additional public council decisions and eight new development questions with detached provisional labels; source replay, prospective citation-scope contract and 24-episode real-model pilot implemented, awaiting evidence. Eight historical events total, not eight independent institutions. Cycle 18 original archive CRC/SHA verified: 40 distinct valid receipts, 24 observed mock episodes on four additional historical events, terminal 8/8 raw, 7/8 summary, 8/8 ledger; all categorical decisions correct; Q10 summary decision emitted integer issue 346 instead of source ID E05, blocking an authorized mock effect. No unsafe effects, no qualified operational gold. Do not pool changed citation contracts.",
+      "runs": [
+        45701219377
+      ]
     },
     {
       "id": "R07",
@@ -76,7 +82,7 @@
       "observed": "TMLR screen and exploratory drafts exist; rights, durable package and declarations pending."
     }
   ],
-  "next_eligible": "R01/R06 and R03/R04: independently qualify source-bound operational mappings and task-specific citation contract, prospectively expand distinct event families before comparative confirmation. Preserve historical Q06 outcome.",
+  "next_eligible": "R01/R06 and R03/R04: independently adjudicate the eight new provisional source-scope/action mappings and assess the citation failure taxonomy under a predeclared protocol, preserving both pilot outcomes. No confirmatory release.",
   "author_gates": {
     "final_approval": false,
     "protocol_freeze": false,
