@@ -1,0 +1,44 @@
+name: WAMBU R01 R06 blinded independent AI adjudication
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-governance-adjudication-cycle7.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-public-adjudication-paid-serial
+  cancel-in-progress: false
+jobs:
+  adjudication:
+    if: >-
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r01): authorised cycle 7 blinded two-model adjudication' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_r01_governance_adjudication -v
+      - name: Retrieve exact prior public source replay
+        run: |
+          mkdir -p replay
+          gh run download 45573015890 --repo "$GITHUB_REPOSITORY" --name r01-governance-source-replay-45573015890 --dir replay
+      - name: Execute at most 16 separate AI evidence adjudications
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER: ${{ secrets.OPENROUTER }}
+        run: python -m scripts.r01_governance_adjudication --replay replay --out runs/r01-cycle7
+      - name: Detached audit of actual replies against provisional references
+        run: python -m scripts.r01_governance_adjudication_audit --replay replay --original runs/r01-cycle7/report.json --out runs/r01-cycle7/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-governance-adjudication-cycle7-${{ github.run_id }}
+          path: runs/r01-cycle7/
