@@ -1,0 +1,48 @@
+name: WAMBU R01 R06 cycle 20 independent action mapping appraisal
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-cycle20-adjudication.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-public-adjudication-paid-serial
+  cancel-in-progress: false
+jobs:
+  adjudication:
+    if: >-
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r01): authorised cycle 20 independent appraisal of new source and action mappings' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_r01_cycle20_adjudication -v
+      - name: Obtain original source replay only for adjudication input
+        run: |
+          gh run download 45701219377 --repo "$GITHUB_REPOSITORY" --name r03-memory-policy-cycle16-45701219377 --dir original
+          test -f original/source-replay.json
+          mkdir -p replay
+          cp original/source-replay.json replay/
+          rm -rf original
+      - name: Execute at most sixteen isolated reviews
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER: ${{ secrets.OPENROUTER }}
+        run: python -m scripts.r01_cycle20_adjudication --source replay/source-replay.json --out runs/r01-cycle20
+      - name: Detached all-assigned adjudication audit
+        run: python -m scripts.r01_cycle20_adjudication_audit --source replay/source-replay.json --original runs/r01-cycle20/report.json --out runs/r01-cycle20/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-cycle20-adjudication-${{ github.run_id }}
+          path: runs/r01-cycle20/
+          retention-days: 90
