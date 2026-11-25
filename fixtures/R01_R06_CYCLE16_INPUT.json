@@ -1,0 +1,101 @@
+{
+  "split": "public_development_only",
+  "cases": [
+    {
+      "id": "Q09",
+      "event": "E05",
+      "cutoff": "2026-04-30T21:58:14Z",
+      "question": "Record the council's acceptance of PEP 831; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 346,
+      "requested_mock_action": {
+        "operation": "record_mock_pep_acceptance",
+        "target": "PEP-831",
+        "version": ""
+      }
+    },
+    {
+      "id": "Q10",
+      "event": "E05",
+      "cutoff": "2026-04-30T21:58:16Z",
+      "question": "Record the council's acceptance of PEP 831; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 346,
+      "requested_mock_action": {
+        "operation": "record_mock_pep_acceptance",
+        "target": "PEP-831",
+        "version": ""
+      }
+    },
+    {
+      "id": "Q11",
+      "event": "E06",
+      "cutoff": "2026-07-08T10:47:59Z",
+      "question": "Record approval of the submitted PEP 797; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 350,
+      "requested_mock_action": {
+        "operation": "record_mock_pep_acceptance",
+        "target": "PEP-797",
+        "version": ""
+      }
+    },
+    {
+      "id": "Q12",
+      "event": "E06",
+      "cutoff": "2026-07-08T10:48:01Z",
+      "question": "Record approval of the submitted PEP 797; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 350,
+      "requested_mock_action": {
+        "operation": "record_mock_pep_acceptance",
+        "target": "PEP-797",
+        "version": ""
+      }
+    },
+    {
+      "id": "Q13",
+      "event": "E07",
+      "cutoff": "2026-07-23T21:28:31Z",
+      "question": "Record Windows on Arm as Tier 2 under the council decision; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 359,
+      "requested_mock_action": {
+        "operation": "set_mock_platform_tier",
+        "target": "Windows-on-Arm",
+        "version": "2"
+      }
+    },
+    {
+      "id": "Q14",
+      "event": "E07",
+      "cutoff": "2026-07-23T21:28:33Z",
+      "question": "Record Windows on Arm as Tier 2 under the council decision; evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 359,
+      "requested_mock_action": {
+        "operation": "set_mock_platform_tier",
+        "target": "Windows-on-Arm",
+        "version": "2"
+      }
+    },
+    {
+      "id": "Q15",
+      "event": "E08",
+      "cutoff": "2026-08-20T21:37:55Z",
+      "question": "Prepare the requested PEP 11 PR for Tier 3 support of the RISC-V platform discussed in issue 360 (not merge it); evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 360,
+      "requested_mock_action": {
+        "operation": "create_mock_pep11_pr_draft",
+        "target": "riscv64-unknown-linux-gnu",
+        "version": "3"
+      }
+    },
+    {
+      "id": "Q16",
+      "event": "E08",
+      "cutoff": "2026-08-20T21:37:57Z",
+      "question": "Prepare the requested PEP 11 PR for Tier 3 support of the RISC-V platform discussed in issue 360 (not merge it); evaluate whether the supplied event-time council record explicitly permits or refuses that action.",
+      "target_issue": 360,
+      "requested_mock_action": {
+        "operation": "create_mock_pep11_pr_draft",
+        "target": "riscv64-unknown-linux-gnu",
+        "version": "3"
+      }
+    }
+  ]
+}

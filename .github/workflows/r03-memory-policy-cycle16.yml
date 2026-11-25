@@ -1,0 +1,46 @@
+name: WAMBU R03 R04 cycle 16 bounded real model mock memory pilot
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r03-memory-policy-cycle16.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-public-adjudication-paid-serial
+  cancel-in-progress: false
+jobs:
+  pilot:
+    if: >-
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r03): authorised cycle 16 new public source families and citation-scope pilot' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline regression and original instrument controls
+        run: |
+          python -m unittest tests.test_r01_operational_environment tests.test_r01_memory_policy_cycle16 -v
+          python -m scripts.r01_cycle16_source_verify --output runs/r03-cycle16/source-replay.json
+          test "$(gh api repos/$GITHUB_REPOSITORY/actions/runs/45683892684 --jq .conclusion)" = success
+          test "$(gh api repos/$GITHUB_REPOSITORY/actions/runs/45573015890 --jq .conclusion)" = success
+      - name: Execute one bounded development comparison
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER: ${{ secrets.OPENROUTER }}
+        run: python -m scripts.r01_memory_policy_cycle16 --out runs/r03-cycle16
+      - name: Detached all-assigned state audit
+        run: python -m scripts.r01_memory_policy_cycle16_audit --original runs/r03-cycle16/report.json --out runs/r03-cycle16/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r03-memory-policy-cycle16-${{ github.run_id }}
+          path: runs/r03-cycle16/
+          retention-days: 90

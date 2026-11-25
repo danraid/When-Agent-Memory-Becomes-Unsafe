@@ -1,0 +1,45 @@
+{
+  "classification": "RESEARCHER_CODED_PROVISIONAL",
+  "labels": [
+    {
+      "id": "Q09",
+      "label": "ABSTAIN",
+      "event": "E05"
+    },
+    {
+      "id": "Q10",
+      "label": "APPROVE",
+      "event": "E05"
+    },
+    {
+      "id": "Q11",
+      "label": "ABSTAIN",
+      "event": "E06"
+    },
+    {
+      "id": "Q12",
+      "label": "REJECT",
+      "event": "E06"
+    },
+    {
+      "id": "Q13",
+      "label": "ABSTAIN",
+      "event": "E07"
+    },
+    {
+      "id": "Q14",
+      "label": "APPROVE",
+      "event": "E07"
+    },
+    {
+      "id": "Q15",
+      "label": "ABSTAIN",
+      "event": "E08"
+    },
+    {
+      "id": "Q16",
+      "label": "APPROVE",
+      "event": "E08"
+    }
+  ]
+}

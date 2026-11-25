@@ -1,0 +1,58 @@
+{
+  "classification": "PUBLIC_DEVELOPMENT_PROVISIONAL_SOURCE_SCOPE_NOT_OPERATIONAL_GOLD",
+  "events": [
+    {
+      "key": "E05",
+      "issue": 346,
+      "comment": 4356438497,
+      "handle": "Yhg1s",
+      "name": "Thomas Wouters",
+      "at": "2026-04-30T21:58:15Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "d5194a0707db4c2f9eaf1a16b4ef3a7c3de74a2b",
+      "observed_body": "Surprise! The SC has accepted the PEP: https://discuss.python.org/t/pep-831-frame-pointers-everywhere-enabling-system-level-observability-for-python/106958/6\n",
+      "url": "https://github.com/python/steering-council/issues/346#issuecomment-4356438497"
+    },
+    {
+      "key": "E06",
+      "issue": 350,
+      "comment": 4914003733,
+      "handle": "Yhg1s",
+      "name": "Thomas Wouters",
+      "at": "2026-07-08T10:48:00Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "671cfe319a01b0f39fbc71bf6bd480ad0748a8cd",
+      "observed_body": "The SC has decided to [reject](https://discuss.python.org/t/pep-797-shared-object-proxies/105709/35) the PEP.",
+      "url": "https://github.com/python/steering-council/issues/350#issuecomment-4914003733"
+    },
+    {
+      "key": "E07",
+      "issue": 359,
+      "comment": 5063692992,
+      "handle": "savannahostrowski",
+      "name": "Savannah Ostrowski",
+      "at": "2026-07-23T21:28:32Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "f4a01e7781909bb74d34c2f34efc80f1aca4ef14",
+      "observed_body": "The SC discussed and approves making Windows on Arm Tier 2. Thanks folks!",
+      "url": "https://github.com/python/steering-council/issues/359#issuecomment-5063692992"
+    },
+    {
+      "key": "E08",
+      "issue": 360,
+      "comment": 5362094872,
+      "handle": "Yhg1s",
+      "name": "Thomas Wouters",
+      "at": "2026-08-20T21:37:56Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "f4a01e7781909bb74d34c2f34efc80f1aca4ef14",
+      "observed_body": "The SC agrees with the proposal for tier 3 support for this platform. Please send us a PR to update PEP 11.",
+      "url": "https://github.com/python/steering-council/issues/360#issuecomment-5362094872"
+    }
+  ],
+  "limitations": [
+    "Four additional governance decisions, one council family; paired questions are not independent.",
+    "Question framing and the linked issue's identity establish scope; current issue title is not asserted to be historically immutable. No real action or final authority claimed.",
+    "Reference labels are researcher-coded; independent adjudication of these new items remains outstanding."
+  ]
+}
