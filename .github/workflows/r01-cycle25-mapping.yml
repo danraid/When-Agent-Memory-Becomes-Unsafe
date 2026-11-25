@@ -1,0 +1,41 @@
+name: WAMBU R01 R06 cycle 25 independent action mapping appraisal
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-cycle25-mapping.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-public-adjudication-paid-serial
+  cancel-in-progress: false
+jobs:
+  adjudication:
+    if: >-
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r01): authorised cycle 25 explicit support tier mapping controls' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_r01_cycle25_mapping -v
+      - name: Execute at most 12 typed-tier reviews
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER: ${{ secrets.OPENROUTER }}
+        run: python -m scripts.r01_cycle25_mapping --source /dev/null --out runs/r01-cycle25
+      - name: Detached all-assigned adjudication audit
+        run: python -m scripts.r01_cycle25_mapping_audit --original runs/r01-cycle25/report.json --out runs/r01-cycle25/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-cycle25-mapping-${{ github.run_id }}
+          path: runs/r01-cycle25/
+          retention-days: 90
