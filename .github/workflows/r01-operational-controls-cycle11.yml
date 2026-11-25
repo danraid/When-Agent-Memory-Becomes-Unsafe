@@ -1,0 +1,29 @@
+name: WAMBU R01 operational sandbox controls cycle 11
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-operational-controls-cycle11.yml'
+      - 'scripts/r01_operational_environment.py'
+      - 'scripts/r01_operational_oracle.py'
+      - 'tests/test_r01_operational_environment.py'
+permissions:
+  contents: read
+jobs:
+  offline_controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_r01_operational_environment -v
+      - run: python -m scripts.r01_operational_oracle --output runs/r01-operational-cycle11/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-operational-controls-${{ github.run_id }}
+          path: runs/r01-operational-cycle11/
