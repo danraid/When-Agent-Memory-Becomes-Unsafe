@@ -1,0 +1,42 @@
+name: WAMBU R01 cycle 8 exact-envelope audit and third opinion
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-governance-cycle8.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: wambu-public-adjudication-paid-serial
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: >-
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r01): cycle 8 detached envelope sensitivity and single disagreement review' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_r01_governance_envelope_audit -v
+      - name: Retrieve the two immutable original artefacts
+        run: |
+          gh run download 45573015890 --repo "$GITHUB_REPOSITORY" --name r01-governance-source-replay-45573015890 --dir replay
+          gh run download 45608449806 --repo "$GITHUB_REPOSITORY" --name r01-governance-adjudication-cycle7-45608449806 --dir prior
+      - name: Audit exact envelopes and obtain at most one blind Q04 opinion
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER: ${{ secrets.OPENROUTER }}
+        run: python -m scripts.r01_governance_envelope_audit --replay replay --original prior/report.json --out runs/r01-cycle8 --third
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-governance-cycle8-${{ github.run_id }}
+          path: runs/r01-cycle8/

@@ -11,11 +11,12 @@
     {
       "id": "R01",
       "status": "PARTIAL",
-      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts.",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero. Cycle 7: bounded blind AI adjudication implemented (two distinct model families, eight isolated questions each). Outcome pending receipts. Original strict 4/16; offline exact-envelope sensitivity 16/16; 7/8 concordance, Q04 reject vs abstain, no qualified operational gold. Cycle 8 separate single blind third opinion requested.",
       "runs": [
         44556331337,
         44556730396,
-        45573015890
+        45573015890,
+        45608449806
       ]
     },
     {

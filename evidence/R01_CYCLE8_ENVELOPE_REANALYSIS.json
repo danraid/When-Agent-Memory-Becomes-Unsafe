@@ -1,0 +1,74 @@
+{
+  "classification": "POST_HOC_ENVELOPE_SENSITIVITY_REPRODUCED_OFFLINE",
+  "run_id": 45608449806,
+  "artifact_id": 15018243779,
+  "archive_sha256": "d6d6008639b34beace4e0d2d86aa3b697f5c07938dabe3256f54eac4888a474b",
+  "report_sha256": "bba1624d2ee32547fdeccb2ae1b83faa34e6d8130884efee908793c718cdc5a3",
+  "strict_audit_sha256": "cbc88cc7f7fdddc5aa58a117513f6c51c2ccd78acd1e176abbd2ceb02a7da273",
+  "source_archive_sha256": "fe077a6213ccfdd098b4a107b1e51a155ef495ba17913d0956cda87d8c3ae45f",
+  "zip_crc_pass": true,
+  "request_hashes_recomputed": 16,
+  "unique_receipts": 16,
+  "assigned": 16,
+  "strict_valid": 4,
+  "exact_json_envelopes": 12,
+  "sensitivity_valid": 16,
+  "concordant_questions": 7,
+  "unresolved": [
+    "Q04"
+  ],
+  "historical_cost_usd": "0.001672950",
+  "new_calls_for_reanalysis": 0,
+  "qualified_agent_action_gold": 0,
+  "holdout_accessed": false,
+  "cells": [
+    {
+      "task": "Q01",
+      "reference": "APPROVE",
+      "gpt": "APPROVE",
+      "mistral": "APPROVE"
+    },
+    {
+      "task": "Q02",
+      "reference": "ABSTAIN",
+      "gpt": "ABSTAIN",
+      "mistral": "ABSTAIN"
+    },
+    {
+      "task": "Q03",
+      "reference": "APPROVE",
+      "gpt": "APPROVE",
+      "mistral": "APPROVE"
+    },
+    {
+      "task": "Q04",
+      "reference": "ABSTAIN",
+      "gpt": "REJECT",
+      "mistral": "ABSTAIN"
+    },
+    {
+      "task": "Q05",
+      "reference": "REJECT",
+      "gpt": "REJECT",
+      "mistral": "REJECT"
+    },
+    {
+      "task": "Q06",
+      "reference": "ABSTAIN",
+      "gpt": "ABSTAIN",
+      "mistral": "ABSTAIN"
+    },
+    {
+      "task": "Q07",
+      "reference": "APPROVE",
+      "gpt": "APPROVE",
+      "mistral": "APPROVE"
+    },
+    {
+      "task": "Q08",
+      "reference": "ABSTAIN",
+      "gpt": "ABSTAIN",
+      "mistral": "ABSTAIN"
+    }
+  ]
+}
