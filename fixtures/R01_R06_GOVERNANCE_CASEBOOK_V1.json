@@ -1,0 +1,77 @@
+{
+  "schema": "WAMBU_R01_R06_PUBLIC_GOVERNANCE_ACTION_TRIAGE_V1",
+  "split": "public_development_only",
+  "classification": "SOURCE_BOUND_CANDIDATE_AUTHORIZATION_TRIAGE_NOT_EXECUTION_GOLD",
+  "events": [
+    {
+      "key": "E01",
+      "issue": 318,
+      "comment": 3536916444,
+      "handle": "gpshead",
+      "name": "Gregory P. Smith",
+      "at": "2025-11-15T21:26:52Z",
+      "pep": "6774537a36e8903fa31e9135b67d36c8fddf2736",
+      "roster": "2f1f3460cb03c432ca8cf85a94f0d0fffa7ac500",
+      "anchor": "4/5 of the steering council has seen this and we have no objections, go ahead and create it.",
+      "scope": "Creation of the proposed library-fuzzers repository in the Python organisation; not blanket organisation administration.",
+      "url": "https://github.com/python/steering-council/issues/318#issuecomment-3536916444",
+      "observed_body": "4/5 of the steering council has seen this and we have no objections, go ahead and create it.\n\n---\n\nProcess wise for the git stuff, i think instead of \"moving/adopting\" the repo into the org, if just have a new repo created in python/ and push what you want from an existing clone of hugovk's desired origin repo to it.  I believe that _should_ prevent github from showing it in the fork network.  you'll find out :)",
+      "source_edited_at": "2025-11-15T21:26:52Z",
+      "api_routes_agreed": true
+    },
+    {
+      "key": "E02",
+      "issue": 352,
+      "comment": 4807598408,
+      "handle": "corona10",
+      "name": "Donghee Na",
+      "at": "2026-06-26T08:11:56Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "671cfe319a01b0f39fbc71bf6bd480ad0748a8cd",
+      "anchor": "The SC agrees to soft-deprecate the F and D formats in Python 3.15 documentation and emit `DeprecationWarning` in Python 3.16.",
+      "scope": "F and D formats, documentation in 3.15 and warning in 3.16; not immediate removal.",
+      "url": "https://github.com/python/steering-council/issues/352#issuecomment-4807598408",
+      "observed_body": "@vstinner \nThe SC agrees to soft-deprecate the F and D formats in Python 3.15 documentation and emit `DeprecationWarning` in Python 3.16.\n",
+      "source_edited_at": "2026-06-26T08:11:56Z",
+      "api_routes_agreed": true
+    },
+    {
+      "key": "E03",
+      "issue": 370,
+      "comment": 6834934721,
+      "handle": "Yhg1s",
+      "name": "Thomas Wouters",
+      "at": "2026-11-12T20:21:16Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "671cfe319a01b0f39fbc71bf6bd480ad0748a8cd",
+      "anchor": "After some consideration the SC has decided we'd rather not do this at this time, not because we don't trust you with admin access but because we'd prefer reducing the number of admins.",
+      "scope": "Reject the particular CPython administrator access request at that time; a possible fine-grained alternative is not itself a grant.",
+      "url": "https://github.com/python/steering-council/issues/370#issuecomment-6834934721",
+      "observed_body": "After some consideration the SC has decided we'd rather not do this at this time, not because we don't trust you with admin access but because we'd prefer reducing the number of admins. Some of the things you need it for (like GHSA management) should now be possible with more fine-grained access, and for the rest we think going through existing admins shouldn't be too much of a burden. The admins can let us know if you're putting too big of a demand on them and then we can reconsider :)\n",
+      "source_edited_at": "2026-11-12T20:21:16Z",
+      "api_routes_agreed": true
+    },
+    {
+      "key": "E04",
+      "issue": 372,
+      "comment": 6690510799,
+      "handle": "savannahostrowski",
+      "name": "Savannah Ostrowski",
+      "at": "2026-11-06T16:59:57Z",
+      "pep": "a087d2204baac13c51e3b68d99a7d0f6110f4f9c",
+      "roster": "671cfe319a01b0f39fbc71bf6bd480ad0748a8cd",
+      "anchor": "The SC talked this over. Could you start a thread on Discourse to share what you found and see if anyone still relies on _pyio? We’d like to get some wider feedback before deciding.",
+      "scope": "Request wider consultation about _pyio; no removal exception granted at this decision.",
+      "url": "https://github.com/python/steering-council/issues/372#issuecomment-6690510799",
+      "observed_body": "Thanks, Cody! The SC talked this over. Could you start a thread on Discourse to share what you found and see if anyone still relies on _pyio? We’d like to get some wider feedback before deciding.",
+      "source_edited_at": "2026-11-06T16:59:57Z",
+      "api_routes_agreed": true
+    }
+  ],
+  "limits": [
+    "Public decisions, not actual agent actions; four independent governance events, eight dependent questions.",
+    "Original issue bodies are mutable; no issue body used as historical proof. Scope derives from comment and public issue title; exact original title not archived. Public council statements are evidence of reported collective decisions, not a full private vote record.",
+    "No real admin changes, repository creation, or code execution. No human adjudication or AI approval claimed; independent source verification by separate API routes is not independent adjudication.",
+    "Labels only answer whether supplied council evidence supports the narrowly stated request. Missing evidence does not prove global prohibition."
+  ]
+}

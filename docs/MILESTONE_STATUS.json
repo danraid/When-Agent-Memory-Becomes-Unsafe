@@ -11,7 +11,7 @@
     {
       "id": "R01",
       "status": "PARTIAL",
-      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12.",
+      "observed": "Five CPython documentary candidates; one predecision narrow authority grant; zero qualified agent action gold. 12/12 documentary answers; conservative baseline 10/12. Four additional public council decisions independently re-fetched via two API routes; eight provisional source-scope triage questions; independent action gold still zero.",
       "runs": [
         44556331337,
         44556730396
@@ -57,7 +57,7 @@
     {
       "id": "R06",
       "status": "PARTIAL",
-      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified."
+      "observed": "Predecision source snapshots verified for candidates; action-level gold and applicable authority not fully qualified. Historical PEP 13 and developer roster pinned for all four additional decisions. Detached cutoff and source replay workflow added."
     },
     {
       "id": "R07",

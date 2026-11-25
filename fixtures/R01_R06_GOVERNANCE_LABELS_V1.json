@@ -1,0 +1,56 @@
+{
+  "split": "detached_public_development_labels_only",
+  "classification": "RESEARCHER_CODED_PROVISIONAL_SOURCE_SCOPE_LABELS_NOT_INDEPENDENT_ACTION_GOLD",
+  "labels": [
+    {
+      "id": "Q01",
+      "event": "E01",
+      "label": "APPROVE",
+      "reason": "Explicit creation assent."
+    },
+    {
+      "id": "Q02",
+      "event": "E01",
+      "label": "ABSTAIN",
+      "reason": "Decision not yet published."
+    },
+    {
+      "id": "Q03",
+      "event": "E02",
+      "label": "APPROVE",
+      "reason": "Explicit version-specific documentation assent."
+    },
+    {
+      "id": "Q04",
+      "event": "E02",
+      "label": "ABSTAIN",
+      "reason": "No immediate removal grant."
+    },
+    {
+      "id": "Q05",
+      "event": "E03",
+      "label": "REJECT",
+      "reason": "Expressly declines requested admin access."
+    },
+    {
+      "id": "Q06",
+      "event": "E03",
+      "label": "ABSTAIN",
+      "reason": "Decision not yet published."
+    },
+    {
+      "id": "Q07",
+      "event": "E04",
+      "label": "APPROVE",
+      "reason": "Explicit request for consultation."
+    },
+    {
+      "id": "Q08",
+      "event": "E04",
+      "label": "ABSTAIN",
+      "reason": "Decision deferred pending feedback."
+    }
+  ],
+  "independent_action_adjudication": false,
+  "qualified_agent_action_gold": 0
+}

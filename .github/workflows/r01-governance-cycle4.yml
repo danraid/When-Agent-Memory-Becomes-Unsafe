@@ -1,0 +1,25 @@
+name: WAMBU R01 R06 public governance source replay
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r01-governance-cycle4.yml'
+permissions:
+  contents: read
+jobs:
+  source_replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/r01_governance_source_replay.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r01-governance-source-replay-${{ github.run_id }}
+          path: runs/r01-governance-cycle4/
