@@ -1,0 +1,51 @@
+{
+  "classification": "OBSERVED_TYPED_TIER_DEVELOPMENT_APPRAISAL",
+  "run_id": 45705328555,
+  "artifact_id": 15063624144,
+  "source_commit": "2c7b98f160aa7235ff6fdbe9c9b4c4c3e189bedc",
+  "archive_sha256": "f17503d05661673e253c54b9e50fc5f36f451a5934071ef9ddb28625097b1192",
+  "report_sha256": "ef8c8c02cb4ba0992bbb1018312da049a2eea46927b118a1ea278692de92246b",
+  "audit_sha256": "ff1a7423bcb51c4f6f20898e28327dbc6ba73cd2a441fbbf91bcdc20bd82b6e3",
+  "packet_sha256": "1e299f96ae75fed8202f1d294594f2c8f954ef3b650b68e870ab23fe0095c6cc",
+  "zip_crc_pass": true,
+  "assigned": 12,
+  "valid": 12,
+  "unique_receipts": 12,
+  "affected_candidates_concordant": 4,
+  "control_correct_votes": 4,
+  "control_assigned_votes": 4,
+  "controls_passed": true,
+  "reported_cost_usd": "0.002527475",
+  "candidate_votes": {
+    "Q13": [
+      "MATCHES_REQUEST",
+      "MATCHES_REQUEST"
+    ],
+    "Q14": [
+      "MATCHES_REQUEST",
+      "MATCHES_REQUEST"
+    ],
+    "Q15": [
+      "MATCHES_REQUEST",
+      "MATCHES_REQUEST"
+    ],
+    "Q16": [
+      "MATCHES_REQUEST",
+      "MATCHES_REQUEST"
+    ]
+  },
+  "controls": {
+    "T1": [
+      "MISMATCH",
+      "MISMATCH"
+    ],
+    "T2": [
+      "MISMATCH",
+      "MISMATCH"
+    ]
+  },
+  "historical_cycle23_failed_control_preserved": true,
+  "authority_votes_unchanged": true,
+  "qualified_operational_gold": 0,
+  "holdout_accessed": false
+}
