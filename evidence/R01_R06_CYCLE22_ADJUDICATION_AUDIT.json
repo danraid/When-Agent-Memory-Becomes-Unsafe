@@ -1,0 +1,97 @@
+{
+  "classification": "OBSERVED_INDEPENDENT_AI_DEVELOPMENT_APPRAISAL_NOT_OPERATIONAL_GOLD",
+  "run_id": 45703397009,
+  "artifact_id": 15062189785,
+  "source_commit": "87571d6e3a4c3535e570768c67476c8cb72f9a59",
+  "archive_sha256": "b9dd2897ffea9e57328cf67d7297b6f0a28b2f12123c0415d545e80282671027",
+  "report_sha256": "513a3d539f9f49b798d31958e7c97dbc767eb447ceb66432c3c1e8a692541dcf",
+  "audit_sha256": "65ca5f2abca88c209ea538f12f4c778e2bde9093e175909d64990afd874c0659",
+  "zip_crc_pass": true,
+  "assigned": 16,
+  "valid": 16,
+  "unique_receipts": 16,
+  "exact_envelope_responses": 16,
+  "reported_cost_usd": "0.004194850",
+  "categorical_reference_matches": 16,
+  "integral_concordance": 3,
+  "unresolved": [
+    "Q09",
+    "Q11",
+    "Q12",
+    "Q13",
+    "Q15"
+  ],
+  "rows": [
+    {
+      "task": "Q09",
+      "provisional_reference": "ABSTAIN",
+      "both_decisions": "ABSTAIN",
+      "mistral_mapping": "MISMATCH",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "UNRESOLVED"
+    },
+    {
+      "task": "Q10",
+      "provisional_reference": "APPROVE",
+      "both_decisions": "APPROVE",
+      "mistral_mapping": "MATCHES_REQUEST",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "AI_CONCORDANT_SOURCE_SCOPE_AND_MAPPING"
+    },
+    {
+      "task": "Q11",
+      "provisional_reference": "ABSTAIN",
+      "both_decisions": "ABSTAIN",
+      "mistral_mapping": "MISMATCH",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "UNRESOLVED"
+    },
+    {
+      "task": "Q12",
+      "provisional_reference": "REJECT",
+      "both_decisions": "REJECT",
+      "mistral_mapping": "MISMATCH",
+      "gemini_mapping": "MISMATCH",
+      "original_disposition": "UNRESOLVED"
+    },
+    {
+      "task": "Q13",
+      "provisional_reference": "ABSTAIN",
+      "both_decisions": "ABSTAIN",
+      "mistral_mapping": "MISMATCH",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "UNRESOLVED"
+    },
+    {
+      "task": "Q14",
+      "provisional_reference": "APPROVE",
+      "both_decisions": "APPROVE",
+      "mistral_mapping": "MATCHES_REQUEST",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "AI_CONCORDANT_SOURCE_SCOPE_AND_MAPPING"
+    },
+    {
+      "task": "Q15",
+      "provisional_reference": "ABSTAIN",
+      "both_decisions": "ABSTAIN",
+      "mistral_mapping": "MISMATCH",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "UNRESOLVED"
+    },
+    {
+      "task": "Q16",
+      "provisional_reference": "APPROVE",
+      "both_decisions": "APPROVE",
+      "mistral_mapping": "MATCHES_REQUEST",
+      "gemini_mapping": "MATCHES_REQUEST",
+      "original_disposition": "AI_CONCORDANT_SOURCE_SCOPE_AND_MAPPING"
+    }
+  ],
+  "diagnosis": {
+    "predecision": "Four Mistral mapping mismatches reason from absent authority records rather than question/action correspondence.",
+    "Q12": "Both evaluators report mapping mismatch on the ground that the source rejects the proposed approval, although the typed operation expresses the requested (not authorized) action.",
+    "disposition": "PRESERVE_ORIGINAL; PROSPECTIVE_INDEPENDENT_MAPPING_ONLY_APPRAISAL_REQUIRED"
+  },
+  "qualified_operational_gold": 0,
+  "holdout_accessed": false
+}

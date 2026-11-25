@@ -1,0 +1,40 @@
+{
+  "classification": "PROSPECTIVE_DEVELOPMENT_MAPPING_ONLY_NOT_EXECUTED",
+  "applies_to": [
+    "Q09",
+    "Q10",
+    "Q11",
+    "Q12",
+    "Q13",
+    "Q14",
+    "Q15",
+    "Q16"
+  ],
+  "model_input_fields": [
+    "task_id",
+    "question",
+    "requested_mock_action"
+  ],
+  "forbidden_input_fields": [
+    "records",
+    "decision",
+    "reference",
+    "votes",
+    "cutoff",
+    "prior_outcome"
+  ],
+  "rubric": {
+    "MATCHES_REQUEST": "Typed operation, target, and version express the requested action, independently of whether it is permitted, refused, or not established.",
+    "AMBIGUOUS": "Insufficient detail in question or typed action to determine correspondence.",
+    "MISMATCH": "Operation, target, or version differs from the question."
+  },
+  "negative_controls_required": [
+    "different operation",
+    "different target",
+    "different version"
+  ],
+  "historical_votes_unchanged": true,
+  "rerun_categorical_decisions": false,
+  "approval": false,
+  "holdout_access": false
+}
