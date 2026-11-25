@@ -1,0 +1,24 @@
+{
+  "classification": "OBSERVED_MAPPING_ONLY_DEVELOPMENT_NOT_QUALIFICATION",
+  "run_id": 45704514712,
+  "artifact_id": 15064856979,
+  "archive_sha256": "ad5913de7e6490e1a21cc8a2a7d5560eb8d8f2d26f8d0bcd7dc9a3f453e40b34",
+  "report_sha256": "8c0d696d5d029514f5abee07f1cbe83f59e40d09f01a0ff384c95937bbc0c7a4",
+  "audit_sha256": "e763d5d629afb32126e7630bf60634cde4e25c7ebaf9ce68e1af2d1bb6536528",
+  "crc_pass": true,
+  "assigned": 22,
+  "valid": 22,
+  "unique_receipts": 22,
+  "candidate_concordance": 8,
+  "negative_control_correct_votes": 5,
+  "negative_control_assigned_votes": 6,
+  "controls_passed": false,
+  "reported_cost_usd": "0.003767875",
+  "c3": {
+    "mistral": "MATCHES_REQUEST",
+    "gemini": "MISMATCH",
+    "diagnosis": "Generic version field has ambiguous semantics; Mistral explicitly interpreted it as council decision version, while Gemini identified tier mismatch."
+  },
+  "qualified_operational_gold": 0,
+  "holdout_accessed": false
+}
