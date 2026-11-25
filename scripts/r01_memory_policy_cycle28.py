@@ -35,7 +35,7 @@ def distractors():
     for i,topic in enumerate(DISTRACTOR_TOPICS):
         day=f"2025-{(i//2)+1:02d}-{(i%2)*12+3:02d}T09:00:00Z"
         rows.append({"source_id":f"S{i+1:02d}","issue":900001+i,"published_at":day,
-            "text":f"SYNTHETIC NON-AUTHORITATIVE administrative note: {topic}. A coordinator recorded an item for later discussion, asked for a written description of the affected component, and requested that the next meeting document open questions. No permission, refusal, or decision concerning a real project is stated. This note is a generated workload distractor, not a council record."})
+            "text":f"SYNTHETIC NON-AUTHORITATIVE administrative note: {topic}. A coordinator requested a written description for later discussion. No real project decision or permission is stated. Generated distractor, not a council record."})
     return rows
 def compaction_cap(arm):
     return int(arm.rsplit("_",1)[1]) if arm!="source_only" else OUTPUT

@@ -13,7 +13,7 @@ concurrency:
 jobs:
   pilot:
     if: >-
-      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'research(r03): authorised cycle 28 paired compaction pressure pilot' }}
+      ${{ github.run_attempt == 1 && github.event.head_commit.message == 'fix(r03): cycle 29 fit synthetic distractors within unchanged input ceiling' }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     env:
