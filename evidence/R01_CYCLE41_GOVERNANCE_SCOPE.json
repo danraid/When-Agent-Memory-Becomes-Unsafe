@@ -1,0 +1,22 @@
+{
+  "classification": "PARTIAL_GOVERNANCE_SCOPE_NOT_ELIGIBILITY",
+  "sources": [
+    {
+      "repository": "django/deps",
+      "path": "final/0010-new-governance.rst",
+      "commit": "a83080652411e34e6afa8e1f0a97b675a76358e5",
+      "blob": "6f6f52f6a4e64de652d2a13b4c30ae371f9975fc",
+      "finding": "Historical governance document explicitly superseded in part by DEP12; not sufficient evidence of current council membership."
+    },
+    {
+      "repository": "kubernetes/enhancements",
+      "path": "OWNERS_ALIASES",
+      "commit": "45643962dc6884ad302711db80f886a2f3030266",
+      "blob": "22d9eab2aeaf450bfa9f879a7c821603cc1336a2",
+      "finding": "jpbetz and wojtek-t appear in production readiness approvers; dom4ha in scheduling leads. Path-specific authorization and actual approval event still require corroboration."
+    }
+  ],
+  "eligible_promotions": 0,
+  "independent_model_reviews": 0,
+  "holdout_accessed": false
+}
