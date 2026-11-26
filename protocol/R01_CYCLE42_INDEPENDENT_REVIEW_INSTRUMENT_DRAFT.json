@@ -1,0 +1,69 @@
+{
+  "classification": "PROPOSED_REVIEW_INSTRUMENT_NOT_EXECUTED",
+  "authority_protocol_blob": "0e01e517068b7e2bf192ec8b6c8c970054b0fa6c",
+  "prior_governance_blob": "52daaa7bfe8a427f96f7313b2cd40b51dbf58c69",
+  "reviewers": {
+    "minimum": 2,
+    "distinct_model_families": true,
+    "independent_contexts": true,
+    "third_adjudicator": "resolve disagreements for documentation; original disagreements remain excluded under current proposal"
+  },
+  "packet": {
+    "allowed": [
+      "opaque review ID",
+      "rights-cleared source excerpt or authorized factual representation",
+      "immutable source reference",
+      "event-time role and decision procedure evidence",
+      "question mapping for separately isolated mapping review"
+    ],
+    "forbidden": [
+      "experimental outcomes",
+      "expected answers",
+      "gold actions",
+      "other reviewer responses",
+      "prior development labels",
+      "protected sample"
+    ]
+  },
+  "scope_review": {
+    "criteria": [
+      "source authenticity and immutable version",
+      "event-time institutional authority",
+      "explicit decision and narrow scope",
+      "collective versus individual authority",
+      "effective time and conditions",
+      "absence of superseding decision within cutoff"
+    ],
+    "verdicts": [
+      "PASS",
+      "FAIL",
+      "UNCERTAIN"
+    ],
+    "required_output": [
+      "opaque_id",
+      "criterion_verdicts",
+      "evidence_references",
+      "scope_summary",
+      "uncertainty",
+      "model_version",
+      "provider_receipt"
+    ]
+  },
+  "mapping_review": {
+    "criteria": [
+      "source supports narrow proposed scenario",
+      "pre/post cutoff is justified",
+      "no additional permissions inferred",
+      "no answer-channel leakage"
+    ],
+    "verdicts": [
+      "PASS",
+      "FAIL",
+      "UNCERTAIN"
+    ]
+  },
+  "acceptance": "Both independent reviews must pass each applicable criterion with source references; unresolved rights or independence blocks dispatch. No disagreement promoted. No claim of completed appraisal.",
+  "executed_reviews": 0,
+  "eligible_promotions": 0,
+  "holdout_accessed": false
+}
