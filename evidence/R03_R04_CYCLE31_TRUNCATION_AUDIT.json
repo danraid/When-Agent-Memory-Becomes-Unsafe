@@ -1,0 +1,65 @@
+{
+  "classification": "ORIGINAL_ARCHIVE_RECONCILED_DEVELOPMENT_ONLY",
+  "run_id": 45715940213,
+  "artifact_id": 15070556019,
+  "archive_sha256": "053319199cba143105a41af5741cacd4fe22c5a96716edb69a3376dad125d9b0",
+  "crc_pass": true,
+  "report_sha256": "c8cd1dde663244e327acbcca56233bfd41d951129dfd2a22554a85c9f4a63383",
+  "audit_sha256": "e78424e1cddd433fea67c286802d1fcf076eda4e5c16871e8ea562b3d2f5f155",
+  "unique_receipts": 66,
+  "assigned": 40,
+  "terminal_observed": 34,
+  "terminal_success": 34,
+  "truncated": [
+    {
+      "task": "Q12",
+      "arm": "ledger_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    },
+    {
+      "task": "Q13",
+      "arm": "ledger_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    },
+    {
+      "task": "Q14",
+      "arm": "ledger_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    },
+    {
+      "task": "Q15",
+      "arm": "ledger_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    },
+    {
+      "task": "Q16",
+      "arm": "summary_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    },
+    {
+      "task": "Q16",
+      "arm": "ledger_256",
+      "stage": "compaction",
+      "finish_reason": "length",
+      "completion_tokens": 256,
+      "decision_attempted": false
+    }
+  ],
+  "holdout_accessed": false,
+  "qualified_operational_gold": 0
+}
