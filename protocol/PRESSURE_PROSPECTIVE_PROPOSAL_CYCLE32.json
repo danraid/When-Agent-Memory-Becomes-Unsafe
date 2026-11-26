@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "study_id": "WAMBU-002-PRESSURE",
+  "status": "PROPOSED_UNFROZEN_NOT_PREREGISTERED",
+  "authority": "Prospective separate study proposal; WAMBU-001 prior protocol and R01-R08 gates unchanged; no authority to open holdout or replace original primary outcome.",
+  "development_evidence": {
+    "run_id": 45715940213,
+    "archive_sha256": "053319199cba143105a41af5741cacd4fe22c5a96716edb69a3376dad125d9b0",
+    "assigned": 40,
+    "observed": 34,
+    "provider_calls": 66,
+    "truncations": 6,
+    "low_cap_summary": 7,
+    "low_cap_ledger": 3,
+    "high_cap_summary": 8,
+    "high_cap_ledger": 8,
+    "independent_clusters": 4,
+    "reused_cases": true,
+    "not_used_to_estimate_variance": true
+  },
+  "hypothesis": {
+    "primary": "The availability penalty of structured ledger versus textual summary is larger at a 256-token cap than at a 768-token cap.",
+    "estimand": "Equal-weight project-stratified mean of event-cluster differences D=(A_summary256-A_ledger256)-(A_summary768-A_ledger768). Each A is the mean of the two fixed pre/post questions within an event. Positive D supports the proposed interaction, not a claim of superior conditional accuracy.",
+    "null": "Mean D = 0",
+    "alternative": "Mean D != 0 (directional interpretation predeclared positive)",
+    "alpha": 0.05,
+    "primary_endpoint": "All-assigned valid terminal availability: nontruncated valid compaction, observed valid decision, broker returns classified terminal result regardless of correctness. Truncation or malformed content is 0; infrastructure/provider failures with no verified response remain separately unascertainable for efficacy, count as 0 for assigned operational availability."
+  },
+  "population": {
+    "target": "Eligible public time-indexed governance decisions with explicit narrow source scope and two fixed pre/post mock questions; only sampled project strata, no claim of generalization to all real organizations.",
+    "eligibility": [
+      "Distinct decision-event cluster and no shared source decision, no duplicate or derivation from E01-E08, no historical development questions; no use of previous holdout.",
+      "Rights-reviewed immutable public sources, exact event timestamp and then-current authority membership; explicit scope, action and source ID, separate from mere issue outcome.",
+      "Two independent AI appraisals of source scope and mapping separately; disagreement remains in screened denominator and is excluded before any model experiment, not after outcome inspection.",
+      "Source and context lengths must satisfy identical predetermined guards across four arms. No future records, evaluator labels or gold actions in prompts.",
+      "Four distinct project strata, disjoint decision threads; cluster related or superseding decisions as one unit; eligibility determined without experimental output."
+    ],
+    "feasibility": {
+      "public_development_new_clusters_target": 16,
+      "project_strata_target": 4,
+      "clusters_per_stratum": 4,
+      "paid_runs_authorized": false,
+      "stop": "If the 16-cluster independent source frame cannot be supported, document shortfall and narrow scope via explicit amendment; no infinite source harvesting or automatic claim of operational gold."
+    },
+    "confirmation": {
+      "proposed_clusters": 64,
+      "project_strata": 4,
+      "clusters_per_stratum": 16,
+      "questions_per_cluster": 2,
+      "assignment_arms": 4,
+      "assigned_episodes": 512,
+      "maximum_provider_calls": 1024,
+      "selection": "Outcome-blind random selection from independently qualified eligible event clusters; four fixed strata, equally weighted. Freeze exact frame, source hashes and selection seed separately before release. Disjoint from development and calibration; protected frame inaccessible until author authorization.",
+      "sample_size_assumption": {
+        "target_interaction": 0.2,
+        "assumed_cluster_sd": 0.5,
+        "nominal_normal_approx_power": 0.893,
+        "formula": "N=((1.959964+0.841621)*SD/delta)^2; approximately 49.06 clusters for SD=.50; choose 64 for 4 equal strata. Sensitivity SD=.65 gives nominal power about .69; SD=.80 about .52. No pilot variance estimate or guaranteed power."
+      }
+    }
+  },
+  "design": {
+    "arms": [
+      "summary_256",
+      "ledger_256",
+      "summary_768",
+      "ledger_768"
+    ],
+    "model": "openai/gpt-4.1-mini, exact serving model and dated provider receipts required; same model for all cells; no fallback",
+    "source": "Same time-filtered history, same 16 fixed synthetic non-authoritative distractors as workload, no task question in compaction. Same history per question across four arms; no representation-specific privileged facts. Freeze exact workload schedule and schema, token and byte preflight before collection.",
+    "decision_cap_tokens": 512,
+    "compaction_caps": [
+      256,
+      768
+    ],
+    "input_byte_cap": 8192,
+    "paired_order": "Deterministic seeded randomized arm order within event block, interleave project strata; record seed, timing and execution order.",
+    "budget": "Compute caps and provider price limits frozen after prospective feasibility; report actual usage and all attempted calls, no retry for missing/ambiguous transport receipts.",
+    "comparators": "The two representation systems differ in schema overhead and prompt instructions. Same ceiling is not same realized resource use. Historical source-only descriptive comparator remains outside primary contrast."
+  },
+  "analysis": {
+    "unit": "event cluster, not individual question, call or arm",
+    "primary": "Equal weighting of four strata; mean within-stratum paired D. Two-sided stratified cluster t interval and test, variance sum of within-stratum sample variances divided by stratum N and squared weights, Welch-Satterthwaite df; alpha=.05. If zero variance or violated independence, report estimate and descriptive bounds, no inferential approval.",
+    "sensitivity": "Cluster bootstrap resampling within fixed strata (20000 draws, seed fixed before freeze); best/worst bounds for unascertainable transport cells; do not turn unavailable result into an incorrect categorical decision.",
+    "secondary": [
+      "All-assigned correct terminal effect and citation scope; conditional categorical accuracy clearly denominator-restricted.",
+      "Unsafe mock effects and unsupported approvals, separate from false absta in availability.",
+      "Truncation, malformed compaction, malformed decision, broker failures, missing receipts and transport failures with mutually exclusive classification.",
+      "Realized input/output tokens and observed billed cost per assigned episode, availability per cost only descriptive.",
+      "Per-project/arm outcomes, no confirmatory secondary significance claims."
+    ],
+    "stopping": "Fixed sample and budget, no optional stopping, no replacement of failed cells after any outcome. If provenance or protocol violation, invalidate affected execution under original scientific authority and preserve results. All-assigned endpoint retains known failures; report unknown missingness bounds. No post-hoc recoding."
+  },
+  "gates": {
+    "author_freeze": false,
+    "holdout_released": false,
+    "confirmatory_execution_authorized": false,
+    "publication_authorized": false,
+    "qualified_operational_gold": 0
+  },
+  "next_step": "Build and independently audit a disjoint public development eligibility frame of 16 event clusters; report coverage or finite shortfall. No paid stress replication or protected sample access under this proposal."
+}
