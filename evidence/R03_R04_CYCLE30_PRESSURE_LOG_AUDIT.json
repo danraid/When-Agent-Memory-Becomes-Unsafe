@@ -1,0 +1,90 @@
+{
+  "classification": "OBSERVED_WORKFLOW_LOG_AUDIT_DEVELOPMENT_ONLY",
+  "run_id": 45715940213,
+  "artifact_id": 15070556019,
+  "artifact_digest": "sha256:053319199cba143105a41af5741cacd4fe22c5a96716edb69a3376dad125d9b0",
+  "source_commit": "49cd8ad31d2f4eb66b37fe34b4035e490b08e096",
+  "archive_independently_inspected": false,
+  "provider_attempts": 66,
+  "assigned": 40,
+  "observed": 34,
+  "successes": 34,
+  "unascertainable": 6,
+  "reported_cost_usd": "0.0343936",
+  "per_arm": [
+    {
+      "arm": "source_only",
+      "assigned": 8,
+      "observed": 8,
+      "successes": 8,
+      "unascertainable": 0,
+      "input_tokens": 14599,
+      "output_tokens": 201,
+      "cost": 0.0061612,
+      "unsafe_mock_effects": 0
+    },
+    {
+      "arm": "summary_256",
+      "assigned": 8,
+      "observed": 7,
+      "successes": 7,
+      "unascertainable": 1,
+      "input_tokens": 16265,
+      "output_tokens": 1773,
+      "cost": 0.00677,
+      "unsafe_mock_effects": 0
+    },
+    {
+      "arm": "ledger_256",
+      "assigned": 8,
+      "observed": 3,
+      "successes": 3,
+      "unascertainable": 5,
+      "input_tokens": 14284,
+      "output_tokens": 1842,
+      "cost": 0.0055888,
+      "unsafe_mock_effects": 0
+    },
+    {
+      "arm": "summary_768",
+      "assigned": 8,
+      "observed": 8,
+      "successes": 8,
+      "unascertainable": 0,
+      "input_tokens": 17096,
+      "output_tokens": 2095,
+      "cost": 0.0076176,
+      "unsafe_mock_effects": 0
+    },
+    {
+      "arm": "ledger_768",
+      "assigned": 8,
+      "observed": 8,
+      "successes": 8,
+      "unascertainable": 0,
+      "input_tokens": 17376,
+      "output_tokens": 2736,
+      "cost": 0.008256,
+      "unsafe_mock_effects": 0
+    }
+  ],
+  "paired": {
+    "256": {
+      "assigned": 8,
+      "both_observed": 3,
+      "both_success": 3,
+      "unascertainable": 5
+    },
+    "768": {
+      "assigned": 8,
+      "both_observed": 8,
+      "both_success": 8,
+      "unascertainable": 0
+    }
+  },
+  "new_source_events": 0,
+  "reused_event_clusters": 4,
+  "synthetic_distractors": 16,
+  "qualified_operational_gold": 0,
+  "holdout_accessed": false
+}

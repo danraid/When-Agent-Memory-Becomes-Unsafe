@@ -1,0 +1,3 @@
+# Cycle 30 pressure pilot
+
+Run 45715940213 detached auditor log reports 66 attempts, 40 assigned, 34 observed terminal successes and six unascertainable. At 256 tokens summary 7/8 observed, ledger 3/8; only three complete pairs, all successful. At 768 both 8/8. No unsafe mock effects observed. Missing outcomes are not incorrect categorical decisions. Archive digest recorded from GitHub metadata; original archive has not been independently inspected in this audit. Four reused event clusters, synthetic distractors, one model, no confirmation or holdout. Next inspect the original six missing-cell receipts and determine a bounded availability/efficiency design, not another indiscriminate pilot.
