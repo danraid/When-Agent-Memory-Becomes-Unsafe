@@ -1,0 +1,346 @@
+{
+  "classification": "PUBLIC_DEVELOPMENT_SCREENED_CANDIDATE_FRAME_NOT_QUALIFIED_CORPUS",
+  "proposal": "protocol/PRESSURE_PROSPECTIVE_PROPOSAL_CYCLE32.json",
+  "selection": "Convenience screening of four distinct project governance systems from public threads; not a random sample, and distinct project names do not prove independent events.",
+  "target_clusters": 16,
+  "screened_threads": 16,
+  "project_counts": {
+    "nodejs": 4,
+    "rust-lang": 4,
+    "kubernetes": 4,
+    "django": 4
+  },
+  "eligible_clusters": 0,
+  "rights_reviewed": 0,
+  "authority_verified": 0,
+  "holdout_accessed": false,
+  "provider_calls": 0,
+  "rows": [
+    {
+      "id": "P34-N01",
+      "project": "nodejs",
+      "repository": "nodejs/TSC",
+      "thread": 1911,
+      "source_comment_id": 7158468450,
+      "source_url": "https://github.com/nodejs/TSC/issues/1911#issuecomment-7158468450",
+      "observed_publication_timestamp": "2026-11-25T09:32:28Z",
+      "source_scope_summary": "Recorded approval after objection period, not permission to access security systems",
+      "typed_mock_action": {
+        "operation": "record_mock_nomination_approval",
+        "target": "security-release-steward nomination in TSC issue 1911"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-N02",
+      "project": "nodejs",
+      "repository": "nodejs/TSC",
+      "thread": 1721,
+      "source_comment_id": 2859711922,
+      "source_url": "https://github.com/nodejs/TSC/issues/1721#issuecomment-2859711922",
+      "observed_publication_timestamp": "2025-05-07T18:03:07Z",
+      "source_scope_summary": "Explicit collective decision not to proceed at that point; not blanket supplier ban",
+      "typed_mock_action": {
+        "operation": "record_mock_integration_refusal",
+        "target": "Datadog Test Optimization suggestion"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-N03",
+      "project": "nodejs",
+      "repository": "nodejs/TSC",
+      "thread": 1566,
+      "source_comment_id": 2143907186,
+      "source_url": "https://github.com/nodejs/TSC/issues/1566#issuecomment-2143907186",
+      "observed_publication_timestamp": "2024-06-02T15:44:37Z",
+      "source_scope_summary": "Individual approval, does not establish collective or release authorization",
+      "typed_mock_action": {
+        "operation": "record_mock_individual_revert_approval",
+        "target": "revert discussed for 22.3.0"
+      },
+      "disposition": "AMBIGUOUS_COLLECTIVE_AUTHORITY",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-N04",
+      "project": "nodejs",
+      "repository": "nodejs/TSC",
+      "thread": 1869,
+      "source_comment_id": 4800392140,
+      "source_url": "https://github.com/nodejs/TSC/issues/1869#issuecomment-4800392140",
+      "observed_publication_timestamp": "2026-06-25T14:27:03Z",
+      "source_scope_summary": "No voiced objections in release WG, insufficient evidence of formal TSC approval",
+      "typed_mock_action": {
+        "operation": "record_mock_strategy_decision",
+        "target": "OpenSSL LTS strategy Option 4"
+      },
+      "disposition": "AMBIGUOUS_DECISION_SCOPE",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-R01",
+      "project": "rust-lang",
+      "repository": "rust-lang/rfcs",
+      "thread": 3527,
+      "source_comment_id": 4908893856,
+      "source_url": "https://github.com/rust-lang/rfcs/pull/3527#issuecomment-4908893856",
+      "observed_publication_timestamp": "2026-07-07T21:05:33Z",
+      "source_scope_summary": "Bot records completed FCP with merge disposition; not authorization to deploy feature",
+      "typed_mock_action": {
+        "operation": "record_mock_fcp_merge_disposition",
+        "target": "RFC 3527 associated const underscore"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-R02",
+      "project": "rust-lang",
+      "repository": "rust-lang/rfcs",
+      "thread": 4013,
+      "source_comment_id": 6555273577,
+      "source_url": "https://github.com/rust-lang/rfcs/pull/4013#issuecomment-6555273577",
+      "observed_publication_timestamp": "2026-11-01T09:01:12Z",
+      "source_scope_summary": "Bot records completed FCP with merge disposition",
+      "typed_mock_action": {
+        "operation": "record_mock_fcp_merge_disposition",
+        "target": "RFC 4013 required-targets"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-R03",
+      "project": "rust-lang",
+      "repository": "rust-lang/rfcs",
+      "thread": 3485,
+      "source_comment_id": 5554005518,
+      "source_url": "https://github.com/rust-lang/rfcs/pull/3485#issuecomment-5554005518",
+      "observed_publication_timestamp": "2026-09-05T18:47:10Z",
+      "source_scope_summary": "Bot records completed FCP; verify parent-RFC dependency before independence claim",
+      "typed_mock_action": {
+        "operation": "record_mock_fcp_merge_disposition",
+        "target": "RFC 3485 Cargo feature descriptions"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-R04",
+      "project": "rust-lang",
+      "repository": "rust-lang/rfcs",
+      "thread": 3983,
+      "source_comment_id": 5967880958,
+      "source_url": "https://github.com/rust-lang/rfcs/pull/3983#issuecomment-5967880958",
+      "observed_publication_timestamp": "2026-10-03T09:41:45Z",
+      "source_scope_summary": "Bot records completed FCP with merge disposition",
+      "typed_mock_action": {
+        "operation": "record_mock_fcp_merge_disposition",
+        "target": "RFC 3983 f16b"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-K01",
+      "project": "kubernetes",
+      "repository": "kubernetes/enhancements",
+      "thread": 6321,
+      "source_comment_id": 5880156462,
+      "source_url": "https://github.com/kubernetes/enhancements/pull/6321#issuecomment-5880156462",
+      "observed_publication_timestamp": "2026-09-28T22:51:11Z",
+      "source_scope_summary": "Prow approval notifier confirms PR review approval only",
+      "typed_mock_action": {
+        "operation": "record_mock_pr_review_approval",
+        "target": "KEP-6264 storage object compression PR 6321"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-K02",
+      "project": "kubernetes",
+      "repository": "kubernetes/enhancements",
+      "thread": 6494,
+      "source_comment_id": 6914387024,
+      "source_url": "https://github.com/kubernetes/enhancements/pull/6494#issuecomment-6914387024",
+      "observed_publication_timestamp": "2026-11-16T10:52:58Z",
+      "source_scope_summary": "Prow confirms review approval; no authorization for GA promotion",
+      "typed_mock_action": {
+        "operation": "record_mock_pr_review_approval",
+        "target": "KEP-4671 PR 6494 staying in beta"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-K03",
+      "project": "kubernetes",
+      "repository": "kubernetes/enhancements",
+      "thread": 6516,
+      "source_comment_id": 6921245523,
+      "source_url": "https://github.com/kubernetes/enhancements/pull/6516#issuecomment-6921245523",
+      "observed_publication_timestamp": "2026-11-16T15:46:21Z",
+      "source_scope_summary": "Prow confirms review approval; related release timing and common approvers require cluster-dependence assessment",
+      "typed_mock_action": {
+        "operation": "record_mock_pr_review_approval",
+        "target": "KEP-6404 PR 6516 beta"
+      },
+      "disposition": "EXPLICIT_SCOPE_DEPENDENCE_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-K04",
+      "project": "kubernetes",
+      "repository": "kubernetes/enhancements",
+      "thread": 6515,
+      "source_comment_id": 6921241078,
+      "source_url": "https://github.com/kubernetes/enhancements/pull/6515#issuecomment-6921241078",
+      "observed_publication_timestamp": "2026-11-16T15:46:10Z",
+      "source_scope_summary": "Prow confirms review approval; common reviewers and release timing with K03 require cluster-dependence assessment",
+      "typed_mock_action": {
+        "operation": "record_mock_pr_review_approval",
+        "target": "KEP-6268 PR 6515 beta"
+      },
+      "disposition": "EXPLICIT_SCOPE_DEPENDENCE_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-D01",
+      "project": "django",
+      "repository": "django/deps",
+      "thread": 113,
+      "source_comment_id": 6178663120,
+      "source_url": "https://github.com/django/deps/pull/113#issuecomment-6178663120",
+      "observed_publication_timestamp": "2026-10-14T21:15:14Z",
+      "source_scope_summary": "Reported Steering Council approval, not runtime deployment",
+      "typed_mock_action": {
+        "operation": "record_mock_council_approval",
+        "target": "DEP 24 table-valued expressions proposal"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-D02",
+      "project": "django",
+      "repository": "django/deps",
+      "thread": 107,
+      "source_comment_id": 5059042971,
+      "source_url": "https://github.com/django/deps/pull/107#issuecomment-5059042971",
+      "observed_publication_timestamp": "2026-07-23T13:35:52Z",
+      "source_scope_summary": "Council approval explicitly contingent on separate DSF Board acceptance; no inference of Board acceptance",
+      "typed_mock_action": {
+        "operation": "record_mock_council_approval",
+        "target": "DEP 19 technical governance"
+      },
+      "disposition": "EXPLICIT_SCOPE_AUTHORITY_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-D03",
+      "project": "django",
+      "repository": "django/deps",
+      "thread": 109,
+      "source_comment_id": 5189984364,
+      "source_url": "https://github.com/django/deps/pull/109#issuecomment-5189984364",
+      "observed_publication_timestamp": "2026-08-05T09:21:38Z",
+      "source_scope_summary": "Explicit report of acceptance at 2026-08-03 meeting; comment edited, cannot use creation cutoff as immutable evidence",
+      "typed_mock_action": {
+        "operation": "record_mock_council_acceptance",
+        "target": "DEP 20 annual release cycle"
+      },
+      "disposition": "EDITED_SOURCE_VERSION_PENDING",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    },
+    {
+      "id": "P34-D04",
+      "project": "django",
+      "repository": "django/deps",
+      "thread": 105,
+      "source_comment_id": 4408666946,
+      "source_url": "https://github.com/django/deps/pull/105#issuecomment-4408666946",
+      "observed_publication_timestamp": "2026-05-08T17:50:52Z",
+      "source_scope_summary": "Comment proposes future progression, not completed acceptance; exclude until an explicit decision source is found",
+      "typed_mock_action": {
+        "operation": "record_mock_council_approval",
+        "target": "DEP 18 mailers"
+      },
+      "disposition": "NO_COMPLETED_DECISION_IN_SOURCE",
+      "authority_verified": false,
+      "rights_verified": false,
+      "independent_ai_appraisal": false,
+      "eligible_for_execution": false,
+      "reference_label": null
+    }
+  ],
+  "limitations": [
+    "Observed public comments, not immutable event-time snapshots. No verbatim third-party comment content copied into repository; summaries and source pointers only.",
+    "Do not use thread closure or merge as permission gold. Edited source D03 needs reconstructable revision or exclusion; D04 is not a decision. K03/K04 may require shared-dependency clustering.",
+    "Public visibility alone does not establish reuse rights. Verify applicable rights and authority at event time before model exposure; source-only evidence and mapping appraisal still required.",
+    "No independent holdout, no provisional labels or pre/post questions released as a valid instrument. The original CPython events are not included. Prior excluded Rust candidates require deduplication against prior records before eligibility."
+  ]
+}

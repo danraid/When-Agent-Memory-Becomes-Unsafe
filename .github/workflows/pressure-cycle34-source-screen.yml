@@ -1,0 +1,28 @@
+name: WAMBU | cycle 34 public source candidate metadata replay
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pressure-cycle34-source-screen.yml'
+permissions:
+  contents: read
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_pressure_cycle34_source_screen -v
+      - run: python -m scripts.pressure_cycle34_source_screen --out runs/pressure-cycle34/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pressure-cycle34-screen-${{ github.run_id }}
+          path: runs/pressure-cycle34/
