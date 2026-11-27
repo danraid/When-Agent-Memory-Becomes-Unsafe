@@ -1,0 +1,232 @@
+{
+  "schema": "WAMBU-R01-REAL-DOCUMENTARY-TEMPORAL-CHALLENGE-V1",
+  "split": "public_development",
+  "task_type": "Is an explicit Steering Council exception to skipping the normal deprecation process established by AVAILABLE documents for this named interface at the query cutoff? Not a judgement of merge correctness.",
+  "source_material_classification": "Selected primary GitHub sources with deliberately short verified excerpts; text of mutable PR bodies not treated as immutable opening-time record",
+  "sources": [
+    {
+      "id": "SC_REQUEST_288",
+      "url": "https://github.com/python/steering-council/issues/288",
+      "created": "2025-04-23T13:27:30Z",
+      "authority": "formal_exception_request",
+      "scope": [
+        "Py_C_RECURSION_LIMIT",
+        "PyThreadState.c_recursion_remaining"
+      ],
+      "text": "Request Steering Council permission to remove Py_C_RECURSION_LIMIT and PyThreadState.c_recursion_remaining in Python 3.14 without deprecation."
+    },
+    {
+      "id": "SC_DECISION_288",
+      "url": "https://github.com/python/steering-council/issues/288#issuecomment-2828390956",
+      "created": "2025-04-24T17:46:12Z",
+      "authority": "steering_council_response",
+      "scope": [
+        "Py_C_RECURSION_LIMIT",
+        "PyThreadState.c_recursion_remaining"
+      ],
+      "text": "The SC is fine with this removal sans-deprecation."
+    },
+    {
+      "id": "WG_RECOMMENDATION_59",
+      "url": "https://github.com/capi-workgroup/decisions/issues/59",
+      "created": "2025-03-10T15:52:42Z",
+      "authority": "working_group_recommendation",
+      "scope": [
+        "Py_C_RECURSION_LIMIT",
+        "PyThreadState.c_recursion_remaining"
+      ],
+      "text": "The C API WG recommends requesting an exception but explicitly states that only the Steering Council can grant it. Current issue body has been edited and is not a frozen opening-time source."
+    },
+    {
+      "id": "CPY_PR_133080",
+      "url": "https://github.com/python/cpython/pull/133080",
+      "created": "2025-04-28T11:41:01Z",
+      "authority": "code_proposal",
+      "scope": [
+        "Py_C_RECURSION_LIMIT",
+        "PyThreadState.c_recursion_remaining"
+      ],
+      "text": "Proposed deletion of Py_C_RECURSION_LIMIT and PyThreadState.c_recursion_remaining. PR merge is an outcome, not policy authority."
+    },
+    {
+      "id": "AST_REVIEW_140344",
+      "url": "https://github.com/python/cpython/issues/140344#issuecomment-3420516752",
+      "created": "2025-10-20T04:37:26Z",
+      "authority": "reviewer_recommendation",
+      "scope": [
+        "ast_classes"
+      ],
+      "text": "Reviewer recommends following PEP 387 and adding deprecation warnings before removing AST classes."
+    },
+    {
+      "id": "AST_AUTHOR_140344",
+      "url": "https://github.com/python/cpython/issues/140344#issuecomment-3422089335",
+      "created": "2025-10-20T13:33:56Z",
+      "authority": "author_response",
+      "scope": [
+        "ast_classes"
+      ],
+      "text": "Author agrees to close the first PR and prepare a replacement that adds deprecation warnings."
+    },
+    {
+      "id": "AST_PR_140345",
+      "url": "https://github.com/python/cpython/pull/140345",
+      "created": "2025-10-20T00:54:39Z",
+      "authority": "code_proposal_metadata",
+      "scope": [
+        "ast_classes"
+      ],
+      "text": "A PR titled 'ast: Add deprecation warnings' was opened, but its first listed commit is at 14:43:40 UTC, after PR opening; original body and patch at opening are not verified."
+    },
+    {
+      "id": "UNICODE_PR_130697",
+      "url": "https://github.com/python/cpython/pull/130697",
+      "created": "2025-02-28T17:12:51Z",
+      "authority": "discussion_draft",
+      "scope": [
+        "PyUnicodeObject",
+        "PyASCIIObject",
+        "PyCompactUnicodeObject"
+      ],
+      "text": "Proposal explicitly presents itself as a draft for discussion with the C API Working Group, not a final permission."
+    },
+    {
+      "id": "INSPECT_PR_112639",
+      "url": "https://github.com/python/cpython/pull/112639",
+      "created": "2023-12-03T07:44:52Z",
+      "authority": "code_proposal_metadata",
+      "scope": [
+        "inspect.getargvalues",
+        "inspect.formatargvalues"
+      ],
+      "text": "Deprecation proposal exists. Its eventual closure without merge is not proof of the correct action at opening."
+    },
+    {
+      "id": "GLOBALS_PR_133654",
+      "url": "https://github.com/python/cpython/pull/133654",
+      "created": "2025-05-08T10:14:55Z",
+      "authority": "code_proposal_metadata",
+      "scope": [
+        "Py_UTF8Mode",
+        "Py_InteractiveFlag"
+      ],
+      "text": "Current PR text says Py_UTF8Mode and Py_InteractiveFlag were left untouched due unresolved removal documentation. Current mutable body cannot be asserted identical to text at PR opening."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "case_id": "P07D-CODE-001",
+      "decision_at": "2025-04-23T15:00:00Z",
+      "api": "Py_C_RECURSION_LIMIT",
+      "reference_documentary_state": "not_established",
+      "design_note": "before grant",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T02",
+      "case_id": "P07D-CODE-001",
+      "decision_at": "2025-04-24T18:00:00Z",
+      "api": "Py_C_RECURSION_LIMIT",
+      "reference_documentary_state": "grant_supported",
+      "design_note": "after exact grant",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T03",
+      "case_id": "P07D-CODE-001",
+      "decision_at": "2025-04-28T11:41:01Z",
+      "api": "PyThreadState.c_recursion_remaining",
+      "reference_documentary_state": "grant_supported",
+      "design_note": "second named interface",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T04",
+      "case_id": "P07D-CODE-001",
+      "decision_at": "2025-04-28T11:41:01Z",
+      "api": "Py_UTF8Mode",
+      "reference_documentary_state": "not_established",
+      "design_note": "outside exact exception",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T05",
+      "case_id": "P07D-CODE-001",
+      "decision_at": "2025-04-28T11:41:01Z",
+      "api": "PyUnicodeObject",
+      "reference_documentary_state": "not_established",
+      "design_note": "unrelated API",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T06",
+      "case_id": "P07D-CODE-002",
+      "decision_at": "2025-10-20T00:54:39Z",
+      "api": "ast_classes",
+      "reference_documentary_state": "not_established",
+      "design_note": "before reviewer comment",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T07",
+      "case_id": "P07D-CODE-002",
+      "decision_at": "2025-10-20T05:00:00Z",
+      "api": "ast_classes",
+      "reference_documentary_state": "not_established",
+      "design_note": "reviewer only",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T08",
+      "case_id": "P07D-CODE-002",
+      "decision_at": "2025-10-20T14:00:00Z",
+      "api": "ast_classes",
+      "reference_documentary_state": "not_established",
+      "design_note": "author agreement not SC exception",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T09",
+      "case_id": "P07D-CODE-003",
+      "decision_at": "2025-02-28T17:12:51Z",
+      "api": "PyUnicodeObject",
+      "reference_documentary_state": "not_established",
+      "design_note": "draft not exception",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T10",
+      "case_id": "P07D-CODE-004",
+      "decision_at": "2023-12-03T07:44:52Z",
+      "api": "inspect.getargvalues",
+      "reference_documentary_state": "not_established",
+      "design_note": "proposal not exception",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T11",
+      "case_id": "P07D-CODE-008",
+      "decision_at": "2025-05-08T10:14:55Z",
+      "api": "Py_UTF8Mode",
+      "reference_documentary_state": "not_established",
+      "design_note": "no verified specific grant",
+      "reference_label_visible_to_model": false
+    },
+    {
+      "id": "T12",
+      "case_id": "P07D-CODE-008",
+      "decision_at": "2025-05-08T10:14:55Z",
+      "api": "Py_InteractiveFlag",
+      "reference_documentary_state": "not_established",
+      "design_note": "no verified specific grant",
+      "reference_label_visible_to_model": false
+    }
+  ],
+  "source_filter": "Only source records created at or before query cutoff; texts from mutable issues or PRs must be represented as present-day metadata, not exact event-time bodies.",
+  "source_reliability_caveat": "Only pre-cutoff SC formal response constitutes positive documentary exception grant. Missing grant is not proof none exists globally; reference state is evidence sufficiency within this supplied casebook.",
+  "independent_policy_action_gold": 0,
+  "human_adjudication": 0,
+  "confirmatory_touched": false,
+  "external_submission": false
+}

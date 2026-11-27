@@ -1,0 +1,94 @@
+{
+  "schema": "WAMBU-R01-PREDECISION-SOURCE-QUALIFICATION-002-008-V1",
+  "classification": "PUBLIC_EVENT_TIME_SOURCE_CANDIDATES_NOT_ACTION_GOLD",
+  "cases": [
+    {
+      "id": "P07D-CODE-002",
+      "pr": "https://github.com/python/cpython/pull/140345",
+      "pr_created": "2025-10-20T00:54:39Z",
+      "source_issue": "https://github.com/python/cpython/issues/140344",
+      "issue_created": "2025-10-20T00:42:50Z",
+      "current_issue_body_last_updated": "2026-05-18T20:50:09Z",
+      "source_comments": [
+        {
+          "url": "https://github.com/python/cpython/issues/140344#issuecomment-3420516752",
+          "created": "2025-10-20T04:37:26Z",
+          "edited": false,
+          "content_role": "PEP387-reviewer-recommendation-to-add-runtime-deprecation-warning",
+          "pre_pr": false
+        },
+        {
+          "url": "https://github.com/python/cpython/issues/140344#issuecomment-3422089335",
+          "created": "2025-10-20T13:33:56Z",
+          "edited": false,
+          "content_role": "author-agrees-to-warning-route",
+          "pre_pr": false
+        }
+      ],
+      "eligible_for_pr_creation_prompt": [
+        "issue_creation_timestamp_only"
+      ],
+      "later_policy_debate_for_followup_decision": true,
+      "independent_correct_action": null,
+      "eligibility": "POTENTIAL_EVENT_TIME_TASK_AFTER_REVIEW_COMMENTS_ONLY",
+      "limitations": [
+        "comments are after PR creation, cannot count as initial PR evidence",
+        "current issue body was edited after PR creation",
+        "PEP387 applicable policy revision and authorisation still need reconstruction"
+      ]
+    },
+    {
+      "id": "P07D-CODE-008",
+      "pr": "https://github.com/python/cpython/pull/133654",
+      "pr_created": "2025-05-08T10:14:55Z",
+      "source_issue": "https://github.com/python/cpython/issues/133644",
+      "issue_created": "2025-05-08T07:27:31Z",
+      "current_issue_body_last_updated": "2026-02-27T10:16:34Z",
+      "source_comments": [
+        {
+          "url": "https://github.com/python/cpython/issues/133644#issuecomment-2862215994",
+          "created": "2025-05-08T08:31:45Z",
+          "updated": "2025-05-08T08:55:01Z",
+          "edited": true,
+          "content_role": "release-tracker-side-discussion-other-removals",
+          "pre_pr": true
+        },
+        {
+          "url": "https://github.com/python/cpython/issues/133644#issuecomment-3062737497",
+          "created": "2025-07-11T15:26:10Z",
+          "edited": false,
+          "content_role": "post-PR-disposition-to-defer-libmpdecimal-to-3.16",
+          "pre_pr": false
+        },
+        {
+          "url": "https://github.com/python/cpython/issues/133644#issuecomment-3972018161",
+          "created": "2026-02-27T10:16:34Z",
+          "edited": false,
+          "content_role": "later-soft-deprecation-discussion-for-Py_UNICODE_WIDE",
+          "pre_pr": false
+        }
+      ],
+      "eligible_for_pr_creation_prompt": [
+        "issue_creation_timestamp_only",
+        "May08 pre-PR comment if verified edit time"
+      ],
+      "later_policy_debate_for_followup_decision": true,
+      "independent_correct_action": null,
+      "eligibility": "SOURCE_SCOPE_CONFLICT_REQUIRES_HISTORICAL_POLICY_VERSION",
+      "limitations": [
+        "current issue body is mutable",
+        "later deferrals cannot be retrojected to May 2025",
+        "specific variables in PR were deprecated but removal status unclear",
+        "PR eventually closed without merge, no normative truth inferred"
+      ]
+    }
+  ],
+  "gate": {
+    "qualified_operational_actions": 0,
+    "independent_human_adjudications": 0,
+    "independent_ai_source_reviewer_signoff": false,
+    "holdout_access": false,
+    "author_final_approval": false,
+    "external_submission": false
+  }
+}

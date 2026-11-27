@@ -1,0 +1,13 @@
+{
+  "schema": "WAMBU-R02-OCTEN-ONE-SHOT-V1",
+  "issue": 50,
+  "required_lane": "OCTEN_VENDOR_AND_ORIGINAL_LLM",
+  "model": "octen-embedding-8b",
+  "llm": "gpt-5.4-mini",
+  "allowed_fallback": false,
+  "split": "development_only",
+  "holdout_access": false,
+  "external_submission": false,
+  "requested_execution": "one_github_actions_branch_push",
+  "note": "One single real Octen lane attempt, evidence must not be promoted if credentials or original-model availability fail"
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "WAMBU-R02-REPLICATION-EVIDENCE-CONTRACT-V1",
+  "classification": "PROSPECTIVE_REQUIREMENTS_NOT_OBSERVED_REPLICATION",
+  "original_source": {
+    "repository": "https://github.com/searchsim-org/cikm26-knowledge-triage",
+    "commit": "a6ceb01a3368cee25ef7ebcf05ebdab8c9be24a4",
+    "license_check": "source-and-revision-specific",
+    "source_integrity_artifact": "docs/R01_R02_BOUNDED_EVIDENCE_REPORT_2026-11-17.md"
+  },
+  "required_exact_model_identity": {
+    "encoder": "octen-embedding-8b",
+    "cascade_adjudicator": "gpt-5.4-mini",
+    "retrieval_helper": "text-embedding-3-large"
+  },
+  "methods": [
+    {
+      "id": "KT01",
+      "description": "Original source and dependency pin",
+      "evidence_required": [
+        "git_head_sha",
+        "license_text_sha256",
+        "dependency_lock_sha256",
+        "algorithm_file_sha256"
+      ],
+      "observed": "PINNED_COMPONENT_SOURCE_ONLY",
+      "gate": "PARTIAL"
+    },
+    {
+      "id": "KT02",
+      "description": "Original native regex and cascade classification",
+      "evidence_required": [
+        "original_regex_output_hash",
+        "encoder_model_attestation",
+        "encoder_prompt_and_ids",
+        "cascade_model_attestation",
+        "llm_adjudication_response_ids",
+        "per_item_types"
+      ],
+      "observed": "REGEX_COMPONENT_ONLY",
+      "gate": "PARTIAL"
+    },
+    {
+      "id": "KT03",
+      "description": "Original TypeCompact",
+      "evidence_required": [
+        "native_input_types",
+        "budget_per_case",
+        "output_sha256",
+        "unsafe_status_retained",
+        "operator_code_hash"
+      ],
+      "observed": "COMPONENT_RUN",
+      "gate": "PARTIAL"
+    },
+    {
+      "id": "KT04",
+      "description": "Original TypeDecompose",
+      "evidence_required": [
+        "operator_code_hash",
+        "partition_and_budget_traces",
+        "locality_violations"
+      ],
+      "observed": "COMPONENT_RUN",
+      "gate": "PARTIAL"
+    },
+    {
+      "id": "KT05",
+      "description": "Original TypeRetrieve",
+      "evidence_required": [
+        "original_embedding_relevance",
+        "scope_algorithm_trace",
+        "retrieval_results_ids",
+        "unmodified_operator_hash"
+      ],
+      "observed": "LEXICAL_ADAPTER_NOT_PUBLISHED_RETRIEVAL",
+      "gate": "BLOCKED"
+    },
+    {
+      "id": "KT06",
+      "description": "Original SafetyMargin",
+      "evidence_required": [
+        "original_safety_margin_code_sha256",
+        "decision_trace",
+        "budget_failure_handling"
+      ],
+      "observed": "NOT_EXECUTED",
+      "gate": "BLOCKED"
+    },
+    {
+      "id": "KT07",
+      "description": "Published dataset, budget, scorer, and baseline parity",
+      "evidence_required": [
+        "paper_dataset_ids_and_license",
+        "dataset_hashes",
+        "published_budget_and_tokenizer",
+        "published_metric_definition",
+        "parameter_and_seed_record",
+        "source_level_deviations"
+      ],
+      "observed": "NOT_REPRODUCED",
+      "gate": "BLOCKED"
+    },
+    {
+      "id": "KT08",
+      "description": "Matched agent information and downstream action scoring",
+      "evidence_required": [
+        "identical_event_streams_per_arm",
+        "prompt_hashes",
+        "information_budget_audit",
+        "response_ids",
+        "isolated_reference_sidecar",
+        "paired_episode_analysis"
+      ],
+      "observed": "NOT_EXECUTED",
+      "gate": "BLOCKED"
+    }
+  ],
+  "original_full_framework_reproduced": false,
+  "model_substitution_equivalent": false,
+  "openrouter_key_alone_proves_original_services": false,
+  "authorisation": {
+    "confirmation": false,
+    "holdout": false,
+    "external_submission": false
+  },
+  "observed_paid_calls_this_packet": 0,
+  "reporting_contract": {
+    "native_original_label": "ORIGINAL_ONLY_IF_ALL_KT_GATES_VERIFIED",
+    "adapted_label": "ADAPTED_KT_INSPIRED_COMPONENTS",
+    "mandatory_failure_status": "COMPACTION_UNSAFE",
+    "never_treat_failed_or_unsafe_as_success": true
+  }
+}

@@ -1,0 +1,55 @@
+name: WAMBU | R01 independent documentary evidence replay
+on:
+  push:
+    branches: [revision/author-decision-50-scientific-remediation]
+    paths:
+      - 'protocol/R01_DOCUMENTARY_AUDIT_TRIGGER_2026-11-19.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  detached-twelve-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+      OPENROUTER_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: '44556331337'
+          name: wambu-r01-documentary-44556331337
+          path: runs/r01-observed/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Recompute all source timestamps, hashes, model outputs and grades
+        run: |
+          python -m scripts.audit_r01_documentary_live \
+            --report runs/r01-observed/observed.json \
+            --out runs/r01-detached/audit.json
+      - name: Enforce documentary not naturalistic action-gold status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/r01-detached/audit.json').read_text())
+          assert r['passed'] and r['observed']==12
+          assert r['qualified_independent_agent_action_gold']==0
+          assert r['new_paid_calls']==0 and not r['holdout_touched']
+          assert r['always_not_established_baseline_matches']==10
+          assert not r['external_submission_authorised']
+          print('R01_DOCUMENTARY_DETACHED_AUDIT_PASS',r['observed_source_defined_matches'])
+          PY
+      - name: Archive audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wambu-r01-documentary-detached-${{ github.run_id }}
+          path: runs/r01-detached/
+          if-no-files-found: warn
+          retention-days: 90

@@ -1,0 +1,30 @@
+name: WAMBU | R01 chronological authority and R03 source packet preflight
+on:
+  pull_request:
+    paths:
+      - 'evidence/R01_CASE002_008_PREDECISION_COMMENT_TIMELINE_2026-11-19.json'
+      - 'tests/test_r01_predecision_comment_timeline.py'
+      - 'tests/test_r03_common_authority.py'
+      - 'scripts/r03_common_authority_live_dev.py'
+      - '.github/workflows/r01-r03-source-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-and-leakage-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      OPENAI_API_KEY: ''
+      OCTEN_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check R01 creation-time and edited source chronology
+        run: python -m unittest discover -s tests -p 'test_r01_predecision_comment_timeline.py' -v
+      - name: Check R03 common-authority source and evaluator isolation
+        run: python -m unittest discover -s tests -p 'test_r03_common_authority.py' -v
+      - name: Compile real-pilot code without calling model
+        run: python -m py_compile scripts/r03_common_authority_live_dev.py

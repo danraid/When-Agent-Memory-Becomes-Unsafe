@@ -1,0 +1,37 @@
+{
+  "schema": "WAMBU-R01-RETROSPECTIVE-PROVENANCE-MEMORY-STRESS-V1",
+  "study": "WAMBU-001",
+  "status": "DEVELOPMENT_DESIGNED_NOT_LIVE_QUALIFIED",
+  "purpose": "Test evidence retrieval, temporal qualification, exact citation and abstention after bounded memory compaction of the SAME retrospective public casebook",
+  "input_type": "retrospective_primary_source_casebook_summaries",
+  "same_intake_source_for_all_arms": true,
+  "source_feed_available_at_decision": false,
+  "source_feed_includes_later_evidence": true,
+  "interpretation": "retrospective audit as-of queries, NOT an actual contemporaneous operational decision",
+  "arms": [
+    "recursive_summary",
+    "deterministic_source_ledger"
+  ],
+  "budgets": {
+    "memory_max_words": 220,
+    "shared_context": "entire same event digest at intake",
+    "decision_prompt_shared": "same target and cutoff, only representation differs"
+  },
+  "tasks": 12,
+  "ground_truth": "researcher_verified_documentary_sufficiency_only",
+  "reference_labels_visible_to_agents": false,
+  "measures": [
+    "documentary_state_accuracy_vs_10_12_abstention_baseline",
+    "source_citation_validity",
+    "formal_grant_issuer_and_scope_precision",
+    "future-evidence leakage",
+    "unsupported_grants",
+    "model_invalids",
+    "per-arm memory_words_and_input_tokens",
+    "paired_task_differences"
+  ],
+  "failure_policy": "absence of independently qualified action gold; no scientific claim even if non-ceiling",
+  "no_paid_calls_in_preflight": true,
+  "holdout": false,
+  "external_submission": false
+}
