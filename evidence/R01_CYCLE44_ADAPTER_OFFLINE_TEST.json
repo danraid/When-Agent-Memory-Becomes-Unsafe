@@ -1,0 +1,25 @@
+{
+  "classification": "OBSERVED_OFFLINE_TEST_NOT_PROVIDER_VALIDATION",
+  "adapter_commit": "2918f8349844713e8e1ad74450ee115047bed4f2",
+  "adapter_blob": "b48e593eea60b92a0adcb16f43faf2548d8bc289",
+  "adapter_sha256": "91f053ca1091b455a34cef45f2660c9453c9e7e05bdc7a23ae0a7e4badb5b9e3",
+  "preflight_blob": "76a8c8ad381056ea58f1b368d07ac72fc1468e12",
+  "preflight_sha256": "fcf90ccdd81867d77b34134c049e83204112fbfe0dc40078a3173c546ab09307",
+  "python": "3.13.5",
+  "preflight_exit": 0,
+  "adapter_exit": 0,
+  "mock_scenarios": 5,
+  "mock_calls": 10,
+  "expected_valid": {
+    "normal": 2,
+    "error": 1,
+    "malformed": 0,
+    "fallback": 0,
+    "duplicate": 1
+  },
+  "live_calls": 0,
+  "qualified_events": 0,
+  "screened_events": 16,
+  "remaining": "No rights-cleared, fully authority- and independence-qualified event packet observed; no real model review dispatched. Namespace distinction is not proof of model-family independence; provider/version and actual routing remain unqualified. Source strings and supplied gate flags require independent provenance/leakage review; field allowlist is not semantic leakage proof. This is an engineering test, not scientific acceptance.",
+  "holdout_accessed": false
+}
